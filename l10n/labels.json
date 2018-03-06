@@ -1,0 +1,1090 @@
+[
+  {
+    "Name": "message_failed_to_retrieve_minimum_version",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Attention, la récupération du numéro de version minimum supporté par l'API PassportPDF n'a pu être récupéré.",
+      "en": "Warning, the number of the minimum version supported by the PassportPDF API failed to be fetched."
+    }
+  },
+  {
+    "Name": "message_already_up_to_date",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Vous utilisez déjà la dernière version de #application_name !",
+      "en": "#application_name is already up to date!"
+    }
+  },
+  {
+    "Name": "message_failed_to_retrieve_latest_version",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Désolé, la récupération de la dernière version disponible de l'application a échoué.",
+      "en": "Sorry, the latest available version of #application_name failed to be fetched."
+    }
+  },
+  {
+    "Name": "caption_information",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Information",
+      "en": "Information"
+    }
+  },
+  {
+    "Name": "app_update_failure_message",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "La mise à jour de l'application a échoué.",
+      "en": "The application failed to be updated."
+    }
+  },
+  {
+    "Name": "app_update_download_success_message",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "La dernière version de l'application a bien été téléchargée et est prête à être installée, souhaitez-vous procéder à l'installation ?",
+      "en": "The last version of the app was succesfully downloaded and is ready to install, would you like to proceed to installation?"
+    }
+  },
+  {
+    "Name": "label_client_exception",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Exception côté client",
+      "en": "Client-side exception"
+    }
+  },
+  {
+    "Name": "internal_error_id_message",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Code d'erreur interne:",
+      "en": "Internal error ID:"
+    }
+  },
+  {
+    "Name": "passport_status_remaining_tokens",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "#used_tokens (#remaining_tokens restants)",
+      "en": "#used_tokens (#remaining_tokens remaining)"
+    }
+  },
+  {
+    "Name": "message_fetching_passport_info",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Récupération des informations relatives au passport depuis l'API PassportPDF…",
+      "en": "Fetching the passport information from the PassportPDF API…"
+    }
+  },
+  {
+    "Name": "message_fetching_configuration",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Récupération des informations de configuration depuis l'API PassportPDF…",
+      "en": "Fetching configuration information from the PassportPDF API…"
+    }
+  },
+  {
+    "Name": "message_passport_info_synchronization_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "La récupération des informations relatives au passeport enregistré a échoué: #error_message",
+      "en": "Could not fetch the information related to the currently registered passport: #error_message"
+    }
+  },
+  {
+    "Name": "passport_status_active",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Actif",
+      "en": "Active"
+    }
+  },
+  {
+    "Name": "passport_status_inactive",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Inactif",
+      "en": "Inactive"
+    }
+  },
+  {
+    "Name": "message_invalid_passport_id",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le numéro de passeport spécifié est invalide.",
+      "en": "The specified passport number is invalid."
+    }
+  },
+  {
+    "Name": "label_remaining_tokens",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": " - (#remaining_tokens crédits restants)",
+      "en": " - (#remaining_tokens remaining tokens)"
+    }
+  },
+  {
+    "Name": "message_logs_exportation_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Les messages de logs n'ont pas pu être exportés vers le répertoire de destination - Message de l'exception: #error_message",
+      "en": "Could not export the logs to the output folder - Exception message: #error_message"
+    }
+  },
+  {
+    "Name": "message_image_extraction_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible d'extraire l'image #page_image_number de la page #page_number du document: #document_name - Statut: #error_message",
+      "en": "Can not extract image #page_image_number on page #page_number of document: #document_name - Status: #error_message"
+    }
+  },
+  {
+    "Name": "message_color_detection_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible de réaliser la détection des couleurs de l'image #page_image_number de la page #page_number du document: #document_name - Statut: #error_message",
+      "en": "Can not detect color of image #page_image_number on page #page_number of document: #document_name - Status: #error_message"
+    }
+  },
+  {
+    "Name": "message_image_resize_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible de redimensionner l'image #page_image_number de la page #page_number du document: #document_name - Statut: #error_message",
+      "en": "Can not resize image #page_image_number on page #page_number of document: #document_name - Status: #error_message"
+    }
+  },
+  {
+    "Name": "message_image_crop_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible de recadrer l'image #page_image_number de la page #page_number du document: #document_name - Statut: #error_message",
+      "en": "Can not crop image #page_image_number on page #page_number of document: #document_name - Status: #error_message"
+    }
+  },
+  {
+    "Name": "message_image_resolution_obtention_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible d'obtenir la résolution de l'image #page_image_number de la page #page_number du document: #document_name - Statut: #error_message",
+      "en": "Can not obtain resolution of image #page_image_number on page #page_number of document: #document_name - Status: #error_message"
+    }
+  },
+  {
+    "Name": "message_image_replacement_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible de remplacer l'image #page_image_number de la page #page_number du document: #document_name - Statut: #error_message",
+      "en": "Can not replace image #page_image_number on page #page_number of document: #document_name - Status: #error_message"
+    }
+  },
+  {
+    "Name": "message_mrc_image_replacement_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "(MRC) Impossible de remplacer l'image #page_image_number de la page #page_number du document: #document_name - Statut: #error_message",
+      "en": "(MRC) Can not replace image #page_image_number on page #page_number of document: #document_name - Status: #error_message"
+    }
+  },
+  {
+    "Name": "message_page_selection_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible de sélectionner la page #page_number du document: #document_name - Statut: #error_message",
+      "en": "Can not select page #page_number of document: #document_name - Status: #error_message"
+    }
+  },
+  {
+    "Name": "message_file_size_reduction_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Echec de la réduction du poids du fichier: #document_name",
+      "en": "Unable to reduce size of file: #document_name"
+    }
+  },
+  {
+    "Name": "message_image_obtention_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible d'obtenir l'image #page_image_number de la page #page_number du document: #document_name - Statut: #error_message",
+      "en": "Can not obtain image #page_image_number resource name on page #page_number of document: #document_name - Status: #error_message"
+    }
+  },
+  {
+    "Name": "message_original_file_deletion_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible de supprimer le fichier d'entrée: #document_name - Exception: #error_message",
+      "en": "Could not delete input file: #document_name - Exception: #error_message"
+    }
+  },
+  {
+    "Name": "message_get_page_image_count_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible d'obtenir le nombre d'image de la page #page_number du document #document_name - Statut : #error_message",
+      "en": "Unable to compute the number of images of the page #page_number of document #document_name - Status : #error_message"
+    }
+  },
+  {
+    "Name": "message_mrc_post_operations_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "(MRC) Les post-opérations ont échoué à la page #page_number du document #document_name - Statut : #error_message",
+      "en": "(MRC) Post operations failed on page #page_number of document #document_name - Status : #error_message"
+    }
+  },
+  {
+    "Name": "message_page_conversion_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible de convertir en PDF la page #page_number du document #document_name - Statut : #error_message",
+      "en": "Can not convert to PDF the page #page_number of document #document_name - Status : #error_message"
+    }
+  },
+  {
+    "Name": "message_directory_creation_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible de créer le répertoire de destination pour le fichier: #document_name - Statut : #error_message",
+      "en": "Can not create output directory for file #document_name - Status : #error_message"
+    }
+  },
+  {
+    "Name": "message_file_opening_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible d'ouvrir le fichier: #document_name",
+      "en": "Can not open file: #document_name"
+    }
+  },
+  {
+    "Name": "message_file_overwrite_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible d'écraser le fichier: #document_name - Statut : #error_message",
+      "en": "Can not overwrite file: document #document_name - Status : #error_message"
+    }
+  },
+  {
+    "Name": "message_file_save_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible de sauvegarder le fichier: #document_name - Statut : #error_message",
+      "en": "Can not save file: #document_name - Status : #error_message"
+    }
+  },
+  {
+    "Name": "message_file_copy_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible de copier le fichier: #document_name - Statut: #error_message",
+      "en": "Can not copy the file: #document_name - Status: #error_message"
+    }
+  },
+  {
+    "Name": "message_document_encrypted_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible de traiter le document encrypté: #document_name",
+      "en": "Can not process encrypted document: #document_name - Status : #error_message"
+    }
+  },
+  {
+    "Name": "message_unexpected_error",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Une erreur inattendue s'est produite avec le fichier: #document_name - Exception: #error_message",
+      "en": "An unexpected error occured with the file: #document_name - Exception: #error_message"
+    }
+  },
+  {
+    "Name": "message_exit",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Fin du traitement...",
+      "en": "Exiting..."
+    }
+  },
+  {
+    "Name": "message_worker_idle_state",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Inactif (en attente de travail)",
+      "en": "Idle (no work)"
+    }
+  },
+  {
+    "Name": "message_generic_operations_result_singular",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "#succesfully_processed_file_count fichier (sur #file_to_process_count) a été traité avec succès en #elapsed_time.",
+      "en": "#succesfully_processed_file_count file (out of #file_to_process_count) has been succesfully processed in #elapsed_time."
+    }
+  },
+  {
+    "Name": "message_generic_operations_result_plurial",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "#succesfully_processed_file_count fichiers (sur #file_to_process_count) ont été traités avec succès en #elapsed_time.",
+      "en": "#succesfully_processed_file_count file (out of #file_to_process_count) have been succesfully processed in #elapsed_time."
+    }
+  },
+  {
+    "Name": "message_reduction_operations_result_singular",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "#succesfully_processed_file_count fichier (sur #file_to_process_count) a été traité avec succès en #elapsed_time. Espace disque gagné: #ratio%",
+      "en": "#succesfully_processed_file_count file (out of #file_to_process_count) has been succesfully processed in #elapsed_time. Saved space: #ratio%"
+    }
+  },
+  {
+    "Name": "message_reduction_operations_result_plurial",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "#succesfully_processed_file_count fichiers (sur #file_to_process_count) ont été traités avec succès en #elapsed_time. Espace disque gagné: #ratio%",
+      "en": "#succesfully_processed_file_count files (out of #file_to_process_count) have been succesfully processed in #elapsed_time. Saved space: #ratio%"
+    }
+  },
+  {
+    "Name": "message_no_succesful_operation_result_plurial",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Aucun des #file_to_process_count fichiers d'entrée n'a été traité avec succès.",
+      "en": "None of the #file_to_process_count input files has been succesfully processed."
+    }
+  },
+  {
+    "Name": "message_no_succesful_operation_result_singular",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le fichier d'entrée n'a pas été traité avec succès.",
+      "en": "The input file was not succesfully processed."
+    }
+  },
+  {
+    "Name": "message_reduction_operations_result_detailed_singular",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "#succesfully_processed_file_count fichier (sur #file_to_process_count) a été traité avec succès en #elapsed_time.\nPoids initial: #input_size MB. Poids de sortie: #output_size MB. (#ratio% du poids initial).",
+      "en": "#succesfully_processed_file_count file (out of #file_to_process_count) has been succesfully processed in #elapsed_time.\nInput size: #input_size MB. Output size: #output_size MB. (#ratio% of input size)."
+    }
+  },
+  {
+    "Name": "message_reduction_operations_result_detailed_plurial",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "#succesfully_processed_file_count (sur #file_to_process_count) fichiers ont été traités avec succès en #elapsed_time.\nPoids initial: #input_size MB. Poids de sortie: #output_size MB. (#ratio% du poids initial).",
+      "en": "#succesfully_processed_file_count (out of #file_to_process_count) files have been succesfully  processed in #elapsed_time.\nInput size: #input_size MB. Output size: #output_size MB. (#ratio% of input size)."
+    }
+  },
+  {
+    "Name": "message_retry",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "(#retry_count nouvelle(s) tentative(s)",
+      "en": "(#retry_count retry/retries)"
+    }
+  },
+  {
+    "Name": "message_file_processing_start",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "En train de traiter #document_name",
+      "en": "#document_name (Processing...) @message_retry@"
+    }
+  },
+  {
+    "Name": "message_file_uploading_start",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "#document_name (Envoi...) @message_retry@",
+      "en": "#document_name (Uploading...) @message_retry@"
+    }
+  },
+  {
+    "Name": "message_file_downloading_start",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "#document_name (Téléchargement...) @message_retry@",
+      "en": "#document_name (Downloading...) @message_retry@"
+    }
+  },
+  {
+    "Name": "message_generic_file_operations_completion",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Terminé - #document_name",
+      "en": "Done - #document_name"
+    }
+  },
+  {
+    "Name": "message_pdf_reduction_completion",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Terminé - #document_name (#ratio% du poids original)",
+      "en": "Done - #document_name (#ratio% of input)"
+    }
+  },
+  {
+    "Name": "message_conversion_to_pdf_completion",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Terminé - #document_name (converti au format PDF)",
+      "en": "Done - #document_name (converted to PDF)"
+    }
+  },
+  {
+    "Name": "message_server_returned_http_error",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le serveur a renvoyé une erreur durant le traitement du fichier: #document_name (status HTTP: #http_code)",
+      "en": "The server returned an error while processing the file: #document_name (HTTP status code: #http_code)"
+    }
+  },
+  {
+    "Name": "message_reaching_remote_server_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le serveur n'a pas pu être atteint pour traiter le fichier: #document_name",
+      "en": "Could not reach remote server to process file: #document_name"
+    }
+  },
+  {
+    "Name": "resultCode_message_OK",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "OK",
+      "en": "OK"
+    }
+  },
+  {
+    "Name": "resultCode_message_ActionTimedOut",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le délai de réponse à la requête a été dépassé",
+      "en": "The request has timed out"
+    }
+  },
+  {
+    "Name": "resultCode_message_EmptyParameter",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "La requête a été reçue sans paramètres",
+      "en": "The request has been received without any parameter"
+    }
+  },
+  {
+    "Name": "resultCode_message_InvalidAPIKey",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "La clé de passport renseignée a été rejetée",
+      "en": "The provided API key has been rejected"
+    }
+  },
+  {
+    "Name": "resultCode_message_NotEnoughTokens",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le nombre de tokens disponibles sur le passport est insuffisant pour l'action demandée",
+      "en": "The number of available tokens is insufficient to perform the requested action"
+    }
+  },
+  {
+    "Name": "resultCode_message_GenericError",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Une erreur générique s'est produite",
+      "en": "A generic error occured"
+    }
+  },
+  {
+    "Name": "resultCode_message_InvalidParameter",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Un des paramètres fournis à l'action est invalide",
+      "en": "One of the parameters passed to the method is invalid"
+    }
+  },
+  {
+    "Name": "resultCode_message_OutOfMemory",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le système d'exploitation n'a pas pu allouer suffisamment de mémoire pour réaliser l'action",
+      "en": "The operating system could not allocate memory to process the method call"
+    }
+  },
+  {
+    "Name": "resultCode_message_NotImplemented",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'action demandée n'est pas implémentée",
+      "en": "The called method was not implemented"
+    }
+  },
+  {
+    "Name": "resultCode_message_FileNotFound",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Un fichier n'a pas pu être trouvé",
+      "en": "A specific file could not be found"
+    }
+  },
+  {
+    "Name": "resultCode_message_AccessDenied",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le fichier n'a pas pu être accédé en écriture",
+      "en": "A write operation is not allowed on the file"
+    }
+  },
+  {
+    "Name": "resultCode_message_CanNotImportFileToPDF",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le fichier n'a pas pu être importé au format PDF",
+      "en": "Could not import file as PDF"
+    }
+  },
+  {
+    "Name": "resultCode_message_PdfCanNotBeDecrypted",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le PDF n'a pas pu être décrypté",
+      "en": "Could not decrypt PDF"
+    }
+  },
+  {
+    "Name": "resultCode_message_PdfOperationNotAllowed",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Une opération non autorisée n'a pas pu être réalisée sur le PDF",
+      "en": "An operation was not allowed on the PDF"
+    }
+  },
+  {
+    "Name": "resultCode_message_PdfCanNotOpenFile",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le PDF n'a pas pu être ouvert",
+      "en": "Could not open PDF"
+    }
+  },
+  {
+    "Name": "resultCode_message_PdfCanNotSaveFile",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le PDF n'a pas pu être sauvegardé",
+      "en": "Could not save PDF"
+    }
+  },
+  {
+    "Name": "resultCode_message_CanNotCreateFile",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le fichier n'a pas pu être créé",
+      "en": "The file could not be created"
+    }
+  },
+  {
+    "Name": "resultCode_message_NoDocumentProvided",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Aucun document n'a été fourni en paramètres",
+      "en": "No document was provided to perform an operation"
+    }
+  },
+  {
+    "Name": "resultCode_message_CanNotRemovePage",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "La page n'a pas pu être supprimée",
+      "en": "Could not remove page"
+    }
+  },
+  {
+    "Name": "resultCode_message_CanNotSwapPages",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le permutation des pages n'a pas pu aboutir",
+      "en": "The page swaping operation failed"
+    }
+  },
+  {
+    "Name": "resultCode_message_InvalidPageRange",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "La plage de page fournie en paramètres est invalide",
+      "en": "The provided page range is invalid"
+    }
+  },
+  {
+    "Name": "resultCode_message_CanNotReducePDF",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de réduction du PDF n'a pas pu aboutir",
+      "en": "Could not reduce PDF"
+    }
+  },
+  {
+    "Name": "resultCode_message_CanNotExportMoreThan2GigabyteFile",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible d'exporter un fichier de plus de 2 GB",
+      "en": "Can not export a file of more than 2GB"
+    }
+  },
+  {
+    "Name": "errorCode_message_OK",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "OK",
+      "en": "OK"
+    }
+  },
+  {
+    "Name": "errorCode_message_GetPageImagesCount",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible de récupérer le nombre d'images de la page #page_number",
+      "en": "Failed to count images on page #page_number"
+    }
+  },
+  {
+    "Name": "errorCode_message_MRCPostOperationsFailure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Les opérations post-MRC ont échoué sur la page #page_number",
+      "en": "MRC Post operations failed on page #page_number"
+    }
+  },
+  {
+    "Name": "errorCode_message_PageConversionFailure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible de convertir la page #page_number",
+      "en": "Failed to convert page #page_number"
+    }
+  },
+  {
+    "Name": "errorCode_message_DocumentEncrypted",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible de traiter le document car il est encrypté",
+      "en": "Failed to decrypt document"
+    }
+  },
+  {
+    "Name": "errorCode_message_UnexpectedError",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Une erreur inattendue est survenue",
+      "en": "Unexpected error"
+    }
+  },
+  {
+    "Name": "errorBuildingList",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Une exception s'est produite lors de la création de la liste de fichiers à traiter, l'erreur est :",
+      "en": "An exception occured while building a files list to process, the error was :"
+    }
+  },
+  {
+    "Name": "errors",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Erreurs",
+      "en": "Errors"
+    }
+  },
+  {
+    "Name": "filesAnd",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "fichier(s) et",
+      "en": "file(s) and"
+    }
+  },
+  {
+    "Name": "freeLimitation",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Limitation de la version gratuite",
+      "en": "Free edition limitation"
+    }
+  },
+  {
+    "Name": "inputSize",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Poids d'origine :",
+      "en": "Input size:"
+    }
+  },
+  {
+    "Name": "logs",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Journal",
+      "en": "Logs"
+    }
+  },
+  {
+    "Name": "mthredNotOnFree",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le mode multi-processus n'est pas disponible dans la version gratuite.",
+      "en": "Multi thread processing is not available in the free edition."
+    }
+  },
+  {
+    "Name": "noFile",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Aucun fichier a traiter.",
+      "en": "No files found to process."
+    }
+  },
+  {
+    "Name": "ofInputSize",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "du poids initial",
+      "en": "of the input size"
+    }
+  },
+  {
+    "Name": "outputFolderNoExists",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le dossier de destination n'existe pas.",
+      "en": "Destination directory does not exist."
+    }
+  },
+  {
+    "Name": "outputSize",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Poids final :",
+      "en": "Output size:"
+    }
+  },
+  {
+    "Name": "pagesProcessed",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "page(s) traités en",
+      "en": "page(s) have been processed in"
+    }
+  },
+  {
+    "Name": "processTerminated",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Opérations terminées",
+      "en": "Process completed"
+    }
+  },
+  {
+    "Name": "savedSpace",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Espace disque économisé :",
+      "en": "Saved space:"
+    }
+  },
+  {
+    "Name": "warnings",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Avertissements",
+      "en": "Warnings"
+    }
+  },
+  {
+    "Name": "cancellation",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Annulation...",
+      "en": "Cancelling..."
+    }
+  },
+  {
+    "Name": "invalidSourceFile",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Un fichier d'entrée ou le répertoire d'entrée est invalide.",
+      "en": "The specified source file or directory does not exist."
+    }
+  },
+  {
+    "Name": "multiProcess",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Multi Processus",
+      "en": "Multi Process"
+    }
+  },
+  {
+    "Name": "singleProcess",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Mono processus",
+      "en": "Single Process"
+    }
+  },
+  {
+    "Name": "downloadFailed",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Téléchargement échoué. Veuillez mettre à jour manuellement.",
+      "en": "Download failed. Please download and install the new version manually."
+    }
+  },
+  {
+    "Name": "downloadFailedTitle",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Erreur de téléchargement",
+      "en": "Download error"
+    }
+  },
+  {
+    "Name": "downloadInProgress",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Téléchargement en cours, ne fermez pas cette fenêtre. Une confirmation vous sera demandée pour l'installation.",
+      "en": "Download in progress, please do not close this dialog. Your confirmation will be requested before installation."
+    }
+  },
+  {
+    "Name": "invalidLogPath",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le chemin vers le fichier de logs spécifié est invalide.",
+      "en": "The path to the log file is invalid."
+    }
+  },
+  {
+    "Name": "invalidFileSuffix",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le suffixe de fichier spécifié est invalide.",
+      "en": "The specified file suffix is invalid."
+    }
+  },
+  {
+    "Name": "sameInputAndOutputFolder",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le répertoire source et le répertoire de destination sont identiques. Pour ne plus en être averti, décochez l'option dans le menu, ou utilisez l'option /DW en ligne de commande.",
+      "en": "The source directory and the destination directory are identical. To disable this warning, uncheck the option in the menu or use the /DW command line option."
+    }
+  },
+  {
+    "Name": "programInstanceAlreadyRunning",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Une instance du programme est déjà lancée.",
+      "en": "An instance of the program is already running."
+    }
+  },
+  {
+    "Name": "alreadyUpToDate",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "PDF Reducer est déjà à jour !",
+      "en": "PDF Reducer is already up to date !"
+    }
+  },
+  {
+    "Name": "saveConfigurationFailure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "La configuration n'a pas pu être sauvegardé.",
+      "en": "The settings could not be saved."
+    }
+  },
+  {
+    "Name": "readReduceConfigurationFailure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "La configuration de la réduction n'a pu être restaurée et a été réinitialisée.",
+      "en": "The Reduction settings could not be restored and have been reset."
+    }
+  },
+  {
+    "Name": "readOCRConfigurationFailure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "La configuration de l'OCR n'a pas pu être restaurée et a été réinitialisée.",
+      "en": "The OCR settings could not be restored and have been reset."
+    }
+  },
+  {
+    "Name": "readApplicationConfigurationFailure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "La configuration de l'application n'a pas pu être restaurée et a été réinitialisée.",
+      "en": "The application settings could not be restored and have been reset."
+    }
+  },
+  {
+    "Name": "readConfigurationFailureTitle",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Erreur de lecture du fichier de configuration",
+      "en": "Settings file reading error"
+    }
+  },
+  {
+    "Name": "saveConfigurationFailureTitle",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Erreur de sauvegarde du fichier de configuration",
+      "en": "Settings file saving error"
+    }
+  },
+  {
+    "Name": "noSourceFilesSpecified",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Veuillez sélectionner un répertoire d'entrée ou un ou plusieurs fichiers d'entrée.",
+      "en": "Please select a source directory or one or several source files."
+    }
+  },
+  {
+    "Name": "unicode_symbol_pause",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "⏸",
+      "en": "⏸"
+    }
+  },
+  {
+    "Name": "unicode_symbol_play",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "►",
+      "en": "►"
+    }
+  },
+  {
+    "Name": "message_must_specify_passport_key",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Vous devez spécifier une clé de passport",
+      "en": "You must specify a passport key"
+    }
+  },
+  {
+    "Name": "message_passport_key_registering_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le numéro de passport n'a pas pu être enregistrée dans le registre, celle-ci vous sera demandée la prochaine fois que vous lancerez l'application",
+      "en": "The passport number could not be saved in the registry, you will thus be asked to specify it again the next time you launch the app"
+    }
+  },
+  {
+    "Name": "caption_error",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Erreur",
+      "en": "Error"
+    }
+  },
+  {
+    "Name": "caption_warning",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Avertissement",
+      "en": "Warning"
+    }
+  },
+  {
+    "Name": "caption_stop",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Interruption",
+      "en": "Stop"
+    }
+  },
+  {
+    "Name": "label_stop",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Stop",
+      "en": "Stop"
+    }
+  },
+  {
+    "Name": "status",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Statut: ",
+      "en": "Status: "
+    }
+  },
+  {
+    "Name": "message_configuration_fetching_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "La récupération des informations de configuration depuis l'API PassportPDF a échoué: #error_message",
+      "en": "The configuration information failed to be fetched from the PassportPDF API: #error_message"
+    }
+  },
+  {
+    "Name": "message_empty_file",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible de traiter un fichier vide: #document_name",
+      "en": "Can't process empty file: #document_name"
+    }
+  },
+  {
+    "Name": "message_input_file_too_large",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible de traiter un fichier de plus de #input_size octets: #document_name",
+      "en": "Can't process more than #input_size bytes file: #document_name"
+    }
+  },
+  {
+    "Name": "message_operations_still_running",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Des opérations ne sont pas terminées, êtes-vous sûr de vouloir quitter ?",
+      "en": "Some perations are still running, are you sure you want to exit?"
+    }
+  },
+  {
+    "Name": "caption_operations_still_running",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Opérations non terminées",
+      "en": "Operations still running"
+    }
+  },
+  {
+    "Name": "message_fetching_ocr_languages",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Récupération des langues OCR disponibles depuis l'API PassportPDF…",
+      "en": "Fetching the available OCR languages from the PassportPDF API…"
+    }
+  },
+  {
+    "Name": "message_fetching_ocr_languages_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "La récupération des langues OCR disponibles depuis l'API PassportPDF a échoué: #error_message",
+      "en": "The available OCR languages failed to be fetched from the PassportPDF API: #error_message"
+    }
+  }
+]
