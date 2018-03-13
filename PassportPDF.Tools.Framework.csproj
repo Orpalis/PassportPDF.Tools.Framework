@@ -2,6 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>ORPALIS</Authors>
+    <Company>ORPALIS</Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>PassportPDF.Tools.Framework is a framework built upon .NET Standard 2.0 which facilitates the development of highly configurable productivity applications based on the PassportPDF API.</Description>
+    <RepositoryUrl>https://github.com/Orpalis/PassportPDF.Tools.Framework</RepositoryUrl>
+    <PackageIconUrl>http://www.orpalis.com/images/ORPALIS/logos/PP-symbol-128.png</PackageIconUrl>
+    <PackageProjectUrl>http://www.passportpdf.com</PackageProjectUrl>
+    <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+    <Copyright>Copyright © 2018 ORPALIS - http://www.orpalis.com</Copyright>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,7 +27,7 @@
     <PackageReference Include="Microsoft.Win32.Registry" Version="4.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
     <PackageReference Include="Orpalis.Globals.Localization" Version="1.0.1" />
-    <PackageReference Include="PassportPDF" Version="1.0.13" />
+    <PackageReference Include="PassportPDF" Version="1.0.14" />
   </ItemGroup>
 
   <ItemGroup>
