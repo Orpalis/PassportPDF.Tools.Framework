@@ -1,6 +1,6 @@
 ﻿/**********************************************************************
  * Project:                 PassportPDF.Tools.Framework
- * Authors:					- Evan Carrère.
+ * Authors:                 - Evan Carrère.
  *                          - Loïc Carrère.
  *
  * (C) Copyright 2018, ORPALIS.
@@ -39,7 +39,6 @@ namespace PassportPDF.Tools.Framework.Configuration
         public bool EnableJPEG2000 { get; set; } = true;
         public bool EnableJBIG2 { get; set; } = true;
         public bool EnableCharRepair { get; set; } = false;
-        public PDFReduceParameters.ScannerSourceEnum ScannerSource { get; set; } = PDFReduceParameters.ScannerSourceEnum.PDFScannerSourceUnknown;
         public bool EnableMRC { get; set; } = false;
 
     }

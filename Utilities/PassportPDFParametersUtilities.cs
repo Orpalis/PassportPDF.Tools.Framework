@@ -1,6 +1,6 @@
 /**********************************************************************
  * Project:                 PassportPDF.Tools.Framework
- * Authors:					- Evan Carrère.
+ * Authors:                 - Evan Carrère.
  *                          - Loïc Carrère.
  *
  * (C) Copyright 2018, ORPALIS.
@@ -56,8 +56,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                 configuration.PackDocument, configuration.PackFonts, configuration.DownscaleImages, configuration.DownscaleResolution,
                 configuration.FastWebView, configuration.RemoveFormFields, configuration.RemoveAnnotations,
                 configuration.RemoveBookmarks, configuration.RemoveHyperlinks, configuration.RemoveEmbeddedFiles,
-                configuration.EnableJPEG2000, configuration.EnableJBIG2, configuration.EnableCharRepair,
-                configuration.ScannerSource, configuration.EnableMRC);
+                configuration.EnableJPEG2000, configuration.EnableJBIG2, configuration.EnableCharRepair, configuration.EnableMRC);
 
             return reduceParameters;
         }
