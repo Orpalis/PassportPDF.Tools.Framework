@@ -1,6 +1,6 @@
 ﻿/**********************************************************************
  * Project:                 PassportPDF.Tools.Framework
- * Authors:					- Evan Carrère.
+ * Authors:                 - Evan Carrère.
  *                          - Loïc Carrère.
  *
  * (C) Copyright 2018, ORPALIS.
@@ -223,7 +223,7 @@ namespace PassportPDF.Tools.Framework.Business
                         PDFLoadDocumentResponse loadDocumentResponse = HandleLoadDocument(apiInstance, outputVersion, fileToProcess, workerNumber);
                         remainingTokens = loadDocumentResponse.RemainingTokens.Value;
                         actionError = loadDocumentResponse.Error;
-                        fileID = loadDocumentResponse.FileID;
+                        fileID = loadDocumentResponse.FileId;
                         break;
 
                     case Operation.OperationType.Reduce:
