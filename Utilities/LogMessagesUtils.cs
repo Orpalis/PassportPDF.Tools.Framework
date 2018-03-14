@@ -1,6 +1,6 @@
 /**********************************************************************
  * Project:                 PassportPDF.Tools.Framework
- * Authors:					- Evan Carrère.
+ * Authors:                 - Evan Carrère.
  *                          - Loïc Carrère.
  *
  * (C) Copyright 2018, ORPALIS.
@@ -166,7 +166,7 @@ namespace PassportPDF.Tools.Framework.Utilities
 
         public static string ReplaceMessageSequencesAndReferences(string message, string fileName = null, int? pageNumber = null, int? pageImageNumber = null, int? pageCount = null, string additionalMessage = null, int? retryCount = null, double? ratio = null, int? httpCode = null, double? inputSize = null, double? outputSize = null, int? succesfullyProcessedFileCount = null, int? fileToProcessCount = null, string elapsedTime = null, long? remainingTokens = null, long? usedTokens = null, string applicationName = null, string appVersionNumber = null)
         {
-            StringBuilder finalMessage = new StringBuilder(ReplaceLocalizedStringReferences(message.Replace(LogConstants.DOCUMENT_NAME_SEQUENCE, fileName)));
+            StringBuilder finalMessage = new StringBuilder(ReplaceLocalizedStringReferences(message));
 
             if (fileName != null)
             {
