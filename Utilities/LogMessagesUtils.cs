@@ -164,7 +164,7 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
-        public static string ReplaceMessageSequencesAndReferences(string message, string fileName = null, int? pageNumber = null, int? pageImageNumber = null, int? pageCount = null, string additionalMessage = null, int? retryCount = null, double? ratio = null, int? httpCode = null, double? inputSize = null, double? outputSize = null, int? succesfullyProcessedFileCount = null, int? fileToProcessCount = null, string elapsedTime = null, long? remainingTokens = null, long? usedTokens = null, string applicationName = null, string appVersionNumber = null)
+        public static string ReplaceMessageSequencesAndReferences(string message, string fileName = null, int? pageNumber = null, int? pageImageNumber = null, int? pageCount = null, string additionalMessage = null, int? retryCount = null, double? ratio = null, int? httpCode = null, double? inputSize = null, double? outputSize = null, int? succesfullyProcessedFileCount = null, int? fileToProcessCount = null, string elapsedTime = null, long? remainingTokens = null, long? usedTokens = null, string applicationName = null, string appVersionNumber = null, string actionName = null)
         {
             StringBuilder finalMessage = new StringBuilder(ReplaceLocalizedStringReferences(message));
 
@@ -236,6 +236,10 @@ namespace PassportPDF.Tools.Framework.Utilities
             {
                 finalMessage = finalMessage.Replace(LogConstants.APP_VERSION_NUMBER_SEQUENCE, appVersionNumber);
             }
+            if (actionName != null)
+            {
+                finalMessage = finalMessage.Replace(LogConstants.ACTION_NAME_SEQUENCE, actionName);
+            }
 
             return finalMessage.ToString();
         }
@@ -294,6 +298,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             public const string USED_TOKENS_SEQUENCE = "#used_tokens";
             public const string APPLICATION_NAME_SEQUENCE = "#application_name";
             public const string APP_VERSION_NUMBER_SEQUENCE = "#version_number";
+            public const string ACTION_NAME_SEQUENCE = "#action_name";
 
             // This character allows to reference a localized string using its id, (ie: @message_exit@) and will be replaced by the value of the referenced string
             public const char LOCALIZED_STRING_REFERENCE_TOKEN = '@';

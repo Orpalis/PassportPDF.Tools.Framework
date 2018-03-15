@@ -387,7 +387,7 @@
     "Name": "message_retry",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "(#retry_count nouvelle(s) tentative(s)",
+      "fr": "(#retry_count nouvelle(s) tentative(s))",
       "en": "(#retry_count retry/retries)"
     }
   },
@@ -395,7 +395,7 @@
     "Name": "message_file_processing_start",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "En train de traiter #document_name",
+      "fr": "#document_name (Traitement...) @message_retry@",
       "en": "#document_name (Processing...) @message_retry@"
     }
   },
@@ -1085,6 +1085,14 @@
     "LocalizedValue": {
       "fr": "La récupération des langues OCR disponibles depuis l'API PassportPDF a échoué: #error_message",
       "en": "The available OCR languages failed to be fetched from the PassportPDF API: #error_message"
+    }
+  },
+  {
+    "Name": "message_invalid_response_received",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Une réponse invalide à une requête de l'action #action_name a été reçue",
+      "en": "An invalid response to a request to the action #action_name has been received"
     }
   }
 ]

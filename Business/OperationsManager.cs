@@ -221,6 +221,11 @@ namespace PassportPDF.Tools.Framework.Business
                     case Operation.OperationType.Load:
                         PDFReduceParameters.OutputVersionEnum outputVersion = (PDFReduceParameters.OutputVersionEnum)operation.Parameters;
                         PDFLoadDocumentResponse loadDocumentResponse = HandleLoadDocument(apiInstance, outputVersion, fileToProcess, workerNumber);
+                        if (loadDocumentResponse == null)
+                        {
+                            ErrorEventHandler.Invoke(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_invalid_response_received", FrameworkGlobals.ApplicationLanguage), actionName: "Load"));
+                            return null;
+                        }
                         remainingTokens = loadDocumentResponse.RemainingTokens.Value;
                         actionError = loadDocumentResponse.Error;
                         fileID = loadDocumentResponse.FileId;
@@ -229,6 +234,11 @@ namespace PassportPDF.Tools.Framework.Business
                     case Operation.OperationType.Reduce:
                         ReduceActionConfiguration reduceActionConfiguration = (ReduceActionConfiguration)operation.Parameters;
                         PDFReduceResponse reduceResponse = HandleReduceDocument(apiInstance, reduceActionConfiguration, fileToProcess, fileID, workerNumber, warningMessages);
+                        if (reduceResponse == null)
+                        {
+                            ErrorEventHandler.Invoke(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_invalid_response_received", FrameworkGlobals.ApplicationLanguage), actionName: "Reduce"));
+                            return null;
+                        }
                         remainingTokens = reduceResponse.RemainingTokens.Value;
                         contentRemoved = (bool)reduceResponse.ContentRemoved;
                         versionChanged = (bool)reduceResponse.VersionChanged;
@@ -240,12 +250,22 @@ namespace PassportPDF.Tools.Framework.Business
                     case Operation.OperationType.OCR:
                         OCRActionConfiguration ocrActionConfiguration = (OCRActionConfiguration)operation.Parameters;
                         PDFOCRResponse ocrResponse = HandleOCRDocument(apiInstance, ocrActionConfiguration, fileToProcess, fileID, workerNumber);
+                        if (ocrResponse == null)
+                        {
+                            ErrorEventHandler.Invoke(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_invalid_response_received", FrameworkGlobals.ApplicationLanguage), actionName: "OCR"));
+                            return null;
+                        }
                         remainingTokens = ocrResponse.RemainingTokens.Value;
                         actionError = ocrResponse.Error;
                         break;
 
                     case Operation.OperationType.Save:
                         PDFSaveDocumentResponse saveDocumentResponse = HandleSaveDocument(apiInstance, fileToProcess, fileID, workerNumber);
+                        if (saveDocumentResponse == null)
+                        {
+                            ErrorEventHandler.Invoke(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_invalid_response_received", FrameworkGlobals.ApplicationLanguage), actionName: "Save"));
+                            return null;
+                        }
                         remainingTokens = saveDocumentResponse.RemainingTokens.Value;
                         actionError = saveDocumentResponse.Error;
                         producedFileData = saveDocumentResponse.Data;
