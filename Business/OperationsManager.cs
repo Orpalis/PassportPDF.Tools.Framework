@@ -53,7 +53,7 @@ namespace PassportPDF.Tools.Framework.Business
         public delegate void UpdateRemainingTokensDelegate(long remainingTokens);
 
         public ProgressDelegate UploadOperationStartEventHandler;
-        public ProgressDelegate ReduceOperationStartEventHandler;
+        public ProgressDelegate FileOperationStartEventHandler;
         public ProgressDelegate DownloadOperationStartEventHandler;
 
         public UpdateRemainingTokensDelegate RemainingTokensUpdateEventHandler;
@@ -88,11 +88,13 @@ namespace PassportPDF.Tools.Framework.Business
 
             _destinationFolder = ParsingUtils.EnsureFolderPathEndsWithBackSlash(destinationFolder);
 
+            bool fileSizeReductionIsIntended = OperationsWorkflowUtilities.IsFileSizeReductionIntended(workflow);
+
             for (int i = 1; i <= workerCount; i++)
             {
                 int workerNumber = i;
                 // Launch the workers.
-                Thread thread = new Thread(() => Process(apiInstance, workerNumber, fileProductionRules, workflow));
+                Thread thread = new Thread(() => Process(apiInstance, workerNumber, fileProductionRules, workflow, fileSizeReductionIsIntended));
                 thread.Start();
             }
         }
@@ -141,7 +143,7 @@ namespace PassportPDF.Tools.Framework.Business
         }
 
 
-        private void Process(PDFApi apiInstance, int workerNumber, FileProductionRules fileProductionRules, OperationsWorkflow workflow)
+        private void Process(PDFApi apiInstance, int workerNumber, FileProductionRules fileProductionRules, OperationsWorkflow workflow, bool fileSizeReductionIsIntended)
         {
             while (PickFile(out FileToProcess fileToProcess))
             {
@@ -166,7 +168,7 @@ namespace PassportPDF.Tools.Framework.Business
                     {
                         string outputFileAbsolutePath = _destinationFolder + fileToProcess.FileRelativePath;
 
-                        if (HandleOutputFileProduction(fileToProcess, fileProductionRules, workFlowProcessingResult, inputIsPDF, inputFileSize, outputFileAbsolutePath))
+                        if (HandleOutputFileProduction(fileToProcess, fileProductionRules, workFlowProcessingResult, fileSizeReductionIsIntended, inputIsPDF, inputFileSize, outputFileAbsolutePath))
                         {
                             FileOperationsSuccesfullyCompletedEventHandler.Invoke(new FileOperationsResult(fileToProcess.FileAbsolutePath, inputFileSize, FileUtils.GetFileSize(outputFileAbsolutePath), !inputIsPDF));
                             HandleActionsWarningMessages(workFlowProcessingResult.WarningMessages, fileToProcess.FileAbsolutePath);
@@ -365,7 +367,7 @@ namespace PassportPDF.Tools.Framework.Business
         private PDFReduceResponse HandleReduceDocument(PDFApi apiInstance, ReduceActionConfiguration reduceActionConfiguration, FileToProcess fileToProcess, string fileID, int workerNumber, List<string> warnings)
         {
             PDFReduceParameters reduceParameters = PassportPDFParametersUtilities.GetReduceParameters(reduceActionConfiguration, fileID);
-            PDFReduceResponse reduceResponse = PassportPDFRequestsUtilities.SendReduceRequest(apiInstance, reduceParameters, workerNumber, fileToProcess.FileAbsolutePath, ReduceOperationStartEventHandler);
+            PDFReduceResponse reduceResponse = PassportPDFRequestsUtilities.SendReduceRequest(apiInstance, reduceParameters, workerNumber, fileToProcess.FileAbsolutePath, FileOperationStartEventHandler);
 
             if (reduceResponse.WarningsInfo != null)
             {
@@ -382,7 +384,7 @@ namespace PassportPDF.Tools.Framework.Business
         private PDFOCRResponse HandleOCRDocument(PDFApi apiInstance, OCRActionConfiguration ocrActionConfiguration, FileToProcess fileToProcess, string fileID, int workerNumber)
         {
             PDFOCRParameters ocrParameters = PassportPDFParametersUtilities.GetOCRParameters(ocrActionConfiguration, fileID);
-            PDFOCRResponse ocrResponse = PassportPDFRequestsUtilities.SendOCRRequest(apiInstance, ocrParameters, workerNumber, fileToProcess.FileAbsolutePath, ReduceOperationStartEventHandler);
+            PDFOCRResponse ocrResponse = PassportPDFRequestsUtilities.SendOCRRequest(apiInstance, ocrParameters, workerNumber, fileToProcess.FileAbsolutePath, FileOperationStartEventHandler);
             return ocrResponse;
         }
 
@@ -414,13 +416,13 @@ namespace PassportPDF.Tools.Framework.Business
         }
 
 
-        private bool HandleOutputFileProduction(FileToProcess fileToProcess, FileProductionRules fileProductionRules, WorkflowProcessingResult workflowProcessingResult, bool inputIsPDF, long inputFileSize, string outputFileAbsolutePath)
+        private bool HandleOutputFileProduction(FileToProcess fileToProcess, FileProductionRules fileProductionRules, WorkflowProcessingResult workflowProcessingResult, bool fileSizeReductionIsIntended, bool inputIsPDF, long inputFileSize, string outputFileAbsolutePath)
         {
             bool outputIsInput = FileUtils.AreSamePath(fileToProcess.FileAbsolutePath, outputFileAbsolutePath);
-            bool keepProduced = workflowProcessingResult.ProducedFileData.LongLength < inputFileSize || workflowProcessingResult.Linearized || !inputIsPDF || workflowProcessingResult.ContentRemoved || workflowProcessingResult.VersionChanged;
+            bool keepProducedFile = MustProducedFileBeKept(workflowProcessingResult, fileSizeReductionIsIntended, inputIsPDF, inputFileSize);
 
             // Save reduced document to output folder
-            if (keepProduced)
+            if (keepProducedFile)
             {
                 FileUtils.SaveFile(workflowProcessingResult.ProducedFileData, fileToProcess.FileAbsolutePath, outputFileAbsolutePath, fileProductionRules.KeepWriteAndAccessTime);
 
@@ -450,11 +452,27 @@ namespace PassportPDF.Tools.Framework.Business
                     }
                 }
 
-                // Inform file size reduction failure
-                workflowProcessingResult.WarningMessages.Add(LogMessagesUtils.GetWarningStatustext(new ReduceWarningInfo() { WarningCode = ReduceWarningInfo.WarningCodeEnum.FileSizeReductionFailure }, fileToProcess.FileAbsolutePath));
+                if (fileSizeReductionIsIntended)
+                {
+                    // Inform file size reduction failure
+                    workflowProcessingResult.WarningMessages.Add(LogMessagesUtils.GetWarningStatustext(new ReduceWarningInfo() { WarningCode = ReduceWarningInfo.WarningCodeEnum.FileSizeReductionFailure }, fileToProcess.FileAbsolutePath));
+                }
             }
 
             return true;
+        }
+
+
+        private bool MustProducedFileBeKept(WorkflowProcessingResult workflowProcessingResult, bool fileSizeReductionIsIntended, bool inputIsPdf, float inputFileSize)
+        {
+            if (fileSizeReductionIsIntended)
+            {
+                return workflowProcessingResult.ProducedFileData.LongLength < inputFileSize || workflowProcessingResult.Linearized || !inputIsPdf || workflowProcessingResult.ContentRemoved || workflowProcessingResult.VersionChanged;
+            }
+            else
+            {
+                return true;
+            }
         }
 
 

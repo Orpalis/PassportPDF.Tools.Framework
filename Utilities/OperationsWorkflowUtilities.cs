@@ -48,7 +48,20 @@ namespace PassportPDF.Tools.Framework.Utilities
             };
 
             return new OperationsWorkflow(actionsToBePerformed);
+        }
 
+
+        public static bool IsFileSizeReductionIntended(OperationsWorkflow operationsWorkflow)
+        {
+            foreach (var operation in operationsWorkflow.OperationsToBePerformed)
+            {
+                if (operation.Type == Operation.OperationType.Reduce)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
