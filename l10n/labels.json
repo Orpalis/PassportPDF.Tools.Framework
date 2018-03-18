@@ -320,6 +320,22 @@
     }
   },
   {
+    "Name": "message_file_converted_to_pdf_singular",
+    "ResourceIDs": "",
+    "LocalizedValue": {
+      "fr": "#file_converted_to_pdf_count fichier converti en PDF",
+      "en": "#file_converted_to_pdf_count file converted to PDF"
+    }
+  },
+  {
+    "Name": "message_file_converted_to_pdf_plurial",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "#file_converted_to_pdf_count fichiers convertis en PDF",
+      "en": "#file_converted_to_pdf_count files converted to PDF"
+    }
+  },
+  {
     "Name": "message_generic_operations_result_singular",
     "ResourceIDs": "*",
     "LocalizedValue": {
@@ -371,16 +387,16 @@
     "Name": "message_reduction_operations_result_detailed_singular",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "#succesfully_processed_file_count fichier (sur #file_to_process_count) a été traité avec succès en #elapsed_time.\nPoids initial: #input_size MB. Poids de sortie: #output_size MB. (#ratio% du poids initial).",
-      "en": "#succesfully_processed_file_count file (out of #file_to_process_count) has been succesfully processed in #elapsed_time.\nInput size: #input_size MB. Output size: #output_size MB. (#ratio% of input size)."
+      "fr": "#succesfully_processed_file_count fichier (sur #file_to_process_count) a été traité avec succès en #elapsed_time.\nPoids initial: #input_size MB. Poids de sortie: #output_size MB (#ratio% du poids initial). @message_file_converted_to_pdf_singular@",
+      "en": "#succesfully_processed_file_count file (out of #file_to_process_count) has been succesfully processed in #elapsed_time.\nInput size: #input_size MB. Output size: #output_size MB (#ratio% of input size). @message_file_converted_to_pdf_singular@"
     }
   },
   {
     "Name": "message_reduction_operations_result_detailed_plurial",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "#succesfully_processed_file_count (sur #file_to_process_count) fichiers ont été traités avec succès en #elapsed_time.\nPoids initial: #input_size MB. Poids de sortie: #output_size MB. (#ratio% du poids initial).",
-      "en": "#succesfully_processed_file_count (out of #file_to_process_count) files have been succesfully  processed in #elapsed_time.\nInput size: #input_size MB. Output size: #output_size MB. (#ratio% of input size)."
+      "fr": "#succesfully_processed_file_count (sur #file_to_process_count) fichiers ont été traités avec succès en #elapsed_time.\nPoids initial: #input_size MB. Poids de sortie: #output_size MB. (#ratio% du poids initial). @message_file_converted_to_pdf_singular@",
+      "en": "#succesfully_processed_file_count (out of #file_to_process_count) files have been succesfully  processed in #elapsed_time.\nInput size: #input_size MB. Output size: #output_size MB. (#ratio% of input size). @message_file_converted_to_pdf_singular@"
     }
   },
   {
@@ -395,7 +411,7 @@
     "Name": "message_file_processing_start",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "#document_name (Traitement...) @message_retry@",
+      "fr": "#document_name (Traitement…) @message_retry@",
       "en": "#document_name (Processing...) @message_retry@"
     }
   },

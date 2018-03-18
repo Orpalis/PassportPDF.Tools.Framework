@@ -112,19 +112,23 @@ namespace PassportPDF.Tools.Framework.Utilities
                     resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_no_succesful_operation_result_plurial", FrameworkGlobals.ApplicationLanguage);
                 }
             }
-            else if (succesfullyProcessedFileCount == 1)
-            {
-                resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_reduction_operations_result_singular", FrameworkGlobals.ApplicationLanguage);
-            }
             else
             {
-                resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_reduction_operations_result_plurial", FrameworkGlobals.ApplicationLanguage);
+                if (succesfullyProcessedFileCount == 1)
+                {
+                    resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_reduction_operations_result_singular", FrameworkGlobals.ApplicationLanguage);
+                }
+                else
+                {
+                    resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_reduction_operations_result_plurial", FrameworkGlobals.ApplicationLanguage);
+                }
             }
+
             return ReplaceMessageSequencesAndReferences(resultMessage, succesfullyProcessedFileCount: succesfullyProcessedFileCount, fileToProcessCount: processedFileCount, elapsedTime: elapsedTime, ratio: StatsComputationUtilities.ComputeSavedSpaceRatio(inputSize, outputSize));
         }
 
 
-        public static string GetDetailedReductionWorkCompletionText(int processedFileCount, int succesfullyProcessedFileCount, int unsuccesfullyProcessedFileCount, double inputSize, double outputSize, string elapsedTime)
+        public static string GetDetailedReductionWorkCompletionText(int processedFileCount, int succesfullyProcessedFileCount, int unsuccesfullyProcessedFileCount, int fileConvertedToPdfCount, double inputSize, double outputSize, string elapsedTime)
         {
             string resultMessage;
 
@@ -148,7 +152,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                 resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_reduction_operations_result_detailed_plurial", FrameworkGlobals.ApplicationLanguage);
             }
 
-            return ReplaceMessageSequencesAndReferences(resultMessage, inputSize: ParsingUtils.ConvertSize(inputSize, "MB"), outputSize: ParsingUtils.ConvertSize(outputSize, "MB"), succesfullyProcessedFileCount: succesfullyProcessedFileCount, fileToProcessCount: processedFileCount, elapsedTime: elapsedTime, ratio: StatsComputationUtilities.ComputeReductionPercentage(inputSize, outputSize));
+            return ReplaceMessageSequencesAndReferences(resultMessage, inputSize: ParsingUtils.ConvertSize(inputSize, "MB"), outputSize: ParsingUtils.ConvertSize(outputSize, "MB"), succesfullyProcessedFileCount: succesfullyProcessedFileCount, fileToProcessCount: processedFileCount, elapsedTime: elapsedTime, ratio: StatsComputationUtilities.ComputeReductionPercentage(inputSize, outputSize), fileConvertedToPdfCount: fileConvertedToPdfCount);
         }
 
 
@@ -164,7 +168,7 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
-        public static string ReplaceMessageSequencesAndReferences(string message, string fileName = null, int? pageNumber = null, int? pageImageNumber = null, int? pageCount = null, string additionalMessage = null, int? retryCount = null, double? ratio = null, int? httpCode = null, double? inputSize = null, double? outputSize = null, int? succesfullyProcessedFileCount = null, int? fileToProcessCount = null, string elapsedTime = null, long? remainingTokens = null, long? usedTokens = null, string applicationName = null, string appVersionNumber = null, string actionName = null)
+        public static string ReplaceMessageSequencesAndReferences(string message, string fileName = null, int? pageNumber = null, int? pageImageNumber = null, int? pageCount = null, string additionalMessage = null, int? retryCount = null, double? ratio = null, int? httpCode = null, double? inputSize = null, double? outputSize = null, int? succesfullyProcessedFileCount = null, int? fileToProcessCount = null, string elapsedTime = null, long? remainingTokens = null, long? usedTokens = null, string applicationName = null, string appVersionNumber = null, string actionName = null, int? fileConvertedToPdfCount = null)
         {
             StringBuilder finalMessage = new StringBuilder(ReplaceLocalizedStringReferences(message));
 
@@ -240,6 +244,21 @@ namespace PassportPDF.Tools.Framework.Utilities
             {
                 finalMessage = finalMessage.Replace(LogConstants.ACTION_NAME_SEQUENCE, actionName);
             }
+            if (fileConvertedToPdfCount != null)
+            {
+                if (fileConvertedToPdfCount == 0)
+                {
+                    finalMessage.Replace(FrameworkGlobals.MessagesLocalizer.GetString("message_file_converted_to_pdf_singular", FrameworkGlobals.ApplicationLanguage), "");
+                }
+                else
+                {
+                    if (fileConvertedToPdfCount > 1)
+                    {
+                        finalMessage.Replace(FrameworkGlobals.MessagesLocalizer.GetString("message_file_converted_to_pdf_singular", FrameworkGlobals.ApplicationLanguage), FrameworkGlobals.MessagesLocalizer.GetString("message_file_converted_to_pdf_plurial", FrameworkGlobals.ApplicationLanguage));
+                    }
+                    finalMessage.Replace(LogConstants.FILE_CONVERTED_TO_PDF_COUNT, fileConvertedToPdfCount.Value.ToString());
+                }
+            }
 
             return finalMessage.ToString();
         }
@@ -290,6 +309,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             public const string HTTP_CODE_SEQUENCE = "#http_code";
             public const string SUCCESFULLY_PROCESSED_FILE_COUNT_SEQUENCE = "#succesfully_processed_file_count";
             public const string FILE_TO_PROCESS_COUNT = "#file_to_process_count";
+            public const string FILE_CONVERTED_TO_PDF_COUNT = "#file_converted_to_pdf_count";
             public const string INPUT_SIZE_SEQUENCE = "#input_size";
             public const string OUTPUT_SIZE_SEQUENCE = "#output_size";
             public const string ELAPSED_TIME_SEQUENCE = "#elapsed_time";
