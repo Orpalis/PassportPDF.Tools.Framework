@@ -24,20 +24,19 @@ namespace PassportPDF.Tools.Framework.Utilities
     {
         public static double ComputeReductionRatio(double inputSize, double outputSize)
         {
-            double percent = (inputSize > 0 ? (double)outputSize / inputSize * 100 : 100);
-
-            return Math.Round(percent, 2);
+            return Math.Round(inputSize > 0 ? outputSize / inputSize * 100 : 100, 2);
         }
 
 
-        public static double ComputeReductionPercentage(double inputSize, double outputSize)
+        public static double ComputeReductionRatioFourthDecimal(double inputSize, double outputSize)
         {
-            double percent = inputSize > 0 ? Math.Round(outputSize / inputSize * 100, 2) : 100;
-            if (percent == 100 && inputSize > 0)
+            double reductionRatio = ComputeReductionRatio(inputSize, outputSize);
+
+            if (reductionRatio == 100 && inputSize > 0)
             {
-                percent = Math.Round(outputSize / inputSize * 100, 4);
+                reductionRatio = Math.Round(outputSize / inputSize * 100, 4);
             }
-            return percent;
+            return reductionRatio;
         }
 
 

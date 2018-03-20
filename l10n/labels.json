@@ -323,16 +323,32 @@
     "Name": "message_file_converted_to_pdf_singular",
     "ResourceIDs": "",
     "LocalizedValue": {
-      "fr": "#file_converted_to_pdf_count fichier converti en PDF",
-      "en": "#file_converted_to_pdf_count file converted to PDF"
+      "fr": "#file_converted_to_pdf_count fichier converti au format PDF.",
+      "en": "#file_converted_to_pdf_count file converted to PDF."
     }
   },
   {
     "Name": "message_file_converted_to_pdf_plurial",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "#file_converted_to_pdf_count fichiers convertis en PDF",
-      "en": "#file_converted_to_pdf_count files converted to PDF"
+      "fr": "#file_converted_to_pdf_count fichiers convertis au format PDF.",
+      "en": "#file_converted_to_pdf_count files converted to PDF."
+    }
+  },
+  {
+    "Name": "message_saved_disk_space_summary",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Espace disque gagné: #saved_space_ratio%",
+      "en": "Saved space: #saved_space_ratio%"
+    }
+  },
+  {
+    "Name": "message_reduction_ratio_summary",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Poids initial: #input_size MB. Poids de sortie: #output_size MB (#reduction_ratio% du poids initial)",
+      "en": "Input size: #input_size MB. Output size: #output_size MB. (#reduction_ratio% of input size)"
     }
   },
   {
@@ -355,16 +371,16 @@
     "Name": "message_reduction_operations_result_singular",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "#succesfully_processed_file_count fichier (sur #file_to_process_count) a été traité avec succès en #elapsed_time. Espace disque gagné: #ratio%",
-      "en": "#succesfully_processed_file_count file (out of #file_to_process_count) has been succesfully processed in #elapsed_time. Saved space: #ratio%"
+      "fr": "#succesfully_processed_file_count fichier (sur #file_to_process_count) a été traité avec succès en #elapsed_time. @message_saved_disk_space_summary@",
+      "en": "#succesfully_processed_file_count file (out of #file_to_process_count) has been succesfully processed in #elapsed_time. @message_saved_disk_space_summary@"
     }
   },
   {
     "Name": "message_reduction_operations_result_plurial",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "#succesfully_processed_file_count fichiers (sur #file_to_process_count) ont été traités avec succès en #elapsed_time. Espace disque gagné: #ratio%",
-      "en": "#succesfully_processed_file_count files (out of #file_to_process_count) have been succesfully processed in #elapsed_time. Saved space: #ratio%"
+      "fr": "#succesfully_processed_file_count fichiers (sur #file_to_process_count) ont été traités avec succès en #elapsed_time. @message_saved_disk_space_summary@",
+      "en": "#succesfully_processed_file_count files (out of #file_to_process_count) have been succesfully processed in #elapsed_time. @message_saved_disk_space_summary@"
     }
   },
   {
@@ -387,16 +403,16 @@
     "Name": "message_reduction_operations_result_detailed_singular",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "#succesfully_processed_file_count fichier (sur #file_to_process_count) a été traité avec succès en #elapsed_time.\nPoids initial: #input_size MB. Poids de sortie: #output_size MB (#ratio% du poids initial). @message_file_converted_to_pdf_singular@",
-      "en": "#succesfully_processed_file_count file (out of #file_to_process_count) has been succesfully processed in #elapsed_time.\nInput size: #input_size MB. Output size: #output_size MB (#ratio% of input size). @message_file_converted_to_pdf_singular@"
+      "fr": "#succesfully_processed_file_count fichier (sur #file_to_process_count) a été traité avec succès en #elapsed_time.@message_reduction_ratio_summary@@message_file_converted_to_pdf_singular@",
+      "en": "#succesfully_processed_file_count file (out of #file_to_process_count) has been succesfully processed in #elapsed_time.@message_reduction_ratio_summary@@message_file_converted_to_pdf_singular@"
     }
   },
   {
     "Name": "message_reduction_operations_result_detailed_plurial",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "#succesfully_processed_file_count (sur #file_to_process_count) fichiers ont été traités avec succès en #elapsed_time.\nPoids initial: #input_size MB. Poids de sortie: #output_size MB. (#ratio% du poids initial). @message_file_converted_to_pdf_singular@",
-      "en": "#succesfully_processed_file_count (out of #file_to_process_count) files have been succesfully  processed in #elapsed_time.\nInput size: #input_size MB. Output size: #output_size MB. (#ratio% of input size). @message_file_converted_to_pdf_singular@"
+      "fr": "#succesfully_processed_file_count (sur #file_to_process_count) fichiers ont été traités avec succès en #elapsed_time.@message_reduction_ratio_summary@@message_file_converted_to_pdf_singular@",
+      "en": "#succesfully_processed_file_count (out of #file_to_process_count) files have been succesfully  processed in #elapsed_time.@message_reduction_ratio_summary@@message_file_converted_to_pdf_singular@"
     }
   },
   {
@@ -443,8 +459,8 @@
     "Name": "message_pdf_reduction_completion",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "Terminé - #document_name (#ratio% du poids original)",
-      "en": "Done - #document_name (#ratio% of input)"
+      "fr": "Terminé - #document_name (#reduction_ratio% du poids original)",
+      "en": "Done - #document_name (#reduction_ratio% of input)"
     }
   },
   {
