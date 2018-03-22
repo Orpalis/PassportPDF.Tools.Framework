@@ -400,6 +400,14 @@
     }
   },
   {
+    "Name": "message_no_operations_completed",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Aucun fichier n'a été traité.",
+      "en": "No input file was processed."
+    }
+  },
+  {
     "Name": "message_reduction_operations_result_detailed_singular",
     "ResourceIDs": "*",
     "LocalizedValue": {

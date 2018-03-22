@@ -76,7 +76,11 @@ namespace PassportPDF.Tools.Framework.Utilities
 
             if (succesfullyProcessedFileCount == 0)
             {
-                if (processedFileCount == 1)
+                if (processedFileCount == 0)
+                {
+                    resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_no_operations_completed", FrameworkGlobals.ApplicationLanguage);
+                }
+                else if (processedFileCount == 1)
                 {
                     resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_no_succesful_operation_result_singular", FrameworkGlobals.ApplicationLanguage);
                 }
@@ -103,7 +107,11 @@ namespace PassportPDF.Tools.Framework.Utilities
 
             if (succesfullyProcessedFileCount == 0)
             {
-                if (processedFileCount == 1)
+                if (processedFileCount == 0)
+                {
+                    resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_no_operations_completed", FrameworkGlobals.ApplicationLanguage);
+                }
+                else if (processedFileCount == 1)
                 {
                     resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_no_succesful_operation_result_singular", FrameworkGlobals.ApplicationLanguage);
                 }
@@ -134,7 +142,11 @@ namespace PassportPDF.Tools.Framework.Utilities
 
             if (succesfullyProcessedFileCount == 0)
             {
-                if (processedFileCount == 1)
+                if (processedFileCount == 0)
+                {
+                    resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_no_operations_completed", FrameworkGlobals.ApplicationLanguage);
+                }
+                else if (processedFileCount == 1)
                 {
                     resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_no_succesful_operation_result_singular", FrameworkGlobals.ApplicationLanguage);
                 }
