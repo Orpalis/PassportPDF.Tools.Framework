@@ -42,8 +42,6 @@ namespace PassportPDF.Tools.Framework.Business
 
         private readonly ManualResetEvent _waitHandle = new ManualResetEvent(true);
 
-        private string _destinationFolder;
-
         public delegate void ErrorDelegate(string errorMessage);
         public delegate void WarningDelegate(string warningMessage);
         public delegate void FileOperationsCompletionDelegate(FileOperationsResult fileOperationsResult);
@@ -86,7 +84,7 @@ namespace PassportPDF.Tools.Framework.Business
             apiInstance.Configuration.AddDefaultHeader("X-PassportPDF-API-Key", apiKey);
             apiInstance.Configuration.Timeout = FrameworkGlobals.PassportPDFConfiguration.SuggestedClientTimeout;
 
-            _destinationFolder = ParsingUtils.EnsureFolderPathEndsWithBackSlash(destinationFolder);
+            destinationFolder = ParsingUtils.EnsureFolderPathEndsWithBackSlash(destinationFolder);
 
             bool fileSizeReductionIsIntended = OperationsWorkflowUtilities.IsFileSizeReductionIntended(workflow);
 
@@ -94,7 +92,7 @@ namespace PassportPDF.Tools.Framework.Business
             {
                 int workerNumber = i;
                 // Launch the workers.
-                Thread thread = new Thread(() => Process(apiInstance, workerNumber, fileProductionRules, workflow, fileSizeReductionIsIntended));
+                Thread thread = new Thread(() => Process(apiInstance, workerNumber, fileProductionRules, workflow, destinationFolder, fileSizeReductionIsIntended));
                 thread.Start();
             }
         }
@@ -143,7 +141,7 @@ namespace PassportPDF.Tools.Framework.Business
         }
 
 
-        private void Process(PDFApi apiInstance, int workerNumber, FileProductionRules fileProductionRules, OperationsWorkflow workflow, bool fileSizeReductionIsIntended)
+        private void Process(PDFApi apiInstance, int workerNumber, FileProductionRules fileProductionRules, OperationsWorkflow workflow, string destinationFolder, bool fileSizeReductionIsIntended)
         {
             while (PickFile(out FileToProcess fileToProcess))
             {
@@ -166,7 +164,7 @@ namespace PassportPDF.Tools.Framework.Business
 
                     if (workFlowProcessingResult != null)
                     {
-                        string outputFileAbsolutePath = _destinationFolder + fileToProcess.FileRelativePath;
+                        string outputFileAbsolutePath = destinationFolder + fileToProcess.FileRelativePath;
 
                         if (HandleOutputFileProduction(fileToProcess, fileProductionRules, workFlowProcessingResult, fileSizeReductionIsIntended, inputIsPDF, inputFileSize, outputFileAbsolutePath))
                         {
@@ -178,7 +176,7 @@ namespace PassportPDF.Tools.Framework.Business
                             continue;
                         }
 
-                        TryCloseDocumentAsync(apiInstance, workFlowProcessingResult.FileID);
+                        TryCloseDocumentAsync(apiInstance, workFlowProcessingResult.FileID); //todo: I think it should be handled by ProcessWorkflow.
                     }
                 }
                 catch (Exception exception)
@@ -347,13 +345,12 @@ namespace PassportPDF.Tools.Framework.Business
                     }
 
                     tmpFile.Seek(0, SeekOrigin.Begin);
-                    apiInstance.Configuration.Timeout = int.MaxValue; //todo: specify a timeout based on file size.
                     apiInstance.Configuration.Timeout = FrameworkGlobals.PassportPDFConfiguration.SuggestedClientTimeout;
 
                     return PassportPDFRequestsUtilities.SendLoadDocumentMultipartRequest(apiInstance, workerNumber, fileToProcess.FileAbsolutePath, fileName, conformance, tmpFile, "Gzip", UploadOperationStartEventHandler);
                 }
             }
-            catch (Exception)
+            catch
             {
                 if (inputFileStream != null)
                 {
@@ -385,6 +382,7 @@ namespace PassportPDF.Tools.Framework.Business
         {
             PDFOCRParameters ocrParameters = PassportPDFParametersUtilities.GetOCRParameters(ocrActionConfiguration, fileID);
             PDFOCRResponse ocrResponse = PassportPDFRequestsUtilities.SendOCRRequest(apiInstance, ocrParameters, workerNumber, fileToProcess.FileAbsolutePath, FileOperationStartEventHandler);
+
             return ocrResponse;
         }
 
@@ -392,6 +390,7 @@ namespace PassportPDF.Tools.Framework.Business
         private PDFSaveDocumentResponse HandleSaveDocument(PDFApi apiInstance, FileToProcess fileToProcess, string fileID, int workerNumber)
         {
             PDFSaveDocumentParameters saveDocumentParameters = PassportPDFParametersUtilities.GetSaveDocumentParameters(fileID);
+
             return PassportPDFRequestsUtilities.SendSaveDocumentRequest(apiInstance, saveDocumentParameters, workerNumber, fileToProcess.FileAbsolutePath, DownloadOperationStartEventHandler);
         }
 
