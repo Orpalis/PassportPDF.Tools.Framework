@@ -4,3 +4,4 @@ bin/
 obj/
 PassportPDF.Tools.Framework.localization_sheet.xlsx
 clean.bat
+*.user
