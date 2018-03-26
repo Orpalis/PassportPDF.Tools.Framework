@@ -24,6 +24,7 @@ using PassportPDF.Api;
 using PassportPDF.Model;
 using PassportPDF.Tools.Framework.Business;
 
+
 namespace PassportPDF.Tools.Framework.Utilities
 {
     public static class PassportPDFRequestsUtilities
@@ -34,7 +35,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             apiInstance.Configuration.AddDefaultHeader("X-PassportPDF-API-Key", passportId);
 
             Exception e = null;
-            int pausems = 1000;
+            int pausems = 5000;
 
             for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
             {
@@ -47,7 +48,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                     if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
                     {
                         Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
-                        pausems += 1000;
+                        pausems += 2000;
                     }
                     else
                     {//last iteration
@@ -65,7 +66,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             ConfigApi apiInstance = new ConfigApi(FrameworkGlobals.API_SERVER_URI);
 
             Exception e = null;
-            int pausems = 1000;
+            int pausems = 5000;
 
             for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
             {
@@ -78,7 +79,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                     if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
                     {
                         Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
-                        pausems += 1000;
+                        pausems += 2000;
                     }
                     else
                     {//last iteration
@@ -96,7 +97,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             PDFApi apiInstance = new PDFApi(FrameworkGlobals.API_SERVER_URI);
 
             Exception e = null;
-            int pausems = 1000;
+            int pausems = 5000;
 
             for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
             {
@@ -109,7 +110,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                     if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
                     {
                         Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
-                        pausems += 1000;
+                        pausems += 2000;
                     }
                     else
                     {//last iteration
@@ -126,7 +127,7 @@ namespace PassportPDF.Tools.Framework.Utilities
         {
             ConfigApi apiInstance = new ConfigApi(FrameworkGlobals.API_SERVER_URI);
             Exception e = null;
-            int pausems = 1000;
+            int pausems = 5000;
 
             for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
             {
@@ -139,7 +140,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                     if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
                     {
                         Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
-                        pausems += 1000;
+                        pausems += 2000;
                     }
                     else
                     {//last iteration
@@ -157,7 +158,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             ConfigApi apiInstance = new ConfigApi(FrameworkGlobals.API_SERVER_URI);
 
             Exception e = null;
-            int pausems = 1000;
+            int pausems = 5000;
 
             for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
             {
@@ -170,7 +171,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                     if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
                     {
                         Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
-                        pausems += 1000;
+                        pausems += 2000;
                     }
                     else
                     {//last iteration
@@ -188,25 +189,20 @@ namespace PassportPDF.Tools.Framework.Utilities
             ConfigApi apiInstance = new ConfigApi(FrameworkGlobals.API_SERVER_URI);
 
             Exception e = null;
-            int pausems = 1000;
+            int pausems = 5000;
 
             for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
             {
                 try
                 {
-#if DEBUG
-
-                    return new StringArrayResponse(null, new List<string>() { "fr", "eng" });
-#else
                     return apiInstance.GetSupportedOCRLanguages();
-#endif
                 }
                 catch (Exception ex)
                 {
                     if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
                     {
                         Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
-                        pausems += 1000;
+                        pausems += 2000;
                     }
                     else
                     {//last iteration
@@ -216,14 +212,13 @@ namespace PassportPDF.Tools.Framework.Utilities
             }
 
             throw (e);
-
         }
 
 
         public static PDFReduceResponse SendReduceRequest(PDFApi apiInstance, PDFReduceParameters reduceParameters, int workerNumber, string inputFilePath, OperationsManager.ProgressDelegate reduceOperationStartEventHandler)
         {
             Exception e = null;
-            int pausems = 1000;
+            int pausems = 5000;
 
             for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
             {
@@ -232,7 +227,6 @@ namespace PassportPDF.Tools.Framework.Utilities
                 {
                     PDFReduceResponse response = apiInstance.Reduce(reduceParameters);
 
-
                     return response;
                 }
                 catch (Exception ex)
@@ -240,7 +234,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                     if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
                     {
                         Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
-                        pausems += 1000;
+                        pausems += 2000;
                     }
                     else
                     {//last iteration
@@ -256,7 +250,7 @@ namespace PassportPDF.Tools.Framework.Utilities
         public static PDFOCRResponse SendOCRRequest(PDFApi apiInstance, PDFOCRParameters ocrParameters, int workerNumber, string inputFilePath, OperationsManager.ProgressDelegate ocrOperationStartEventHandler)
         {
             Exception e = null;
-            int pausems = 1000;
+            int pausems = 5000;
 
             for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
             {
@@ -265,7 +259,6 @@ namespace PassportPDF.Tools.Framework.Utilities
                 {
                     PDFOCRResponse response = apiInstance.OCR(ocrParameters);
 
-
                     return response;
                 }
                 catch (Exception ex)
@@ -273,7 +266,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                     if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
                     {
                         Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
-                        pausems += 1000;
+                        pausems += 2000;
                     }
                     else
                     {//last iteration
@@ -289,7 +282,7 @@ namespace PassportPDF.Tools.Framework.Utilities
         public static PDFSaveDocumentResponse SendSaveDocumentRequest(PDFApi apiInstance, PDFSaveDocumentParameters saveDocumentParameters, int workerNumber, string inputFilePath, OperationsManager.ProgressDelegate downloadOperationStartEventHandler)
         {
             Exception e = null;
-            int pausems = 1000;
+            int pausems = 5000;
 
             for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
             {
@@ -305,7 +298,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                     if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
                     {
                         Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
-                        pausems += 1000;
+                        pausems += 2000;
                     }
                     else
                     {//last iteration
@@ -321,7 +314,7 @@ namespace PassportPDF.Tools.Framework.Utilities
         public static PDFLoadDocumentResponse SendLoadDocumentMultipartRequest(PDFApi apiInstance, int workerNumber, string inputFilePath, string fileName, string conformance, Stream fileStream, string contentEncoding, OperationsManager.ProgressDelegate uploadOperationStartEventHandler)
         {
             Exception e = null;
-            int pausems = 1000;
+            int pausems = 5000;
 
             for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
             {
@@ -329,6 +322,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                 try
                 {
                     fileStream.Seek(0, SeekOrigin.Begin);
+
                     PDFLoadDocumentResponse response = apiInstance.LoadDocumentAsPDFMultipart(fileStream, contentEncoding: contentEncoding, conformance: conformance, fileName: fileName);
 
                     return response;
@@ -338,7 +332,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                     if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
                     {
                         Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
-                        pausems += 1000;
+                        pausems += 2000;
                     }
                     else
                     {//last iteration
