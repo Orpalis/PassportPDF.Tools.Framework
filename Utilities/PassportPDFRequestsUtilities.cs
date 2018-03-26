@@ -33,9 +33,8 @@ namespace PassportPDF.Tools.Framework.Utilities
         {
             PassportManagerApi apiInstance = new PassportManagerApi(FrameworkGlobals.API_SERVER_URI);
             apiInstance.Configuration.AddDefaultHeader("X-PassportPDF-API-Key", passportId);
-
             Exception e = null;
-            int pausems = 5000;
+            int pauseMs = 5000;
 
             for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
             {
@@ -47,8 +46,8 @@ namespace PassportPDF.Tools.Framework.Utilities
                 {
                     if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
                     {
-                        Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
-                        pausems += 2000;
+                        Thread.Sleep(pauseMs); //marking a pause in case of cnx temporarily out and to avoid overhead.
+                        pauseMs += 2000;
                     }
                     else
                     {//last iteration
@@ -61,25 +60,25 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
-        public static int GetSuggestedMaxClientThreads()
+        public static int GetMaxClientThreads(string appId)
         {
-            ConfigApi apiInstance = new ConfigApi(FrameworkGlobals.API_SERVER_URI);
+            PassportPDFApplicationManagerApi passportPDFApplicationManagerApi = new PassportPDFApplicationManagerApi(FrameworkGlobals.API_SERVER_URI);
 
             Exception e = null;
-            int pausems = 5000;
+            int pauseMs = 5000;
 
             for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
             {
                 try
                 {
-                    return apiInstance.GetSuggestedMaxClientThreads().Value.Value;
+                    return passportPDFApplicationManagerApi.GetMaxClientThreads(appId).Value.Value;
                 }
                 catch (Exception ex)
                 {
                     if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
                     {
-                        Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
-                        pausems += 2000;
+                        Thread.Sleep(pauseMs); //marking a pause in case of cnx temporarily out and to avoid overhead.
+                        pauseMs += 2000;
                     }
                     else
                     {//last iteration
@@ -97,7 +96,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             PDFApi apiInstance = new PDFApi(FrameworkGlobals.API_SERVER_URI);
 
             Exception e = null;
-            int pausems = 5000;
+            int pauseMs = 5000;
 
             for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
             {
@@ -109,8 +108,8 @@ namespace PassportPDF.Tools.Framework.Utilities
                 {
                     if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
                     {
-                        Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
-                        pausems += 2000;
+                        Thread.Sleep(pauseMs); //marking a pause in case of cnx temporarily out and to avoid overhead.
+                        pauseMs += 2000;
                     }
                     else
                     {//last iteration
@@ -126,6 +125,7 @@ namespace PassportPDF.Tools.Framework.Utilities
         public static int GetSuggestedClientTimeout()
         {
             ConfigApi apiInstance = new ConfigApi(FrameworkGlobals.API_SERVER_URI);
+
             Exception e = null;
             int pausems = 5000;
 
@@ -158,7 +158,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             ConfigApi apiInstance = new ConfigApi(FrameworkGlobals.API_SERVER_URI);
 
             Exception e = null;
-            int pausems = 5000;
+            int pauseMs = 5000;
 
             for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
             {
@@ -170,8 +170,8 @@ namespace PassportPDF.Tools.Framework.Utilities
                 {
                     if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
                     {
-                        Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
-                        pausems += 2000;
+                        Thread.Sleep(pauseMs); //marking a pause in case of cnx temporarily out and to avoid overhead.
+                        pauseMs += 2000;
                     }
                     else
                     {//last iteration

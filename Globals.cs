@@ -67,10 +67,10 @@ namespace PassportPDF.Tools.Framework
         }
 
 
-        public static void FetchPassportPDFConfigurationEx()
+        public static void FetchPassportPDFConfigurationEx(string appId)
         {
             PassportPDFConfiguration = new PassportPDFConfiguration(
-                PassportPDFRequestsUtilities.GetSuggestedMaxClientThreads(),
+                PassportPDFRequestsUtilities.GetMaxClientThreads(appId),
                 PassportPDFRequestsUtilities.GetSupportedFileExtensions().ToArray(),
                 PassportPDFRequestsUtilities.GetSuggestedClientTimeout(),
                 PassportPDFRequestsUtilities.GetMaxAllowedContentLength());
