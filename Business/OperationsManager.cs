@@ -175,8 +175,6 @@ namespace PassportPDF.Tools.Framework.Business
                         {
                             continue;
                         }
-
-                        TryCloseDocumentAsync(apiInstance, workFlowProcessingResult.FileID); //todo: I think it should be handled by ProcessWorkflow.
                     }
                 }
                 catch (Exception exception)
@@ -270,6 +268,11 @@ namespace PassportPDF.Tools.Framework.Business
                         actionError = saveDocumentResponse.Error;
                         producedFileData = saveDocumentResponse.Data;
                         break;
+                }
+
+                if (fileID != null)
+                {
+                    TryCloseDocumentAsync(apiInstance, fileID);
                 }
 
                 if (actionError != null)
