@@ -33,7 +33,7 @@ namespace PassportPDF.Tools.Framework.Errors
 
             errorMessage.Append("(" + failingOperation.ToString());
             errorMessage.Append(") ");
-            errorMessage.Append(PassportPDFErrorUtilities.GetErrorMessageFromResultCode(error.Resultcode));
+            errorMessage.Append(PassportPDFErrorUtilities.GetMessageFromResultCode(error.Resultcode));
             errorMessage.Append(": ");
             errorMessage.Append(fileName);
 

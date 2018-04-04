@@ -1,0 +1,602 @@
+﻿[
+  {
+    "Name": "resultCode_OK",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "OK",
+      "en": "OK"
+    }
+  },
+  {
+    "Name": "resultCode_ActionTimedOut",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le délai de réponse à la requête a été dépassé",
+      "en": "The request has timed out"
+    }
+  },
+  {
+    "Name": "resultCode_EmptyParameter",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "La requête a été reçue sans paramètres",
+      "en": "The request has been received without any parameter"
+    }
+  },
+  {
+    "Name": "resultCode_InvalidAPIKey",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "La clé de passport renseignée a été rejetée",
+      "en": "The provided API key has been rejected"
+    }
+  },
+  {
+    "Name": "resultCode_NotEnoughTokens",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le nombre de tokens disponibles sur le passport est insuffisant pour l'action demandée",
+      "en": "The number of available tokens is insufficient to perform the requested action"
+    }
+  },
+  {
+    "Name": "resultCode_GenericError",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Une erreur générique s'est produite",
+      "en": "A generic error occured"
+    }
+  },
+  {
+    "Name": "resultCode_InvalidParameter",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Un des paramètres fournis à l'action est invalide",
+      "en": "One of the parameters passed to the method is invalid"
+    }
+  },
+  {
+    "Name": "resultCode_InvalidColor",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "La couleur fournie paramètre est invalide",
+      "en": "The color provided as parameter is invald"
+    }
+  },
+  {
+    "Name": "resultCode_OutOfMemory",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le système d'exploitation n'a pas pu allouer suffisamment de mémoire pour réaliser l'action",
+      "en": "The operating system could not allocate memory to process the method call"
+    }
+  },
+  {
+    "Name": "resultCode_NotImplemented",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'action demandée n'est pas implémentée",
+      "en": "The called method was not implemented"
+    }
+  },
+  {
+    "Name": "resultCode_FileNotFound",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Un fichier n'a pas pu être trouvé",
+      "en": "A specific file could not be found"
+    }
+  },
+  {
+    "Name": "resultCode_AccessDenied",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le fichier n'a pas pu être accédé en écriture",
+      "en": "A write operation is not allowed on the file"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotImportFileToPDF",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le fichier n'a pas pu être importé au format PDF",
+      "en": "Could not import file as PDF"
+    }
+  },
+  {
+    "Name": "resultCode_PdfCanNotBeDecrypted",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le PDF n'a pas pu être décrypté",
+      "en": "Could not decrypt PDF"
+    }
+  },
+  {
+    "Name": "resultCode_PdfOperationNotAllowed",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Une opération non autorisée n'a pas pu être réalisée sur le PDF",
+      "en": "An operation was not allowed on the PDF"
+    }
+  },
+  {
+    "Name": "resultCode_PdfCanNotOpenFile",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le PDF n'a pas pu être ouvert",
+      "en": "Could not open PDF"
+    }
+  },
+  {
+    "Name": "resultCode_PdfCanNotSaveFile",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le PDF n'a pas pu être sauvegardé",
+      "en": "Could not save PDF"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotCreateFile",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le fichier n'a pas pu être créé",
+      "en": "The file could not be created"
+    }
+  },
+  {
+    "Name": "resultCode_NoDocumentProvided",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Aucun document n'a été fourni en paramètre",
+      "en": "No document was provided to perform an operation"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotRemovePage",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "La page n'a pas pu être supprimée",
+      "en": "Could not remove page"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotSwapPages",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de permutation des pages n'a pu aboutir",
+      "en": "The page swaping operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotMovePage",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de déplacement de page n'a pu aboutir",
+      "en": "The page moving operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotRotatePage",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de rotation de page n'a pas pu aboutir",
+      "en": "The page rotating operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotFlipPage",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération d'inversion de la page n'a pas pu aboutir",
+      "en": "The page flipping operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_InvalidPageRange",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "La plage de page fournie en paramètre est invalide",
+      "en": "The provided page range is invalid"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotReducePDF",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de réduction du PDF n'a pas pu aboutir",
+      "en": "Could not reduce PDF"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotAutoDeskew",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de redressement automatique n'a pu aboutir",
+      "en": "The document auto deskew operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotSplit",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de séparation du document n'a pu aboutir",
+      "en": "The document spliting operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotSaveAsJPEG",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de sauvegarde du document en JPEG n'a pu aboutir",
+      "en": "The saving as JPEG operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotDigiSign",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de signature éléctronique du document n'a pu aboutir",
+      "en": "The digital signing operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotProtect",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de protection do document n'a pu aboutir",
+      "en": "The document protection operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotConvertToPDFA",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de conversion en PDF/A n'a pu aboutir",
+      "en": "The conversion to PDF/A operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotAnnotate",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération d'annotation du document n'a pu aboutir",
+      "en": "The document annotation operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotClearPage",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de nettoyage de page n'a pu aboutir",
+      "en": "The document page clearing operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotMerge",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de fusion des documents n'a pu aboutir",
+      "en": "The documents merging operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotGetPageThumbnail",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération d'obtention de miniatures de page n'a pu aboutir",
+      "en": "The obtention of page thumbnails operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotGetDocumentPreview",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération d'obtention d'une prévisualisation du document n'a pu aboutir",
+      "en": "The obtention of document preview operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotRemovePageFormFields",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de supression des champs de formulaire n'a pu aboutir",
+      "en": "The page form fields removal operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotInsertImage",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération d'insertion d'image n'a pu aboutir",
+      "en": "The image insertion operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotDrawImage",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de dessin d'image n'a pu aboutir",
+      "en": "The image drawing operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotInsertPageNumber",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération d'insertion de numéros de page n'a pu aboutir",
+      "en": "The page numbers insertion operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotInsertText",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération d'insertion de texte n'a pu aboutir",
+      "en": "The text insertion operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotReadBarcode",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de lecture de code-barres n'a pu aboutir",
+      "en": "The barcode reading operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotFlattenFormFields",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération d'aplanissement des champs de formulaire n'a pu aboutir",
+      "en": "The form-fields flatenning operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotExportMoreThan2GigabyteFile",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible d'exporter un fichier de plus de 2 GB",
+      "en": "Can not export a file of more than 2GB"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotOpenSession",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible d'ouvrir la session",
+      "en": "Could not open session"
+    }
+  },
+  {
+    "Name": "resultCode_UnknownOrExpiredSession",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "La session est inconnue ou expirée",
+      "en": "The session is unknown or expired"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotSaveFile",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le fichier n'a pu être sauvegardé",
+      "en": "The file could not be saved"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotOCR",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de reconnaissance optique de caractères n'a pu aboutir",
+      "en": "The optical character recognition operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotOpenImage",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Une image n'a pu être ouverte",
+      "en": "An image file failed to be opened"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotSaveAsPNG",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de sauvegarde en PNG n'a pu aboutir",
+      "en": "The saving as PNG operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotSaveAsTIFF",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de sauvegarde en TIFF n'a pu aboutir",
+      "en": "The saving as TIFF operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotSaveAsTIFFMultipage",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de sauvegarde en TIFF multipage n'a pu aboutir",
+      "en": "The saving as multipage TIFF operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotSetInfo",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de définition d'informations n'a pu aboutir",
+      "en": "The information setting operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotSetPageBox",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de définition de page box de la n'a pu aboutir",
+      "en": "The page box setting operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotExtractPage",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération d'extraction de page n'a pu aboutir",
+      "en": "The page extraction operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotInsertNewPage",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération d'insertion de nouvelle page n'a pu aboutir",
+      "en": "The new page insertion operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotClonePage",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de clonage de page n'a pu aboutir",
+      "en": "The page cloning operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotSetInitialView",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de définition de vue initiale n'a pu aboutir",
+      "en": "The initial view setting operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotAdjust",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération d'ajustement n'a pu aboutir",
+      "en": "The adjusting operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotResize",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de redimensionnement n'a pu aboutir",
+      "en": "The resizing operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotFilter",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de filtrage n'a pu aboutir",
+      "en": "The filtering operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotCleanupDocument",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de nettoyage du document n'a pu aboutir",
+      "en": "The document cleanup operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_UnknownDocumentFormat",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le format du document est inconnu",
+      "en": "The document format is unknown"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotCrop",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de recadrement n'a pu aboutir",
+      "en": "The cropping operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotRotate",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de rotation n'a pu aboutir",
+      "en": "The rotating operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotDetectColor",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de détection de couleur n'a pu aboutir",
+      "en": "The color detection operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotConvertColorDepth",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de conversion de profondeur de couleur n'a pu aboutir",
+      "en": "The color depth conversion operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_PdfCanNotAddFont",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération d'ajout de police n'a pu aboutir",
+      "en": "The font adding operation has failed"
+    }
+  },
+  {
+    "Name": "reduceErrorCode_message_OK",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "OK",
+      "en": "OK"
+    }
+  },
+  {
+    "Name": "reduceErrorCode_GetPageImagesCount",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible de récupérer le nombre d'images de la page #page_number",
+      "en": "Failed to count images on page #page_number"
+    }
+  },
+  {
+    "Name": "reduceErrorCode_MRCPostOperationsFailure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Les opérations post-MRC ont échoué sur la page #page_number",
+      "en": "MRC Post operations failed on page #page_number"
+    }
+  },
+  {
+    "Name": "reduceErrorCode_PageConversionFailure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible de convertir la page #page_number",
+      "en": "Failed to convert page #page_number"
+    }
+  },
+  {
+    "Name": "reduceErrorCode_DocumentEncrypted",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible de traiter le document car il est encrypté",
+      "en": "Failed to decrypt document"
+    }
+  },
+  {
+    "Name": "reduceErrorCode_UnexpectedError",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Une erreur inattendue est survenue",
+      "en": "Unexpected error"
+    }
+  }
+]

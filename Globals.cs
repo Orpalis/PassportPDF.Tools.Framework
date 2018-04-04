@@ -47,7 +47,7 @@ namespace PassportPDF.Tools.Framework
         public static PassportPDFConfiguration PassportPDFConfiguration;
         public static PassportInfo PassportInfo;
 
-        public static readonly OrpalisLocalizer MessagesLocalizer = new OrpalisLocalizer(Assembly.GetExecutingAssembly().GetManifestResourceStream("PassportPDF.Tools.Framework.l10n.labels.json"));
+        public static readonly OrpalisLocalizer MessagesLocalizer = new OrpalisLocalizer(AssemblyUtilities.GetResourceStream("l10n.labels.json"));
         public static readonly LogsManager LogsManager = new LogsManager();
 
 
