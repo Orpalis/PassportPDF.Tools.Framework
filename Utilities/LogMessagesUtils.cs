@@ -210,7 +210,14 @@ namespace PassportPDF.Tools.Framework.Utilities
             }
             if (reductionRatio != null)
             {
-                finalMessage = fileConvertedToPdfCount == succesfullyProcessedFileCount ? finalMessage.Replace(FrameworkGlobals.MessagesLocalizer.GetString("message_reduction_ratio_summary", FrameworkGlobals.ApplicationLanguage), string.Empty) : finalMessage.Replace(LogConstants.REDUCTION_RATIO_SEQUENCE, reductionRatio.ToString());
+                if (fileConvertedToPdfCount != null && fileConvertedToPdfCount != null && fileConvertedToPdfCount == succesfullyProcessedFileCount)
+                {
+                    finalMessage = finalMessage.Replace(FrameworkGlobals.MessagesLocalizer.GetString("message_reduction_ratio_summary", FrameworkGlobals.ApplicationLanguage), string.Empty);
+                }
+                else
+                {
+                    finalMessage = finalMessage.Replace(LogConstants.REDUCTION_RATIO_SEQUENCE, reductionRatio.ToString());
+                }
             }
             if (savedDiskSpaceRatio != null)
             {
