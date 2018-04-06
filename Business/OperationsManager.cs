@@ -270,13 +270,13 @@ namespace PassportPDF.Tools.Framework.Business
                         break;
                 }
 
-                if (fileID != null)
-                {
-                    TryCloseDocumentAsync(apiInstance, fileID);
-                }
 
                 if (actionError != null)
                 {
+                    if (fileID != null)
+                    {
+                        TryCloseDocumentAsync(apiInstance, fileID);
+                    }
                     string errorMessage = reduceErrorInfo != null && reduceErrorInfo.ErrorCode != ReduceErrorInfo.ErrorCodeEnum.OK ? ErrorManager.GetMessageFromReduceActionError(reduceErrorInfo, fileToProcess.FileAbsolutePath) : ErrorManager.GetMessageFromPassportPDFError(actionError, operation.Type, fileToProcess.FileAbsolutePath);
                     ErrorEventHandler.Invoke(errorMessage);
                     return null;
@@ -285,6 +285,11 @@ namespace PassportPDF.Tools.Framework.Business
                 {
                     RemainingTokensUpdateEventHandler.Invoke(remainingTokens);
                 }
+            }
+
+            if (fileID != null)
+            {
+                TryCloseDocumentAsync(apiInstance, fileID);
             }
 
             return producedFileData != null ? new WorkflowProcessingResult(contentRemoved, versionChanged, linearized, fileID, producedFileData, warningMessages) : null;
