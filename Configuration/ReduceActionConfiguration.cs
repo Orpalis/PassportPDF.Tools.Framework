@@ -37,6 +37,7 @@ namespace PassportPDF.Tools.Framework.Configuration
         public bool RemoveHyperlinks { get; set; } = false;
         public bool RemoveEmbeddedFiles { get; set; } = false;
         public bool RemoveBlankPages { get; set; } = false;
+        public bool RemoveJavaScript { get; set; } = false;
         public bool EnableJPEG2000 { get; set; } = true;
         public bool EnableJBIG2 { get; set; } = true;
         public bool EnableCharRepair { get; set; } = false;
