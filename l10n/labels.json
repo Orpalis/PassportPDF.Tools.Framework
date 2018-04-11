@@ -208,6 +208,14 @@
     }
   },
   {
+    "Name": "message_blank_page_removal_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Impossible de supprimer la page blanche (numéro #page_number) du document: #document_name",
+      "en": "Can not remove blank page (number #page_number) from document: #document_name"
+    }
+  },
+  {
     "Name": "message_image_obtention_failure",
     "ResourceIDs": "*",
     "LocalizedValue": {

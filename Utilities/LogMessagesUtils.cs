@@ -356,8 +356,9 @@ namespace PassportPDF.Tools.Framework.Utilities
                 { ReduceWarningInfo.WarningCodeEnum.ImageReplacementFailure, "message_image_replacement_failure" },
                 { ReduceWarningInfo.WarningCodeEnum.MRCImageReplacementFailure, "message_mrc_image_replacement_failure" },
                 { ReduceWarningInfo.WarningCodeEnum.PageSelectionFailure, "message_page_selection_failure" },
-                { ReduceWarningInfo.WarningCodeEnum.FileSizeReductionFailure, "message_file_size_reduction_failure" },
                 { ReduceWarningInfo.WarningCodeEnum.ImageObtentionFailure, "message_image_obtention_failure" },
+                { ReduceWarningInfo.WarningCodeEnum.FileSizeReductionFailure, "message_file_size_reduction_failure" },
+                {ReduceWarningInfo.WarningCodeEnum.BlankPageRemovalFailure, "message_blank_page_removal_failure" }
             };
         }
     }
