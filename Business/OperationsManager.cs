@@ -33,36 +33,33 @@ namespace PassportPDF.Tools.Framework.Business
     public sealed class OperationsManager
     {
         private readonly List<FileToProcess> _filesToProcess = new List<FileToProcess>();
-
         private readonly object _locker = new object();
-
-        private bool _workPaused;
-
-        private bool _cancellationPending;
-
         private readonly ManualResetEvent _waitHandle = new ManualResetEvent(true);
 
+        private int _busyWorkersCount;
+        private bool _workPaused;
+        private bool _cancellationPending;
+
+
+        public delegate void ProgressDelegate(int workerNumber, string fileName, int retries);
         public delegate void ErrorDelegate(string errorMessage);
         public delegate void WarningDelegate(string warningMessage);
-        public delegate void FileOperationsCompletionDelegate(FileOperationsResult fileOperationsResult);
-        public delegate void WorkCompletionDelegate(int workerNumber);
-        public delegate void ProgressDelegate(int workerNumber, string fileName, int retries);
-        public delegate void PauseDelegate(int workerNumber);
         public delegate void UpdateRemainingTokensDelegate(long remainingTokens);
+        public delegate void FileOperationsCompletionDelegate(FileOperationsResult fileOperationsResult);
+        public delegate void WorkerPauseDelegate(int workerNumber);
+        public delegate void WorkerWorkCompletionDelegate(int workerNumber);
+        public delegate void OperationsCompletionDelegate();
 
         public ProgressDelegate UploadOperationStartEventHandler;
         public ProgressDelegate FileOperationStartEventHandler;
         public ProgressDelegate DownloadOperationStartEventHandler;
-
-        public UpdateRemainingTokensDelegate RemainingTokensUpdateEventHandler;
-
-        public FileOperationsCompletionDelegate FileOperationsSuccesfullyCompletedEventHandler;
-        public WorkCompletionDelegate WorkCompletionEventHandler;
-
-        public PauseDelegate WorkPauseEventHandler;
-
-        public WarningDelegate WarningEventHandler;
         public ErrorDelegate ErrorEventHandler;
+        public WarningDelegate WarningEventHandler;
+        public UpdateRemainingTokensDelegate RemainingTokensUpdateEventHandler;
+        public FileOperationsCompletionDelegate FileOperationsSuccesfullyCompletedEventHandler;
+        public WorkerPauseDelegate WorkerPauseEventHandler;
+        public WorkerWorkCompletionDelegate WorkerWorkCompletionEventHandler;
+        public OperationsCompletionDelegate OperationsCompletionEventHandler;
 
         public void Feed(List<FileToProcess> filesToProcess)
         {
@@ -94,6 +91,7 @@ namespace PassportPDF.Tools.Framework.Business
                 // Launch the workers.
                 Thread thread = new Thread(() => Process(apiInstance, workerNumber, fileProductionRules, workflow, destinationFolder, fileSizeReductionIsIntended));
                 thread.Start();
+                _busyWorkersCount++;
             }
         }
 
@@ -185,12 +183,12 @@ namespace PassportPDF.Tools.Framework.Business
                 if (_workPaused && !_cancellationPending)
                 {
                     // If pause has been requested, wait for resume signal
-                    WorkPauseEventHandler.Invoke(workerNumber);
+                    WorkerPauseEventHandler.Invoke(workerNumber);
                     _waitHandle.WaitOne();
                 }
             }
 
-            WorkCompletionEventHandler.Invoke(workerNumber);
+            OnWorkerWorkCompletion(workerNumber);
         }
 
 
@@ -488,6 +486,22 @@ namespace PassportPDF.Tools.Framework.Business
             foreach (string warningMessage in warningMessages)
             {
                 WarningEventHandler.Invoke(warningMessage);
+            }
+        }
+
+
+        private void OnWorkerWorkCompletion(int workerNumber)
+        {
+            WorkerWorkCompletionEventHandler.Invoke(workerNumber);
+
+            lock (_locker)
+            {
+                _busyWorkersCount -= 1;
+
+                if (_busyWorkersCount == 0)
+                {
+                    OperationsCompletionEventHandler.Invoke();
+                }
             }
         }
 
