@@ -504,14 +504,6 @@
     }
   },
   {
-    "Name": "errors",
-    "ResourceIDs": "*",
-    "LocalizedValue": {
-      "fr": "Erreurs",
-      "en": "Errors"
-    }
-  },
-  {
     "Name": "filesAnd",
     "ResourceIDs": "*",
     "LocalizedValue": {
@@ -520,35 +512,11 @@
     }
   },
   {
-    "Name": "freeLimitation",
-    "ResourceIDs": "*",
-    "LocalizedValue": {
-      "fr": "Limitation de la version gratuite",
-      "en": "Free edition limitation"
-    }
-  },
-  {
     "Name": "inputSize",
     "ResourceIDs": "*",
     "LocalizedValue": {
       "fr": "Poids d'origine :",
       "en": "Input size:"
-    }
-  },
-  {
-    "Name": "logs",
-    "ResourceIDs": "*",
-    "LocalizedValue": {
-      "fr": "Journal",
-      "en": "Logs"
-    }
-  },
-  {
-    "Name": "mthredNotOnFree",
-    "ResourceIDs": "*",
-    "LocalizedValue": {
-      "fr": "Le mode multi-processus n'est pas disponible dans la version gratuite.",
-      "en": "Multi thread processing is not available in the free edition."
     }
   },
   {
@@ -605,14 +573,6 @@
     "LocalizedValue": {
       "fr": "Espace disque économisé :",
       "en": "Saved space:"
-    }
-  },
-  {
-    "Name": "warnings",
-    "ResourceIDs": "*",
-    "LocalizedValue": {
-      "fr": "Avertissements",
-      "en": "Warnings"
     }
   },
   {
