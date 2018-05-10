@@ -37,10 +37,23 @@ namespace PassportPDF.Tools.Framework.Models
         public readonly string FileRelativePath;
 
 
-        public FileToProcess(string fileAbsolutePath, string fileRelativePath)
+        /// <summary>
+        /// Specifies the password required to uncrypt the document, if any.
+        /// </summary>
+        public string Password; 
+
+
+        public FileToProcess(string fileAbsolutePath, string fileRelativePath):this(fileAbsolutePath, fileRelativePath, "")
+        {
+
+        }
+
+
+        public FileToProcess(string fileAbsolutePath, string fileRelativePath, string password)
         {
             FileAbsolutePath = fileAbsolutePath;
             FileRelativePath = fileRelativePath;
+            Password = password;
         }
     }
 }

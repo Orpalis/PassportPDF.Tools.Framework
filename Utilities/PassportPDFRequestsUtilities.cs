@@ -311,7 +311,7 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
-        public static PDFLoadDocumentResponse SendLoadDocumentMultipartRequest(PDFApi apiInstance, int workerNumber, string inputFilePath, string fileName, string conformance, Stream fileStream, string contentEncoding, OperationsManager.ProgressDelegate uploadOperationStartEventHandler)
+        public static PDFLoadDocumentResponse SendLoadDocumentMultipartRequest(PDFApi apiInstance, int workerNumber, string inputFilePath, string fileName, string conformance, string password, Stream fileStream, string contentEncoding, OperationsManager.ProgressDelegate uploadOperationStartEventHandler)
         {
             Exception e = null;
             int pausems = 5000;
@@ -323,7 +323,51 @@ namespace PassportPDF.Tools.Framework.Utilities
                 {
                     fileStream.Seek(0, SeekOrigin.Begin);
 
-                    PDFLoadDocumentResponse response = apiInstance.LoadDocumentAsPDFMultipart(fileStream, contentEncoding: contentEncoding, conformance: conformance, fileName: fileName);
+                    PDFLoadDocumentResponse response = apiInstance.LoadDocumentAsPDFMultipart(fileStream, contentEncoding: contentEncoding, conformance: conformance, password: password, fileName: fileName);
+
+                    return response;
+                }
+                catch (Exception ex)
+                {
+                    if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
+                    {
+                        Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
+                        pausems += 2000;
+                    }
+                    else
+                    {//last iteration
+                        e = ex;
+                    }
+                }
+            }
+
+            throw (e);
+        }
+
+
+        public static PDFLoadDocumentResponse SendLoadDocumentRequest(PDFApi apiInstance, int workerNumber, string inputFilePath, string fileName, string conformance, string password, Stream fileStream, string contentEncoding, OperationsManager.ProgressDelegate uploadOperationStartEventHandler)
+        {
+            Exception e = null;
+            int pausems = 5000;
+
+            if (fileStream.Length > int.MaxValue)
+            {
+                throw new OutOfMemoryException();
+            }
+
+            for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
+            {
+                uploadOperationStartEventHandler.Invoke(workerNumber, inputFilePath, i);
+                try
+                {
+                    fileStream.Seek(0, SeekOrigin.Begin);
+
+                    byte[] data = new byte[fileStream.Length];
+
+                    fileStream.Read(data, 0, (int)fileStream.Length);
+
+                    PDFLoadDocumentFromByteArrayParameters pdfLoadDocumentFromByteArrayParameters = new PDFLoadDocumentFromByteArrayParameters(data, fileName, password, Enum.Parse(typeof(PDFLoadDocumentFromByteArrayParameters.ConformanceEnum), conformance) as PDFLoadDocumentFromByteArrayParameters.ConformanceEnum?, Enum.Parse(typeof(PDFLoadDocumentFromByteArrayParameters.ContentEncodingEnum), contentEncoding) as PDFLoadDocumentFromByteArrayParameters.ContentEncodingEnum?);
+                    PDFLoadDocumentResponse response = apiInstance.LoadDocumentAsPDF(pdfLoadDocumentFromByteArrayParameters);
 
                     return response;
                 }

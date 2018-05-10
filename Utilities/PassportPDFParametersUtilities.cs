@@ -29,19 +29,19 @@ namespace PassportPDF.Tools.Framework.Utilities
             switch (outputVersion)
             {
                 case PDFReduceParameters.OutputVersionEnum.PdfVersion14:
-                    conformance = "PDF1_4";
+                    conformance = "PDF14";
                     break;
                 case PDFReduceParameters.OutputVersionEnum.PdfVersion15:
-                    conformance = "PDF1_5";
+                    conformance = "PDF15";
                     break;
                 case PDFReduceParameters.OutputVersionEnum.PdfVersion16:
-                    conformance = "PDF1_6";
+                    conformance = "PDF16";
                     break;
                 case PDFReduceParameters.OutputVersionEnum.PdfVersion17:
-                    conformance = "PDF1_7";
+                    conformance = "PDF17";
                     break;
                 default:
-                    conformance = "PDF1_5";
+                    conformance = "PDF15";
                     break;
             }
             fileStream = new FileStream(inputFileAbsolutePath, FileMode.Open);

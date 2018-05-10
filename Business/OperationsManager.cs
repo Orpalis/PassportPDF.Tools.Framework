@@ -353,7 +353,7 @@ namespace PassportPDF.Tools.Framework.Business
                     tmpFile.Seek(0, SeekOrigin.Begin);
                     apiInstance.Configuration.Timeout = FrameworkGlobals.PassportPDFConfiguration.SuggestedClientTimeout;
 
-                    return PassportPDFRequestsUtilities.SendLoadDocumentMultipartRequest(apiInstance, workerNumber, fileToProcess.FileAbsolutePath, fileName, conformance, tmpFile, "Gzip", UploadOperationStartEventHandler);
+                    return PassportPDFRequestsUtilities.SendLoadDocumentMultipartRequest(apiInstance, workerNumber, fileToProcess.FileAbsolutePath, fileName, conformance, fileToProcess.Password, tmpFile, "Gzip", UploadOperationStartEventHandler);
                 }
             }
             catch
