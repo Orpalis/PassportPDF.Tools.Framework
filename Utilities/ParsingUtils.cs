@@ -20,6 +20,8 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
 
 namespace PassportPDF.Tools.Framework.Utilities
 {
@@ -106,9 +108,30 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
+        public static string GetElapsedTimeString(TimeSpan timeSpan)
+        {
+            if (timeSpan.Hours != 0)
+            {
+                return string.Format("{0:0}h{1:0}m{2:00}s{3:00}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds, timeSpan.Milliseconds / 10);
+            }
+            else if (timeSpan.Minutes != 0)
+            {
+                return string.Format("{0:0}m{1:00}s{2:00}", timeSpan.Minutes, timeSpan.Seconds, timeSpan.Milliseconds / 10);
+            }
+            else if (timeSpan.Seconds != 0)
+            {
+                return string.Format("{0:00}:{1:00}s", timeSpan.Seconds, timeSpan.Milliseconds / 10);
+            }
+            else
+            {
+                return string.Format("{0:00}ms", timeSpan.Milliseconds / 10);
+            }
+        }
+
+
         public static string GetElapsedTimeString(int hours, int minutes, int seconds, int milliseconds)
         {
-            return string.Format("{0:00}:{1:00}:{2:00}.{3:00}", hours, minutes, seconds, milliseconds);
+            return string.Format("{0:0}:{1:00}:{2:00}.{3:00}", hours, minutes, seconds, milliseconds);
         }
     }
 }
