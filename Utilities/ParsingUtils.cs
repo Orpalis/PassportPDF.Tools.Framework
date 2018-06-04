@@ -20,8 +20,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 
 namespace PassportPDF.Tools.Framework.Utilities
 {
