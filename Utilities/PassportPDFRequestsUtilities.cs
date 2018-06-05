@@ -342,7 +342,7 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
-        public static PDFLoadDocumentResponse SendLoadDocumentMultipartRequest(PDFApi apiInstance, int workerNumber, string inputFilePath, string fileName, string conformance, string password, Stream fileStream, string contentEncoding, OperationsManager.ProgressDelegate uploadOperationStartEventHandler)
+        public static PDFLoadDocumentResponse SendLoadPDFMultipartRequest(PDFApi apiInstance, int workerNumber, string inputFilePath, string fileName, string conformance, string password, Stream fileStream, string contentEncoding, OperationsManager.ProgressDelegate uploadOperationStartEventHandler)
         {
             Exception e = null;
             int pausems = 5000;
@@ -355,6 +355,40 @@ namespace PassportPDF.Tools.Framework.Utilities
                     fileStream.Seek(0, SeekOrigin.Begin);
 
                     PDFLoadDocumentResponse response = apiInstance.LoadDocumentAsPDFMultipart(fileStream, contentEncoding: contentEncoding, conformance: conformance, password: password, fileName: fileName);
+
+                    return response;
+                }
+                catch (Exception ex)
+                {
+                    if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
+                    {
+                        Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
+                        pausems += 2000;
+                    }
+                    else
+                    {//last iteration
+                        e = ex;
+                    }
+                }
+            }
+
+            throw (e);
+        }
+
+
+        public static LoadImageResponse SendLoadImageMultipartRequest(ImageApi apiInstance, int workerNumber, string inputFilePath, string fileName, Stream fileStream, string contentEncoding, OperationsManager.ProgressDelegate uploadOperationStartEventHandler)
+        {
+            Exception e = null;
+            int pausems = 5000;
+
+            for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
+            {
+                uploadOperationStartEventHandler.Invoke(workerNumber, inputFilePath, i);
+                try
+                {
+                    fileStream.Seek(0, SeekOrigin.Begin);
+
+                    LoadImageResponse response = apiInstance.LoadImageMultipart(fileStream, contentEncoding: contentEncoding, fileName: fileName);
 
                     return response;
                 }

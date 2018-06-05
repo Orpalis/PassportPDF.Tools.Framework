@@ -17,9 +17,9 @@
  **********************************************************************/
 
 using System.Collections.Generic;
+using PassportPDF.Model;
 using PassportPDF.Tools.Framework.Business;
 using PassportPDF.Tools.Framework.Configuration;
-using static PassportPDF.Model.PDFReduceParameters;
 
 namespace PassportPDF.Tools.Framework.Utilities
 {
@@ -42,7 +42,7 @@ namespace PassportPDF.Tools.Framework.Utilities
         {
             List<Operation> actionsToBePerformed = new List<Operation>
             {
-                new Operation(Operation.OperationType.LoadPDF, OutputVersionEnum.PdfVersionRetainExisting),
+                new Operation(Operation.OperationType.LoadPDF, PDFReduceParameters.OutputVersionEnum.PdfVersionRetainExisting),
                 new Operation(Operation.OperationType.OCRPDF, ocrActionConfiguration),
                 new Operation(Operation.OperationType.SavePDF)
             };
@@ -55,7 +55,7 @@ namespace PassportPDF.Tools.Framework.Utilities
         {
             List<Operation> actionsToBePerformed = new List<Operation>
             {
-                new Operation(Operation.OperationType.LoadPDF, OutputVersionEnum.PdfVersionRetainExisting),
+                new Operation(Operation.OperationType.LoadImage),
                 new Operation(Operation.OperationType.SaveImageAsPDF, saveAsPdfActionConfiguration)
             };
 

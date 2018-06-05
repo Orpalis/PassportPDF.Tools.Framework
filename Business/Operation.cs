@@ -35,6 +35,7 @@ namespace PassportPDF.Tools.Framework.Business
         public enum OperationType
         {
             LoadPDF,
+            LoadImage,
             ReducePDF,
             SavePDF,
             OCRPDF,

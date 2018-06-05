@@ -88,7 +88,7 @@ namespace PassportPDF.Tools.Framework.Business
             {
                 int workerNumber = i;
                 // Launch the workers.
-                Thread thread = new Thread(() => Process(pdfApiInstance, workerNumber, fileProductionRules, workflow, destinationFolder, fileSizeReductionIsIntended));
+                Thread thread = new Thread(() => Process(pdfApiInstance, imageApiInstance, workerNumber, fileProductionRules, workflow, destinationFolder, fileSizeReductionIsIntended));
                 thread.Start();
                 _busyWorkersCount++;
             }
@@ -149,7 +149,7 @@ namespace PassportPDF.Tools.Framework.Business
         }
 
 
-        private void Process(PDFApi pdfApiInstance, int workerNumber, FileProductionRules fileProductionRules, OperationsWorkflow workflow, string destinationFolder, bool fileSizeReductionIsIntended)
+        private void Process(PDFApi pdfApiInstance, ImageApi imageApiInstance, int workerNumber, FileProductionRules fileProductionRules, OperationsWorkflow workflow, string destinationFolder, bool fileSizeReductionIsIntended)
         {
             while (PickFile(out FileToProcess fileToProcess))
             {
@@ -168,7 +168,7 @@ namespace PassportPDF.Tools.Framework.Business
                         continue;
                     }
 
-                    WorkflowProcessingResult workFlowProcessingResult = ProcessWorkflow(pdfApiInstance, workflow, fileToProcess, workerNumber);
+                    WorkflowProcessingResult workFlowProcessingResult = ProcessWorkflow(pdfApiInstance, imageApiInstance, workflow, fileToProcess, workerNumber);
 
                     if (workFlowProcessingResult != null)
                     {
@@ -202,7 +202,7 @@ namespace PassportPDF.Tools.Framework.Business
         }
 
 
-        private WorkflowProcessingResult ProcessWorkflow(PDFApi pdfApiInstance, OperationsWorkflow workflow, FileToProcess fileToProcess, int workerNumber)
+        private WorkflowProcessingResult ProcessWorkflow(PDFApi pdfApiInstance, ImageApi imageApiInstance, OperationsWorkflow workflow, FileToProcess fileToProcess, int workerNumber)
         {
             List<string> warningMessages = new List<string>();
             byte[] producedFileData = null;
@@ -235,6 +235,18 @@ namespace PassportPDF.Tools.Framework.Business
                         remainingTokens = loadDocumentResponse.RemainingTokens.Value;
                         actionError = loadDocumentResponse.Error;
                         fileID = loadDocumentResponse.FileId;
+                        break;
+
+                    case Operation.OperationType.LoadImage:
+                        LoadImageResponse loadImageResponse = HandleLoadImage(imageApiInstance, fileToProcess, workerNumber);
+                        if (loadImageResponse == null)
+                        {
+                            ErrorEventHandler.Invoke(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_invalid_response_received", FrameworkGlobals.ApplicationLanguage), actionName: "Load"));
+                            return null;
+                        }
+                        remainingTokens = loadImageResponse.RemainingTokens.Value;
+                        actionError = loadImageResponse.Error;
+                        fileID = loadImageResponse.FileId;
                         break;
 
                     case Operation.OperationType.ReducePDF:
@@ -348,7 +360,6 @@ namespace PassportPDF.Tools.Framework.Business
 
             try
             {
-                // Load document on remote server
                 PassportPDFParametersUtilities.GetLoadDocumentMultipartParameters(fileToProcess.FileAbsolutePath, outputVersion, out inputFileStream, out string conformance, out string fileName);
 
                 using (FileStream tmpFile = File.Create(Path.GetTempFileName(), 4096, FileOptions.DeleteOnClose))
@@ -363,7 +374,40 @@ namespace PassportPDF.Tools.Framework.Business
                     tmpFile.Seek(0, SeekOrigin.Begin);
                     pdfApiInstance.Configuration.Timeout = FrameworkGlobals.PassportPDFConfiguration.SuggestedClientTimeout;
 
-                    return PassportPDFRequestsUtilities.SendLoadDocumentMultipartRequest(pdfApiInstance, workerNumber, fileToProcess.FileAbsolutePath, fileName, conformance, fileToProcess.Password, tmpFile, "Gzip", UploadOperationStartEventHandler);
+                    return PassportPDFRequestsUtilities.SendLoadPDFMultipartRequest(pdfApiInstance, workerNumber, fileToProcess.FileAbsolutePath, fileName, conformance, fileToProcess.Password, tmpFile, "Gzip", UploadOperationStartEventHandler);
+                }
+            }
+            catch
+            {
+                if (inputFileStream != null)
+                {
+                    inputFileStream.Dispose();
+                }
+                throw;
+            }
+        }
+
+        private LoadImageResponse HandleLoadImage(ImageApi imageApiInstance, FileToProcess fileToProcess, int workerNumber)
+        {
+            FileStream inputFileStream = null;
+
+            try
+            {
+                PassportPDFParametersUtilities.GetLoadImageMultipartParameters(fileToProcess.FileAbsolutePath, out FileStream fileSteam, out string fileName);
+
+                using (FileStream tmpFile = File.Create(Path.GetTempFileName(), 4096, FileOptions.DeleteOnClose))
+                {
+                    using (GZipStream dataStream = new GZipStream(tmpFile, CompressionLevel.Optimal, true))
+                    {
+                        inputFileStream.CopyTo(dataStream);
+                        inputFileStream.Dispose();
+                        inputFileStream = null;
+                    }
+
+                    tmpFile.Seek(0, SeekOrigin.Begin);
+                    imageApiInstance.Configuration.Timeout = FrameworkGlobals.PassportPDFConfiguration.SuggestedClientTimeout;
+
+                    return PassportPDFRequestsUtilities.SendLoadImageMultipartRequest(imageApiInstance, workerNumber, fileToProcess.FileAbsolutePath, fileName, tmpFile, "Gzip", UploadOperationStartEventHandler);
                 }
             }
             catch

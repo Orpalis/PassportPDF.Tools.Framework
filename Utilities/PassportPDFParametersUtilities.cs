@@ -49,6 +49,13 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
+        public static void GetLoadImageMultipartParameters(string inputFileAbsolutePath, out FileStream fileStream, out string fileName)
+        {
+            fileStream = new FileStream(inputFileAbsolutePath, FileMode.Open);
+            fileName = Path.GetFileName(inputFileAbsolutePath);
+        }
+
+
         public static PDFReduceParameters GetReduceParameters(PDFReduceActionConfiguration configuration, string fileID)
         {
             PDFReduceParameters reduceParameters = new PDFReduceParameters(fileID, configuration.OutputVersion,
