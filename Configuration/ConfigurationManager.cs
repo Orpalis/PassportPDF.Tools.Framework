@@ -38,9 +38,13 @@ namespace PassportPDF.Tools.Framework.Configuration
                 {
                     configurationInstance = JsonConvert.DeserializeObject<ReduceActionConfiguration>(File.ReadAllText(configurationFileName));
                 }
-                else //if (configurationType == typeof(OCRActionConfiguration))
+                else if (configurationType == typeof(OCRActionConfiguration))
                 {
                     configurationInstance = JsonConvert.DeserializeObject<OCRActionConfiguration>(File.ReadAllText(configurationFileName));
+                }
+                else //if (configurationType == typeof(SaveAsPDFActionConfiguration))
+                {
+                    configurationInstance = JsonConvert.DeserializeObject<SaveAsPDFActionConfiguration>(File.ReadAllText(configurationFileName));
                 }
 
                 if (configurationInstance == null)
@@ -108,6 +112,12 @@ namespace PassportPDF.Tools.Framework.Configuration
         }
 
 
+        public static SaveAsPDFActionConfiguration ResetDefaultSaveAsPDFActionConfiguration()
+        {
+            return new SaveAsPDFActionConfiguration();
+        }
+
+
         private static object ResetDefaultConfiguration(Type configurationType)
         {
             if (configurationType == typeof(ApplicationConfiguration))
@@ -118,9 +128,13 @@ namespace PassportPDF.Tools.Framework.Configuration
             {
                 return ResetDefaultReduceActionConfiguration();
             }
-            else /*if (configurationType == typeof(OCRActionConfiguration))*/
+            else if (configurationType == typeof(OCRActionConfiguration))
             {
                 return ResetDefaultOCRActionConfiguration();
+            }
+            else //if (configurationType == typeof(SaveAsPDFActionConfiguration))
+            {
+                return ResetDefaultSaveAsPDFActionConfiguration();
             }
         }
     }
