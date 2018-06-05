@@ -18,7 +18,7 @@
 
 namespace PassportPDF.Tools.Framework.Configuration
 {
-    public sealed class OCRActionConfiguration
+    public sealed class PDFOCRActionConfiguration
     {
         public string PageRange { get; set; } = "*";
 

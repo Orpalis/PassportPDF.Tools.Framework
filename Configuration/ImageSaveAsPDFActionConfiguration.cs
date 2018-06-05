@@ -20,7 +20,7 @@ using PassportPDF.Model;
 
 namespace PassportPDF.Tools.Framework.Configuration
 {
-    public sealed class SaveAsPDFActionConfiguration
+    public sealed class ImageSaveAsPDFActionConfiguration
     {
         public ImageSaveAsPDFParameters.ConformanceEnum Conformance { get; set; } = ImageSaveAsPDFParameters.ConformanceEnum.PDF15;
 

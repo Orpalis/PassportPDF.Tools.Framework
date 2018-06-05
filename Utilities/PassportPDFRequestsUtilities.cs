@@ -91,6 +91,37 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
+        public static StringArrayResponse GetSupportedImageFileExtensions()
+        {
+            ImageApi apiInstance = new ImageApi(FrameworkGlobals.API_SERVER_URI);
+
+            Exception e = null;
+            int pauseMs = 5000;
+
+            for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
+            {
+                try
+                {
+                    return apiInstance.GetSupportedImageFileExtensions();
+                }
+                catch (Exception ex)
+                {
+                    if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
+                    {
+                        Thread.Sleep(pauseMs); //marking a pause in case of cnx temporarily out and to avoid overhead.
+                        pauseMs += 2000;
+                    }
+                    else
+                    {//last iteration
+                        e = ex;
+                    }
+                }
+            }
+
+            throw (e);
+        }
+
+
         public static List<string> GetSupportedFileExtensions()
         {
             PDFApi apiInstance = new PDFApi(FrameworkGlobals.API_SERVER_URI);

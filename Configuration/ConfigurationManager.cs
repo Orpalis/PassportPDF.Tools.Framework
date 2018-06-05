@@ -34,17 +34,17 @@ namespace PassportPDF.Tools.Framework.Configuration
                 {
                     configurationInstance = JsonConvert.DeserializeObject<ApplicationConfiguration>(File.ReadAllText(configurationFileName));
                 }
-                else if (configurationType == typeof(ReduceActionConfiguration))
+                else if (configurationType == typeof(PDFReduceActionConfiguration))
                 {
-                    configurationInstance = JsonConvert.DeserializeObject<ReduceActionConfiguration>(File.ReadAllText(configurationFileName));
+                    configurationInstance = JsonConvert.DeserializeObject<PDFReduceActionConfiguration>(File.ReadAllText(configurationFileName));
                 }
-                else if (configurationType == typeof(OCRActionConfiguration))
+                else if (configurationType == typeof(PDFOCRActionConfiguration))
                 {
-                    configurationInstance = JsonConvert.DeserializeObject<OCRActionConfiguration>(File.ReadAllText(configurationFileName));
+                    configurationInstance = JsonConvert.DeserializeObject<PDFOCRActionConfiguration>(File.ReadAllText(configurationFileName));
                 }
-                else //if (configurationType == typeof(SaveAsPDFActionConfiguration))
+                else //if (configurationType == typeof(ImageSaveAsPDFActionConfiguration))
                 {
-                    configurationInstance = JsonConvert.DeserializeObject<SaveAsPDFActionConfiguration>(File.ReadAllText(configurationFileName));
+                    configurationInstance = JsonConvert.DeserializeObject<ImageSaveAsPDFActionConfiguration>(File.ReadAllText(configurationFileName));
                 }
 
                 if (configurationInstance == null)
@@ -100,21 +100,21 @@ namespace PassportPDF.Tools.Framework.Configuration
         }
 
 
-        public static ReduceActionConfiguration ResetDefaultReduceActionConfiguration()
+        public static PDFReduceActionConfiguration ResetDefaultPDFReduceActionConfiguration()
         {
-            return new ReduceActionConfiguration();
+            return new PDFReduceActionConfiguration();
         }
 
 
-        public static OCRActionConfiguration ResetDefaultOCRActionConfiguration()
+        public static PDFOCRActionConfiguration ResetDefaultPDFOCRActionConfiguration()
         {
-            return new OCRActionConfiguration();
+            return new PDFOCRActionConfiguration();
         }
 
 
-        public static SaveAsPDFActionConfiguration ResetDefaultSaveAsPDFActionConfiguration()
+        public static ImageSaveAsPDFActionConfiguration ResetDefaultImageSaveAsPDFActionConfiguration()
         {
-            return new SaveAsPDFActionConfiguration();
+            return new ImageSaveAsPDFActionConfiguration();
         }
 
 
@@ -124,17 +124,17 @@ namespace PassportPDF.Tools.Framework.Configuration
             {
                 return ResetDefaultApplicationConfiguration();
             }
-            else if (configurationType == typeof(ReduceActionConfiguration))
+            else if (configurationType == typeof(PDFReduceActionConfiguration))
             {
-                return ResetDefaultReduceActionConfiguration();
+                return ResetDefaultPDFReduceActionConfiguration();
             }
-            else if (configurationType == typeof(OCRActionConfiguration))
+            else if (configurationType == typeof(PDFOCRActionConfiguration))
             {
-                return ResetDefaultOCRActionConfiguration();
+                return ResetDefaultPDFOCRActionConfiguration();
             }
-            else //if (configurationType == typeof(SaveAsPDFActionConfiguration))
+            else //if (configurationType == typeof(ImageSaveAsPDFActionConfiguration))
             {
-                return ResetDefaultSaveAsPDFActionConfiguration();
+                return ResetDefaultImageSaveAsPDFActionConfiguration();
             }
         }
     }

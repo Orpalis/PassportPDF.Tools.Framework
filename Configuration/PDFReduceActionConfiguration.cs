@@ -20,7 +20,7 @@ using PassportPDF.Model;
 
 namespace PassportPDF.Tools.Framework.Configuration
 {
-    public sealed class ReduceActionConfiguration
+    public sealed class PDFReduceActionConfiguration
     {
         public PDFReduceParameters.OutputVersionEnum OutputVersion { get; set; } = PDFReduceParameters.OutputVersionEnum.PdfVersion15;
         public PDFReduceParameters.ImageQualityEnum ImageQuality { get; set; } = PDFReduceParameters.ImageQualityEnum.ImageQualityMedium;

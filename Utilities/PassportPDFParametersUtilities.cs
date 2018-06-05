@@ -49,7 +49,7 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
-        public static PDFReduceParameters GetReduceParameters(ReduceActionConfiguration configuration, string fileID)
+        public static PDFReduceParameters GetReduceParameters(PDFReduceActionConfiguration configuration, string fileID)
         {
             PDFReduceParameters reduceParameters = new PDFReduceParameters(fileID, configuration.OutputVersion,
                 configuration.ImageQuality, configuration.RecompressImages, configuration.EnableColorDetection,
@@ -62,7 +62,7 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
-        public static PDFOCRParameters GetOCRParameters(OCRActionConfiguration configuration, string fileID)
+        public static PDFOCRParameters GetOCRParameters(PDFOCRActionConfiguration configuration, string fileID)
         {
             PDFOCRParameters ocrParameters = new PDFOCRParameters(fileID, configuration.PageRange, configuration.OCRLanguage, configuration.SkipPagesWithText);
 

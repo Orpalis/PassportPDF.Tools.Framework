@@ -25,26 +25,38 @@ namespace PassportPDF.Tools.Framework.Utilities
 {
     public static class OperationsWorkflowUtilities
     {
-        public static OperationsWorkflow CreatePDFReductionWorkflow(ReduceActionConfiguration reduceActionConfiguration)
+        public static OperationsWorkflow CreatePDFReductionWorkflow(PDFReduceActionConfiguration reduceActionConfiguration)
         {
             List<Operation> actionsToBePerformed = new List<Operation>
             {
-                new Operation(Operation.OperationType.Load, reduceActionConfiguration.OutputVersion),
-                new Operation(Operation.OperationType.Reduce, reduceActionConfiguration),
-                new Operation(Operation.OperationType.Save)
+                new Operation(Operation.OperationType.LoadPDF, reduceActionConfiguration.OutputVersion),
+                new Operation(Operation.OperationType.ReducePDF, reduceActionConfiguration),
+                new Operation(Operation.OperationType.SavePDF)
             };
 
             return new OperationsWorkflow(actionsToBePerformed);
         }
 
 
-        public static OperationsWorkflow CreatePDFOCRWorkflow(OCRActionConfiguration ocrActionConfiguration)
+        public static OperationsWorkflow CreatePDFOCRWorkflow(PDFOCRActionConfiguration ocrActionConfiguration)
         {
             List<Operation> actionsToBePerformed = new List<Operation>
             {
-                new Operation(Operation.OperationType.Load, OutputVersionEnum.PdfVersionRetainExisting),
-                new Operation(Operation.OperationType.OCR, ocrActionConfiguration),
-                new Operation(Operation.OperationType.Save)
+                new Operation(Operation.OperationType.LoadPDF, OutputVersionEnum.PdfVersionRetainExisting),
+                new Operation(Operation.OperationType.OCRPDF, ocrActionConfiguration),
+                new Operation(Operation.OperationType.SavePDF)
+            };
+
+            return new OperationsWorkflow(actionsToBePerformed);
+        }
+
+
+        public static OperationsWorkflow CreateImageToPDFMRCWorkflow(ImageSaveAsPDFActionConfiguration saveAsPdfActionConfiguration)
+        {
+            List<Operation> actionsToBePerformed = new List<Operation>
+            {
+                new Operation(Operation.OperationType.LoadPDF, OutputVersionEnum.PdfVersionRetainExisting),
+                new Operation(Operation.OperationType.SaveImageAsPDF, saveAsPdfActionConfiguration)
             };
 
             return new OperationsWorkflow(actionsToBePerformed);
@@ -55,7 +67,7 @@ namespace PassportPDF.Tools.Framework.Utilities
         {
             foreach (var operation in operationsWorkflow.OperationsToBePerformed)
             {
-                if (operation.Type == Operation.OperationType.Reduce)
+                if (operation.Type == Operation.OperationType.ReducePDF)
                 {
                     return true;
                 }

@@ -61,6 +61,7 @@ namespace PassportPDF.Tools.Framework.Business
         public WorkerWorkCompletionDelegate WorkerWorkCompletionEventHandler;
         public OperationsCompletionDelegate OperationsCompletionEventHandler;
 
+
         public void Feed(List<FileToProcess> filesToProcess)
         {
             lock (_locker)
@@ -77,9 +78,7 @@ namespace PassportPDF.Tools.Framework.Business
                 _cancellationPending = false;
             }
 
-            PDFApi apiInstance = new PDFApi(FrameworkGlobals.API_SERVER_URI);
-            apiInstance.Configuration.AddDefaultHeader("X-PassportPDF-API-Key", apiKey);
-            apiInstance.Configuration.Timeout = FrameworkGlobals.PassportPDFConfiguration.SuggestedClientTimeout;
+            InitializeApiInstances(out PDFApi pdfApiInstance, out ImageApi imageApiInstance, apiKey);
 
             destinationFolder = ParsingUtils.EnsureFolderPathEndsWithBackSlash(destinationFolder);
 
@@ -89,7 +88,7 @@ namespace PassportPDF.Tools.Framework.Business
             {
                 int workerNumber = i;
                 // Launch the workers.
-                Thread thread = new Thread(() => Process(apiInstance, workerNumber, fileProductionRules, workflow, destinationFolder, fileSizeReductionIsIntended));
+                Thread thread = new Thread(() => Process(pdfApiInstance, workerNumber, fileProductionRules, workflow, destinationFolder, fileSizeReductionIsIntended));
                 thread.Start();
                 _busyWorkersCount++;
             }
@@ -139,7 +138,18 @@ namespace PassportPDF.Tools.Framework.Business
         }
 
 
-        private void Process(PDFApi apiInstance, int workerNumber, FileProductionRules fileProductionRules, OperationsWorkflow workflow, string destinationFolder, bool fileSizeReductionIsIntended)
+        private void InitializeApiInstances(out PDFApi pdfApiInstance, out ImageApi imageApiInstance, string apiKey)
+        {
+            pdfApiInstance = new PDFApi(FrameworkGlobals.API_SERVER_URI);
+            pdfApiInstance.Configuration.AddDefaultHeader("X-PassportPDF-API-Key", apiKey);
+            pdfApiInstance.Configuration.Timeout = FrameworkGlobals.PassportPDFConfiguration.SuggestedClientTimeout;
+            imageApiInstance = new ImageApi(FrameworkGlobals.API_SERVER_URI);
+            imageApiInstance.Configuration.AddDefaultHeader("X-PassportPDF-API-Key", apiKey);
+            imageApiInstance.Configuration.Timeout = FrameworkGlobals.PassportPDFConfiguration.SuggestedClientTimeout;
+        }
+
+
+        private void Process(PDFApi pdfApiInstance, int workerNumber, FileProductionRules fileProductionRules, OperationsWorkflow workflow, string destinationFolder, bool fileSizeReductionIsIntended)
         {
             while (PickFile(out FileToProcess fileToProcess))
             {
@@ -158,7 +168,7 @@ namespace PassportPDF.Tools.Framework.Business
                         continue;
                     }
 
-                    WorkflowProcessingResult workFlowProcessingResult = ProcessWorkflow(apiInstance, workflow, fileToProcess, workerNumber);
+                    WorkflowProcessingResult workFlowProcessingResult = ProcessWorkflow(pdfApiInstance, workflow, fileToProcess, workerNumber);
 
                     if (workFlowProcessingResult != null)
                     {
@@ -192,7 +202,7 @@ namespace PassportPDF.Tools.Framework.Business
         }
 
 
-        private WorkflowProcessingResult ProcessWorkflow(PDFApi apiInstance, OperationsWorkflow workflow, FileToProcess fileToProcess, int workerNumber)
+        private WorkflowProcessingResult ProcessWorkflow(PDFApi pdfApiInstance, OperationsWorkflow workflow, FileToProcess fileToProcess, int workerNumber)
         {
             List<string> warningMessages = new List<string>();
             byte[] producedFileData = null;
@@ -214,9 +224,9 @@ namespace PassportPDF.Tools.Framework.Business
 
                 switch (operation.Type)
                 {
-                    case Operation.OperationType.Load:
+                    case Operation.OperationType.LoadPDF:
                         PDFReduceParameters.OutputVersionEnum outputVersion = (PDFReduceParameters.OutputVersionEnum)operation.Parameters;
-                        PDFLoadDocumentResponse loadDocumentResponse = HandleLoadDocument(apiInstance, outputVersion, fileToProcess, workerNumber);
+                        PDFLoadDocumentResponse loadDocumentResponse = HandleLoadPDF(pdfApiInstance, outputVersion, fileToProcess, workerNumber);
                         if (loadDocumentResponse == null)
                         {
                             ErrorEventHandler.Invoke(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_invalid_response_received", FrameworkGlobals.ApplicationLanguage), actionName: "Load"));
@@ -227,9 +237,9 @@ namespace PassportPDF.Tools.Framework.Business
                         fileID = loadDocumentResponse.FileId;
                         break;
 
-                    case Operation.OperationType.Reduce:
-                        ReduceActionConfiguration reduceActionConfiguration = (ReduceActionConfiguration)operation.Parameters;
-                        PDFReduceResponse reduceResponse = HandleReduceDocument(apiInstance, reduceActionConfiguration, fileToProcess, fileID, workerNumber, warningMessages);
+                    case Operation.OperationType.ReducePDF:
+                        PDFReduceActionConfiguration reduceActionConfiguration = (PDFReduceActionConfiguration)operation.Parameters;
+                        PDFReduceResponse reduceResponse = HandleReducePDF(pdfApiInstance, reduceActionConfiguration, fileToProcess, fileID, workerNumber, warningMessages);
                         if (reduceResponse == null)
                         {
                             ErrorEventHandler.Invoke(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_invalid_response_received", FrameworkGlobals.ApplicationLanguage), actionName: "Reduce"));
@@ -243,9 +253,9 @@ namespace PassportPDF.Tools.Framework.Business
                         linearized = reduceActionConfiguration.FastWebView;
                         break;
 
-                    case Operation.OperationType.OCR:
-                        OCRActionConfiguration ocrActionConfiguration = (OCRActionConfiguration)operation.Parameters;
-                        PDFOCRResponse ocrResponse = HandleOCRDocument(apiInstance, ocrActionConfiguration, fileToProcess, fileID, workerNumber);
+                    case Operation.OperationType.OCRPDF:
+                        PDFOCRActionConfiguration ocrActionConfiguration = (PDFOCRActionConfiguration)operation.Parameters;
+                        PDFOCRResponse ocrResponse = HandleOCRPDF(pdfApiInstance, ocrActionConfiguration, fileToProcess, fileID, workerNumber);
                         if (ocrResponse == null)
                         {
                             ErrorEventHandler.Invoke(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_invalid_response_received", FrameworkGlobals.ApplicationLanguage), actionName: "OCR"));
@@ -255,8 +265,8 @@ namespace PassportPDF.Tools.Framework.Business
                         actionError = ocrResponse.Error;
                         break;
 
-                    case Operation.OperationType.Save:
-                        PDFSaveDocumentResponse saveDocumentResponse = HandleSaveDocument(apiInstance, fileToProcess, fileID, workerNumber);
+                    case Operation.OperationType.SavePDF:
+                        PDFSaveDocumentResponse saveDocumentResponse = HandleSavePDF(pdfApiInstance, fileToProcess, fileID, workerNumber);
                         if (saveDocumentResponse == null)
                         {
                             ErrorEventHandler.Invoke(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_invalid_response_received", FrameworkGlobals.ApplicationLanguage), actionName: "Save"));
@@ -273,7 +283,7 @@ namespace PassportPDF.Tools.Framework.Business
                 {
                     if (fileID != null)
                     {
-                        TryCloseDocumentAsync(apiInstance, fileID);
+                        TryCloseDocumentAsync(pdfApiInstance, fileID);
                     }
                     string errorMessage = reduceErrorInfo != null && reduceErrorInfo.ErrorCode != ReduceErrorInfo.ErrorCodeEnum.OK ? ErrorManager.GetMessageFromReduceActionError(reduceErrorInfo, fileToProcess.FileAbsolutePath) : ErrorManager.GetMessageFromPassportPDFError(actionError, operation.Type, fileToProcess.FileAbsolutePath);
                     ErrorEventHandler.Invoke(errorMessage);
@@ -287,7 +297,7 @@ namespace PassportPDF.Tools.Framework.Business
 
             if (fileID != null)
             {
-                TryCloseDocumentAsync(apiInstance, fileID);
+                TryCloseDocumentAsync(pdfApiInstance, fileID);
             }
 
             return producedFileData != null ? new WorkflowProcessingResult(contentRemoved, versionChanged, linearized, fileID, producedFileData, warningMessages) : null;
@@ -332,7 +342,7 @@ namespace PassportPDF.Tools.Framework.Business
         }
 
 
-        private PDFLoadDocumentResponse HandleLoadDocument(PDFApi apiInstance, PDFReduceParameters.OutputVersionEnum outputVersion, FileToProcess fileToProcess, int workerNumber)
+        private PDFLoadDocumentResponse HandleLoadPDF(PDFApi pdfApiInstance, PDFReduceParameters.OutputVersionEnum outputVersion, FileToProcess fileToProcess, int workerNumber)
         {
             FileStream inputFileStream = null;
 
@@ -351,9 +361,9 @@ namespace PassportPDF.Tools.Framework.Business
                     }
 
                     tmpFile.Seek(0, SeekOrigin.Begin);
-                    apiInstance.Configuration.Timeout = FrameworkGlobals.PassportPDFConfiguration.SuggestedClientTimeout;
+                    pdfApiInstance.Configuration.Timeout = FrameworkGlobals.PassportPDFConfiguration.SuggestedClientTimeout;
 
-                    return PassportPDFRequestsUtilities.SendLoadDocumentMultipartRequest(apiInstance, workerNumber, fileToProcess.FileAbsolutePath, fileName, conformance, fileToProcess.Password, tmpFile, "Gzip", UploadOperationStartEventHandler);
+                    return PassportPDFRequestsUtilities.SendLoadDocumentMultipartRequest(pdfApiInstance, workerNumber, fileToProcess.FileAbsolutePath, fileName, conformance, fileToProcess.Password, tmpFile, "Gzip", UploadOperationStartEventHandler);
                 }
             }
             catch
@@ -367,10 +377,10 @@ namespace PassportPDF.Tools.Framework.Business
         }
 
 
-        private PDFReduceResponse HandleReduceDocument(PDFApi apiInstance, ReduceActionConfiguration reduceActionConfiguration, FileToProcess fileToProcess, string fileID, int workerNumber, List<string> warnings)
+        private PDFReduceResponse HandleReducePDF(PDFApi pdfApiInstance, PDFReduceActionConfiguration reduceActionConfiguration, FileToProcess fileToProcess, string fileID, int workerNumber, List<string> warnings)
         {
             PDFReduceParameters reduceParameters = PassportPDFParametersUtilities.GetReduceParameters(reduceActionConfiguration, fileID);
-            PDFReduceResponse reduceResponse = PassportPDFRequestsUtilities.SendReduceRequest(apiInstance, reduceParameters, workerNumber, fileToProcess.FileAbsolutePath, FileOperationStartEventHandler);
+            PDFReduceResponse reduceResponse = PassportPDFRequestsUtilities.SendReduceRequest(pdfApiInstance, reduceParameters, workerNumber, fileToProcess.FileAbsolutePath, FileOperationStartEventHandler);
 
             if (reduceResponse.WarningsInfo != null)
             {
@@ -384,24 +394,24 @@ namespace PassportPDF.Tools.Framework.Business
         }
 
 
-        private PDFOCRResponse HandleOCRDocument(PDFApi apiInstance, OCRActionConfiguration ocrActionConfiguration, FileToProcess fileToProcess, string fileID, int workerNumber)
+        private PDFOCRResponse HandleOCRPDF(PDFApi pdfApiInstance, PDFOCRActionConfiguration ocrActionConfiguration, FileToProcess fileToProcess, string fileID, int workerNumber)
         {
             PDFOCRParameters ocrParameters = PassportPDFParametersUtilities.GetOCRParameters(ocrActionConfiguration, fileID);
-            PDFOCRResponse ocrResponse = PassportPDFRequestsUtilities.SendOCRRequest(apiInstance, ocrParameters, workerNumber, fileToProcess.FileAbsolutePath, FileOperationStartEventHandler);
+            PDFOCRResponse ocrResponse = PassportPDFRequestsUtilities.SendOCRRequest(pdfApiInstance, ocrParameters, workerNumber, fileToProcess.FileAbsolutePath, FileOperationStartEventHandler);
 
             return ocrResponse;
         }
 
 
-        private PDFSaveDocumentResponse HandleSaveDocument(PDFApi apiInstance, FileToProcess fileToProcess, string fileID, int workerNumber)
+        private PDFSaveDocumentResponse HandleSavePDF(PDFApi pdfApiInstance, FileToProcess fileToProcess, string fileID, int workerNumber)
         {
             PDFSaveDocumentParameters saveDocumentParameters = PassportPDFParametersUtilities.GetSaveDocumentParameters(fileID);
 
-            return PassportPDFRequestsUtilities.SendSaveDocumentRequest(apiInstance, saveDocumentParameters, workerNumber, fileToProcess.FileAbsolutePath, DownloadOperationStartEventHandler);
+            return PassportPDFRequestsUtilities.SendSaveDocumentRequest(pdfApiInstance, saveDocumentParameters, workerNumber, fileToProcess.FileAbsolutePath, DownloadOperationStartEventHandler);
         }
 
 
-        private static async void TryCloseDocumentAsync(PDFApi apiInstance, string fileID)
+        private static async void TryCloseDocumentAsync(PDFApi pdfApiInstance, string fileID)
         {
             if (string.IsNullOrWhiteSpace(fileID))
             {
@@ -412,7 +422,7 @@ namespace PassportPDF.Tools.Framework.Business
 
             try
             {
-                await apiInstance.ClosePDFAsync(closeDocumentParameters); //we do not want to stop the process by waiting such response.
+                await pdfApiInstance.ClosePDFAsync(closeDocumentParameters); //we do not want to stop the process by waiting such response.
             }
             catch
             {
