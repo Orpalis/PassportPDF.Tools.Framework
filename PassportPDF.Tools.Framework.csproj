@@ -11,7 +11,7 @@
     <PackageProjectUrl>http://www.passportpdf.com</PackageProjectUrl>
     <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <Copyright>Copyright © 2018 ORPALIS - http://www.orpalis.com</Copyright>
-    <Version>1.0.17</Version>
+    <Version>1.0.18</Version>
   </PropertyGroup>
 
   <ItemGroup>
