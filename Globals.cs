@@ -70,7 +70,8 @@ namespace PassportPDF.Tools.Framework
         {
             PassportPDFConfiguration = new PassportPDFConfiguration(
                 PassportPDFRequestsUtilities.GetMaxClientThreads(appId),
-                PassportPDFRequestsUtilities.GetSupportedFileExtensions().ToArray(),
+                PassportPDFRequestsUtilities.GetPdfApiSupportedFileExtensions(),
+                PassportPDFRequestsUtilities.GetImageApiSupportedFileExtensions(),
                 PassportPDFRequestsUtilities.GetSuggestedClientTimeout(),
                 PassportPDFRequestsUtilities.GetMaxAllowedContentLength());
         }

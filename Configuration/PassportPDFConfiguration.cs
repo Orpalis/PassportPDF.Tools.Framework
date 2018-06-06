@@ -21,14 +21,21 @@ namespace PassportPDF.Tools.Framework.Configuration
     public sealed class PassportPDFConfiguration
     {
         public int SuggestedMaxClientThreads { get; }
-        public string[] SupportedFormatsExtensions { get; }
+
+        public string[] PdfApiSupportedFileFormatExtensions { get; }
+
+        public string[] ImageApiSupportedFileFormatExtensions { get; }
+
         public int SuggestedClientTimeout { get; }
+
         public long MaxAllowedContentLength { get; }
 
-        public PassportPDFConfiguration(int suggestedMaxClientThreads, string[] supportedFormatsExtensions, int suggestedClientTimeout, long maxAllowedContentLength)
+
+        public PassportPDFConfiguration(int suggestedMaxClientThreads, string[] pdfApiSupportedFileFormatExtensions, string[] imageApiFileFormatExtensions, int suggestedClientTimeout, long maxAllowedContentLength)
         {
             SuggestedMaxClientThreads = suggestedMaxClientThreads;
-            SupportedFormatsExtensions = supportedFormatsExtensions;
+            PdfApiSupportedFileFormatExtensions = pdfApiSupportedFileFormatExtensions;
+            ImageApiSupportedFileFormatExtensions = imageApiFileFormatExtensions;
             SuggestedClientTimeout = suggestedClientTimeout;
             MaxAllowedContentLength = maxAllowedContentLength;
         }

@@ -28,7 +28,7 @@ namespace PassportPDF.Tools.Framework.Configuration
         public ImageSaveAsPDFParameters.ColorImageCompressionEnum ColorImageCompression { get; set; } = ImageSaveAsPDFParameters.ColorImageCompressionEnum.JPEG;
 
 
-        public ImageSaveAsPDFParameters.ColorImageCompressionEnum BitonalImageCompression { get; set; } = ImageSaveAsPDFParameters.ColorImageCompressionEnum.JBIG2;
+        public ImageSaveAsPDFParameters.BitonalImageCompressionEnum BitonalImageCompression { get; set; } = ImageSaveAsPDFParameters.BitonalImageCompressionEnum.JBIG2;
 
 
         public ImageSaveAsPDFParameters.AdvancedImageCompressionEnum AdvancedImageCompression { get; set; } = ImageSaveAsPDFParameters.AdvancedImageCompressionEnum.None;

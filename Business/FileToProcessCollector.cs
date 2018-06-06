@@ -26,7 +26,7 @@ namespace PassportPDF.Tools.Framework.Business
 {
     public static class FileToProcessCollector
     {
-        public static CollectionOperationResult ProceedToFileCollection(string sourceInput, string destinationFolder)
+        public static CollectionOperationResult ProceedToFileCollection(string sourceInput, string destinationFolder, string[] supportedFileExtensions)
         {
             if (!IsSourceInputValid(sourceInput))
             {
@@ -38,24 +38,23 @@ namespace PassportPDF.Tools.Framework.Business
                 return GetOperationsPreparationResult(OperationsPreparationResultType.UnfullfiledWithError, FrameworkGlobals.MessagesLocalizer.GetString("invalidSourceFile", FrameworkGlobals.ApplicationLanguage));
             }
 
-            return ProceedToFileCollection(data, destinationFolder, inputIsFolder);
+            return ProceedToFileCollection(data, destinationFolder, supportedFileExtensions, inputIsFolder);
         }
 
 
-        public static CollectionOperationResult ProceedToFileCollection(string[] data, string destinationFolder, bool inputIsFolder)
+        public static CollectionOperationResult ProceedToFileCollection(string[] data, string destinationFolder, string[] supportedFileExtensions, bool inputIsFolder)
         {
-            List<FileToProcess> collectedFiles;
-
-            destinationFolder = ParsingUtils.EnsureFolderPathEndsWithBackSlash(destinationFolder);
-
             if (!IsDestinationFolderValid(destinationFolder))
             {
                 return GetOperationsPreparationResult(OperationsPreparationResultType.UnfullfiledWithError, FrameworkGlobals.MessagesLocalizer.GetString("outputFolderNoExists", FrameworkGlobals.ApplicationLanguage));
             }
+            destinationFolder = ParsingUtils.EnsureFolderPathEndsWithBackSlash(destinationFolder);
+
+            List<FileToProcess> collectedFiles;
 
             try
             {
-                collectedFiles = FileUtils.CollectFiles(data, FrameworkGlobals.ApplicationConfiguration.ProcessSubFolders, inputIsFolder, ParsingUtils.ParseInputFileExtensions(FrameworkGlobals.ApplicationConfiguration.InputFileFormats, FrameworkGlobals.PassportPDFConfiguration.SupportedFormatsExtensions, FrameworkGlobals.ApplicationConfiguration.OnlyProcessPDF));
+                collectedFiles = FileUtils.CollectFiles(data, FrameworkGlobals.ApplicationConfiguration.ProcessSubFolders, inputIsFolder, ParsingUtils.ParseInputFileExtensions(FrameworkGlobals.ApplicationConfiguration.InputFileFormats, supportedFileExtensions, FrameworkGlobals.ApplicationConfiguration.OnlyProcessPDF));
             }
             catch (Exception exception)
             {

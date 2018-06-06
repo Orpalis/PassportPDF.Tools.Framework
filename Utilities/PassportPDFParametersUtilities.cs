@@ -19,6 +19,7 @@
 using System.IO;
 using PassportPDF.Model;
 using PassportPDF.Tools.Framework.Configuration;
+using static PassportPDF.Model.ImageSaveAsPDFParameters;
 
 namespace PassportPDF.Tools.Framework.Utilities
 {
@@ -31,19 +32,24 @@ namespace PassportPDF.Tools.Framework.Utilities
                 case PDFReduceParameters.OutputVersionEnum.PdfVersion14:
                     conformance = "PDF14";
                     break;
+
                 case PDFReduceParameters.OutputVersionEnum.PdfVersion15:
                     conformance = "PDF15";
                     break;
+
                 case PDFReduceParameters.OutputVersionEnum.PdfVersion16:
                     conformance = "PDF16";
                     break;
+
                 case PDFReduceParameters.OutputVersionEnum.PdfVersion17:
                     conformance = "PDF17";
                     break;
+
                 default:
                     conformance = "PDF15";
                     break;
             }
+
             fileStream = new FileStream(inputFileAbsolutePath, FileMode.Open);
             fileName = Path.GetFileName(inputFileAbsolutePath);
         }
@@ -56,9 +62,9 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
-        public static PDFReduceParameters GetReduceParameters(PDFReduceActionConfiguration configuration, string fileID)
+        public static PDFReduceParameters GetReduceParameters(PDFReduceActionConfiguration configuration, string fileId)
         {
-            PDFReduceParameters reduceParameters = new PDFReduceParameters(fileID, configuration.OutputVersion,
+            PDFReduceParameters reduceParameters = new PDFReduceParameters(fileId, configuration.OutputVersion,
                 configuration.ImageQuality, configuration.RecompressImages, configuration.EnableColorDetection,
                 configuration.PackDocument, configuration.PackFonts, configuration.DownscaleImages, configuration.DownscaleResolution,
                 configuration.FastWebView, configuration.RemoveFormFields, configuration.RemoveAnnotations,
@@ -69,17 +75,23 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
-        public static PDFOCRParameters GetOCRParameters(PDFOCRActionConfiguration configuration, string fileID)
+        public static PDFOCRParameters GetOCRParameters(PDFOCRActionConfiguration configuration, string fileId)
         {
-            PDFOCRParameters ocrParameters = new PDFOCRParameters(fileID, configuration.PageRange, configuration.OCRLanguage, configuration.SkipPagesWithText);
+            PDFOCRParameters ocrParameters = new PDFOCRParameters(fileId, configuration.PageRange, configuration.OCRLanguage, configuration.SkipPagesWithText);
 
             return ocrParameters;
         }
 
 
-        public static PDFSaveDocumentParameters GetSaveDocumentParameters(string fileID)
+        public static PDFSaveDocumentParameters GetSaveDocumentParameters(string fileId)
         {
-            return new PDFSaveDocumentParameters(fileID);
+            return new PDFSaveDocumentParameters(fileId);
+        }
+
+
+        public static ImageSaveAsPDFParameters GetImageSaveAsPDFParameters(string fileId, string pageRange, ConformanceEnum conformance, ColorImageCompressionEnum colorImageCompression, BitonalImageCompressionEnum bitonalImageCompression, AdvancedImageCompressionEnum advancedImageCompression, int imageQuality, int downscaleResolution, bool fastWebView)
+        {
+            return new ImageSaveAsPDFParameters(fileId, pageRange, conformance, colorImageCompression, bitonalImageCompression, advancedImageCompression, imageQuality, downscaleResolution, fastWebView);
         }
     }
 }

@@ -288,6 +288,14 @@ namespace PassportPDF.Tools.Framework.Business
                         actionError = saveDocumentResponse.Error;
                         producedFileData = saveDocumentResponse.Data;
                         break;
+
+                    case Operation.OperationType.SaveImageAsPDF:
+                        ImageSaveAsPDFActionConfiguration imageSaveAsPdfActionConfiguration = (ImageSaveAsPDFActionConfiguration)operation.Parameters;
+                        ImageSaveAsPDFResponse imageSaveAsPdfResponse = HandleSaveImageAsPDF(imageApiInstance, imageSaveAsPdfActionConfiguration, fileToProcess, fileID, workerNumber);
+                        remainingTokens = imageSaveAsPdfResponse.RemainingTokens.Value;
+                        actionError = imageSaveAsPdfResponse.Error;
+                        producedFileData = imageSaveAsPdfResponse.PdfData;
+                        break;
                 }
 
 
@@ -387,13 +395,14 @@ namespace PassportPDF.Tools.Framework.Business
             }
         }
 
+
         private LoadImageResponse HandleLoadImage(ImageApi imageApiInstance, FileToProcess fileToProcess, int workerNumber)
         {
             FileStream inputFileStream = null;
 
             try
             {
-                PassportPDFParametersUtilities.GetLoadImageMultipartParameters(fileToProcess.FileAbsolutePath, out FileStream fileSteam, out string fileName);
+                PassportPDFParametersUtilities.GetLoadImageMultipartParameters(fileToProcess.FileAbsolutePath, out inputFileStream, out string fileName);
 
                 using (FileStream tmpFile = File.Create(Path.GetTempFileName(), 4096, FileOptions.DeleteOnClose))
                 {
@@ -421,9 +430,9 @@ namespace PassportPDF.Tools.Framework.Business
         }
 
 
-        private PDFReduceResponse HandleReducePDF(PDFApi pdfApiInstance, PDFReduceActionConfiguration reduceActionConfiguration, FileToProcess fileToProcess, string fileID, int workerNumber, List<string> warnings)
+        private PDFReduceResponse HandleReducePDF(PDFApi pdfApiInstance, PDFReduceActionConfiguration actionConfiguration, FileToProcess fileToProcess, string fileID, int workerNumber, List<string> warnings)
         {
-            PDFReduceParameters reduceParameters = PassportPDFParametersUtilities.GetReduceParameters(reduceActionConfiguration, fileID);
+            PDFReduceParameters reduceParameters = PassportPDFParametersUtilities.GetReduceParameters(actionConfiguration, fileID);
             PDFReduceResponse reduceResponse = PassportPDFRequestsUtilities.SendReduceRequest(pdfApiInstance, reduceParameters, workerNumber, fileToProcess.FileAbsolutePath, FileOperationStartEventHandler);
 
             if (reduceResponse.WarningsInfo != null)
@@ -438,9 +447,9 @@ namespace PassportPDF.Tools.Framework.Business
         }
 
 
-        private PDFOCRResponse HandleOCRPDF(PDFApi pdfApiInstance, PDFOCRActionConfiguration ocrActionConfiguration, FileToProcess fileToProcess, string fileID, int workerNumber)
+        private PDFOCRResponse HandleOCRPDF(PDFApi pdfApiInstance, PDFOCRActionConfiguration actionConfiguration, FileToProcess fileToProcess, string fileID, int workerNumber)
         {
-            PDFOCRParameters ocrParameters = PassportPDFParametersUtilities.GetOCRParameters(ocrActionConfiguration, fileID);
+            PDFOCRParameters ocrParameters = PassportPDFParametersUtilities.GetOCRParameters(actionConfiguration, fileID);
             PDFOCRResponse ocrResponse = PassportPDFRequestsUtilities.SendOCRRequest(pdfApiInstance, ocrParameters, workerNumber, fileToProcess.FileAbsolutePath, FileOperationStartEventHandler);
 
             return ocrResponse;
@@ -452,6 +461,14 @@ namespace PassportPDF.Tools.Framework.Business
             PDFSaveDocumentParameters saveDocumentParameters = PassportPDFParametersUtilities.GetSaveDocumentParameters(fileID);
 
             return PassportPDFRequestsUtilities.SendSaveDocumentRequest(pdfApiInstance, saveDocumentParameters, workerNumber, fileToProcess.FileAbsolutePath, DownloadOperationStartEventHandler);
+        }
+
+
+        private ImageSaveAsPDFResponse HandleSaveImageAsPDF(ImageApi imageApiInstance, ImageSaveAsPDFActionConfiguration actionConfiguration, FileToProcess fileToProcess, string fileID, int workerNumber)
+        {
+            ImageSaveAsPDFParameters saveAsPdfParameters = PassportPDFParametersUtilities.GetImageSaveAsPDFParameters(fileID, "*", actionConfiguration.Conformance, actionConfiguration.ColorImageCompression, actionConfiguration.BitonalImageCompression, actionConfiguration.AdvancedImageCompression, actionConfiguration.ImageQuality, actionConfiguration.DownscaleResolution, actionConfiguration.FastWebView);
+
+            return PassportPDFRequestsUtilities.SendSaveImageAsPDFRequest(imageApiInstance, saveAsPdfParameters, workerNumber, fileToProcess.FileAbsolutePath, DownloadOperationStartEventHandler);
         }
 
 

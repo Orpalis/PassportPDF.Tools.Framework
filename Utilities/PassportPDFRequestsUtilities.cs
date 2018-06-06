@@ -71,7 +71,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             {
                 try
                 {
-                    return passportPDFApplicationManagerApi.GetMaxClientThreads(appId).Value.Value;
+                    return Math.Max(passportPDFApplicationManagerApi.GetMaxClientThreads(appId).Value.Value, 1);
                 }
                 catch (Exception ex)
                 {
@@ -91,7 +91,7 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
-        public static StringArrayResponse GetSupportedImageFileExtensions()
+        public static string[] GetImageApiSupportedFileExtensions()
         {
             ImageApi apiInstance = new ImageApi(FrameworkGlobals.API_SERVER_URI);
 
@@ -102,7 +102,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             {
                 try
                 {
-                    return apiInstance.GetSupportedImageFileExtensions();
+                    return apiInstance.GetSupportedImageFileExtensions().Value.ToArray();
                 }
                 catch (Exception ex)
                 {
@@ -122,7 +122,7 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
-        public static List<string> GetSupportedFileExtensions()
+        public static string[] GetPdfApiSupportedFileExtensions()
         {
             PDFApi apiInstance = new PDFApi(FrameworkGlobals.API_SERVER_URI);
 
@@ -133,7 +133,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             {
                 try
                 {
-                    return apiInstance.GetPDFImportSupportedFileExtensions().Value;
+                    return apiInstance.GetPDFImportSupportedFileExtensions().Value.ToArray();
                 }
                 catch (Exception ex)
                 {
@@ -321,6 +321,37 @@ namespace PassportPDF.Tools.Framework.Utilities
                 try
                 {
                     PDFSaveDocumentResponse response = apiInstance.SaveDocument(saveDocumentParameters);
+
+                    return response;
+                }
+                catch (Exception ex)
+                {
+                    if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
+                    {
+                        Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
+                        pausems += 2000;
+                    }
+                    else
+                    {//last iteration
+                        e = ex;
+                    }
+                }
+            }
+
+            throw (e);
+        }
+
+        public static ImageSaveAsPDFResponse SendSaveImageAsPDFRequest(ImageApi apiInstance, ImageSaveAsPDFParameters imageSaveAsPdfParameters, int workerNumber, string inputFilePath, OperationsManager.ProgressDelegate downloadOperationStartEventHandler)
+        {
+            Exception e = null;
+            int pausems = 5000;
+
+            for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
+            {
+                downloadOperationStartEventHandler.Invoke(workerNumber, inputFilePath, i);
+                try
+                {
+                    ImageSaveAsPDFResponse response = apiInstance.SaveAsPDF(imageSaveAsPdfParameters);
 
                     return response;
                 }
