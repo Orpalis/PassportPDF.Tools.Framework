@@ -466,7 +466,7 @@ namespace PassportPDF.Tools.Framework.Business
 
         private ImageSaveAsPDFResponse HandleSaveImageAsPDF(ImageApi imageApiInstance, ImageSaveAsPDFActionConfiguration actionConfiguration, FileToProcess fileToProcess, string fileID, int workerNumber)
         {
-            ImageSaveAsPDFParameters saveAsPdfParameters = PassportPDFParametersUtilities.GetImageSaveAsPDFParameters(fileID, "*", actionConfiguration.Conformance, actionConfiguration.ColorImageCompression, actionConfiguration.BitonalImageCompression, actionConfiguration.AdvancedImageCompression, actionConfiguration.ImageQuality, actionConfiguration.DownscaleResolution, actionConfiguration.FastWebView);
+            ImageSaveAsPDFParameters saveAsPdfParameters = PassportPDFParametersUtilities.GetImageSaveAsPDFParameters(actionConfiguration, fileID);
 
             return PassportPDFRequestsUtilities.SendSaveImageAsPDFRequest(imageApiInstance, saveAsPdfParameters, workerNumber, fileToProcess.FileAbsolutePath, DownloadOperationStartEventHandler);
         }

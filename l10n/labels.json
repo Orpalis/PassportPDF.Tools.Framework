@@ -688,6 +688,14 @@
     }
   },
   {
+    "Name": "readImageSaveAsPDFConfigurationFailure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "La configuration la conversion image vers PDF n'a pas pu être restaurée et a été réinitialisée.",
+      "en": "The image conversion to PDF settings could not be restored and have been reset."
+    }
+  },
+  {
     "Name": "readApplicationConfigurationFailure",
     "ResourceIDs": "*",
     "LocalizedValue": {

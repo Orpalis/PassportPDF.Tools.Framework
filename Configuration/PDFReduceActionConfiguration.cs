@@ -23,24 +23,43 @@ namespace PassportPDF.Tools.Framework.Configuration
     public sealed class PDFReduceActionConfiguration
     {
         public PDFReduceParameters.OutputVersionEnum OutputVersion { get; set; } = PDFReduceParameters.OutputVersionEnum.PdfVersion15;
+
         public PDFReduceParameters.ImageQualityEnum ImageQuality { get; set; } = PDFReduceParameters.ImageQualityEnum.ImageQualityMedium;
+
         public bool RecompressImages { get; set; } = true;
+
         public bool EnableColorDetection { get; set; } = true;
+
         public bool PackDocument { get; set; } = true;
+
         public bool PackFonts { get; set; } = true;
+
         public bool DownscaleImages { get; set; } = true;
+
         public int DownscaleResolution { get; set; } = 150;
+
         public bool FastWebView { get; set; } = false;
+
         public bool RemoveFormFields { get; set; } = false;
+
         public bool RemoveAnnotations { get; set; } = false;
+
         public bool RemoveBookmarks { get; set; } = false;
+
         public bool RemoveHyperlinks { get; set; } = false;
+
         public bool RemoveEmbeddedFiles { get; set; } = false;
+
         public bool RemoveBlankPages { get; set; } = false;
+
         public bool RemoveJavaScript { get; set; } = false;
+
         public bool EnableJPEG2000 { get; set; } = true;
+
         public bool EnableJBIG2 { get; set; } = true;
+
         public bool EnableCharRepair { get; set; } = false;
+
         public bool EnableMRC { get; set; } = false;
     }
 }

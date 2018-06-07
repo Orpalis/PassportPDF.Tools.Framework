@@ -24,21 +24,21 @@ namespace PassportPDF.Tools.Framework.Configuration
     {
         public ImageSaveAsPDFParameters.ConformanceEnum Conformance { get; set; } = ImageSaveAsPDFParameters.ConformanceEnum.PDF15;
 
+        public bool CompressColorImages { get; set; } = true;
 
         public ImageSaveAsPDFParameters.ColorImageCompressionEnum ColorImageCompression { get; set; } = ImageSaveAsPDFParameters.ColorImageCompressionEnum.JPEG;
 
+        public bool CompressBitonalImages { get; set; } = true;
 
         public ImageSaveAsPDFParameters.BitonalImageCompressionEnum BitonalImageCompression { get; set; } = ImageSaveAsPDFParameters.BitonalImageCompressionEnum.JBIG2;
 
-
         public ImageSaveAsPDFParameters.AdvancedImageCompressionEnum AdvancedImageCompression { get; set; } = ImageSaveAsPDFParameters.AdvancedImageCompressionEnum.None;
-
 
         public int ImageQuality { get; set; } = 75;
 
+        public bool DownscaleImages { get; set; } = false;
 
-        public int DownscaleResolution { get; set; } = 0;
-
+        public int DownscaleResolution { get; set; } = 150;
 
         public bool FastWebView { get; set; } = false;
     }
