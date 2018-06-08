@@ -27,7 +27,7 @@ namespace PassportPDF.Tools.Framework
 {
     public static class FrameworkGlobals
     {
-        public const string API_SERVER_URI = "https://passportpdfapi.com";
+        private const string API_SERVER_URI = "https://passportpdfapi.com";
         public const int MAX_RETRYING_REQUESTS = 3;
 
         // Default configuration
@@ -48,6 +48,8 @@ namespace PassportPDF.Tools.Framework
 
         public static readonly OrpalisLocalizer MessagesLocalizer = new OrpalisLocalizer(AssemblyUtilities.GetResourceStream("l10n.labels.json"));
         public static readonly LogsManager LogsManager = new LogsManager();
+
+        public static string PassportPdfApiUri { get; set; } = API_SERVER_URI;
 
 
         public static string ApplicationLanguage

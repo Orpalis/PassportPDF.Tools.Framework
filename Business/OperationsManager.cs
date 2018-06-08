@@ -140,10 +140,10 @@ namespace PassportPDF.Tools.Framework.Business
 
         private void InitializeApiInstances(out PDFApi pdfApiInstance, out ImageApi imageApiInstance, string apiKey)
         {
-            pdfApiInstance = new PDFApi(FrameworkGlobals.API_SERVER_URI);
+            pdfApiInstance = new PDFApi(FrameworkGlobals.PassportPdfApiUri);
             pdfApiInstance.Configuration.AddDefaultHeader("X-PassportPDF-API-Key", apiKey);
             pdfApiInstance.Configuration.Timeout = FrameworkGlobals.PassportPDFConfiguration.SuggestedClientTimeout;
-            imageApiInstance = new ImageApi(FrameworkGlobals.API_SERVER_URI);
+            imageApiInstance = new ImageApi(FrameworkGlobals.PassportPdfApiUri);
             imageApiInstance.Configuration.AddDefaultHeader("X-PassportPDF-API-Key", apiKey);
             imageApiInstance.Configuration.Timeout = FrameworkGlobals.PassportPDFConfiguration.SuggestedClientTimeout;
         }

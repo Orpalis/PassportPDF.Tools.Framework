@@ -24,11 +24,7 @@ namespace PassportPDF.Tools.Framework.Configuration
     {
         public ImageSaveAsPDFParameters.ConformanceEnum Conformance { get; set; } = ImageSaveAsPDFParameters.ConformanceEnum.PDF15;
 
-        public bool CompressColorImages { get; set; } = true;
-
         public ImageSaveAsPDFParameters.ColorImageCompressionEnum ColorImageCompression { get; set; } = ImageSaveAsPDFParameters.ColorImageCompressionEnum.JPEG;
-
-        public bool CompressBitonalImages { get; set; } = true;
 
         public ImageSaveAsPDFParameters.BitonalImageCompressionEnum BitonalImageCompression { get; set; } = ImageSaveAsPDFParameters.BitonalImageCompressionEnum.JBIG2;
 

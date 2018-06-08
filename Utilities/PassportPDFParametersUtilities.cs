@@ -91,8 +91,8 @@ namespace PassportPDF.Tools.Framework.Utilities
 
         public static ImageSaveAsPDFParameters GetImageSaveAsPDFParameters(ImageSaveAsPDFActionConfiguration configuration, string fileId, string pageRange = "*")
         {
-            return new ImageSaveAsPDFParameters(fileId, pageRange, configuration.Conformance, configuration.CompressColorImages ? configuration.ColorImageCompression : ColorImageCompressionEnum.None,
-                configuration.CompressBitonalImages ? configuration.BitonalImageCompression : BitonalImageCompressionEnum.None, configuration.AdvancedImageCompression, configuration.ImageQuality,
+            return new ImageSaveAsPDFParameters(fileId, pageRange, configuration.Conformance, configuration.ColorImageCompression,
+                configuration.BitonalImageCompression, configuration.AdvancedImageCompression, configuration.ImageQuality,
                 configuration.DownscaleImages ? configuration.DownscaleResolution : 0, configuration.FastWebView);
         }
     }

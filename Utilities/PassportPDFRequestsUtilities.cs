@@ -31,7 +31,7 @@ namespace PassportPDF.Tools.Framework.Utilities
     {
         public static PassportPDFPassport GetPassportInfo(string passportId)
         {
-            PassportManagerApi apiInstance = new PassportManagerApi(FrameworkGlobals.API_SERVER_URI);
+            PassportManagerApi apiInstance = new PassportManagerApi(FrameworkGlobals.PassportPdfApiUri);
             apiInstance.Configuration.AddDefaultHeader("X-PassportPDF-API-Key", passportId);
             Exception e = null;
             int pauseMs = 5000;
@@ -62,7 +62,7 @@ namespace PassportPDF.Tools.Framework.Utilities
 
         public static int GetMaxClientThreads(string appId)
         {
-            PassportPDFApplicationManagerApi passportPDFApplicationManagerApi = new PassportPDFApplicationManagerApi(FrameworkGlobals.API_SERVER_URI);
+            PassportPDFApplicationManagerApi passportPDFApplicationManagerApi = new PassportPDFApplicationManagerApi(FrameworkGlobals.PassportPdfApiUri);
 
             Exception e = null;
             int pauseMs = 5000;
@@ -93,7 +93,7 @@ namespace PassportPDF.Tools.Framework.Utilities
 
         public static string[] GetImageApiSupportedFileExtensions()
         {
-            ImageApi apiInstance = new ImageApi(FrameworkGlobals.API_SERVER_URI);
+            ImageApi apiInstance = new ImageApi(FrameworkGlobals.PassportPdfApiUri);
 
             Exception e = null;
             int pauseMs = 5000;
@@ -124,7 +124,7 @@ namespace PassportPDF.Tools.Framework.Utilities
 
         public static string[] GetPdfApiSupportedFileExtensions()
         {
-            PDFApi apiInstance = new PDFApi(FrameworkGlobals.API_SERVER_URI);
+            PDFApi apiInstance = new PDFApi(FrameworkGlobals.PassportPdfApiUri);
 
             Exception e = null;
             int pauseMs = 5000;
@@ -155,7 +155,7 @@ namespace PassportPDF.Tools.Framework.Utilities
 
         public static int GetSuggestedClientTimeout()
         {
-            ConfigApi apiInstance = new ConfigApi(FrameworkGlobals.API_SERVER_URI);
+            ConfigApi apiInstance = new ConfigApi(FrameworkGlobals.PassportPdfApiUri);
 
             Exception e = null;
             int pausems = 5000;
@@ -186,7 +186,7 @@ namespace PassportPDF.Tools.Framework.Utilities
 
         public static long GetMaxAllowedContentLength()
         {
-            ConfigApi apiInstance = new ConfigApi(FrameworkGlobals.API_SERVER_URI);
+            ConfigApi apiInstance = new ConfigApi(FrameworkGlobals.PassportPdfApiUri);
 
             Exception e = null;
             int pauseMs = 5000;
@@ -217,7 +217,7 @@ namespace PassportPDF.Tools.Framework.Utilities
 
         public static StringArrayResponse GetAvailableOCRLanguages()
         {
-            ConfigApi apiInstance = new ConfigApi(FrameworkGlobals.API_SERVER_URI);
+            ConfigApi apiInstance = new ConfigApi(FrameworkGlobals.PassportPdfApiUri);
 
             Exception e = null;
             int pausems = 5000;
