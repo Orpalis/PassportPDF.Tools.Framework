@@ -1,10 +1,18 @@
 [
   {
-    "Name": "message_failed_to_retrieve_minimum_version",
+    "Name": "message_fetching_app_minimum_version",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "Attention, la récupération du numéro de version minimum supporté par l'API PassportPDF n'a pu être récupéré.",
-      "en": "Warning, the number of the minimum version supported by the PassportPDF API failed to be fetched."
+      "fr": "Récupération du numéro de version minimum supporté par l'API PassportPDF...",
+      "en": "Fetching the minimum supported app version from the PassportPDF API..."
+    }
+  },
+  {
+    "Name": "message_failed_to_reach_server",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le serveur distant n'a pu être joint avec succès, veulliez vérifier votre connexion Internet.",
+      "en": "The distant server failed to be reached, please check your Internet connection and try again."
     }
   },
   {
