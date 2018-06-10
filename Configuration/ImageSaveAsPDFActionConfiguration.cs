@@ -30,9 +30,9 @@ namespace PassportPDF.Tools.Framework.Configuration
 
         public ImageSaveAsPDFParameters.AdvancedImageCompressionEnum AdvancedImageCompression { get; set; } = ImageSaveAsPDFParameters.AdvancedImageCompressionEnum.None;
 
-        public int ImageQuality { get; set; } = 75;
+        public int ImageQuality { get; set; } = 55;
 
-        public bool DownscaleImages { get; set; } = false;
+        public bool DownscaleImages { get; set; } = true;
 
         public int DownscaleResolution { get; set; } = 150;
 
