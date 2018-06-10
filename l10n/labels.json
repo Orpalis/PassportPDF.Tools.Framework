@@ -854,5 +854,37 @@
       "fr": "Impossible de supprimer la page blanche (numéro #page_number) du document: #document_name",
       "en": "Can not remove blank page (number #page_number) from document: #document_name"
     }
+  },
+  {
+    "Name": "message_image_pdfmrc_compression_result_singular",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "#succesfully_processed_file_count image (sur #file_to_process_count) a été compressée en PDF MRC avec succès en #elapsed_time.",
+      "en": "#succesfully_processed_file_count image (out of #file_to_process_count) has been succesfully compressed in MRC PDF in #elapsed_time."
+    }
+  },
+  {
+    "Name": "message_image_pdfmrc_compression_result_plurial",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "#succesfully_processed_file_count images (sur #file_to_process_count) ont été compressées en PDF MRC avec succès en #elapsed_time.",
+      "en": "#succesfully_processed_file_count files (out of #file_to_process_count) have been succesfully compressed in MRC PDF in #elapsed_time."
+    }
+  },
+  {
+    "Name": "message_image_pdfmrc_compression_result_detailed_singular",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "@message_image_pdfmrc_compression_result_singular@ @message_reduction_ratio_summary@",
+      "en": "@message_image_pdfmrc_compression_result_singular@ @message_reduction_ratio_summary@"
+    }
+  },
+  {
+    "Name": "message_image_pdfmrc_compression_result_detailed_plurial",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "@message_image_pdfmrc_compression_result_plurial@ @message_reduction_ratio_summary@",
+      "en": "@message_image_pdfmrc_compression_result_plurial@ @message_reduction_ratio_summary@"
+    }
   }
 ]

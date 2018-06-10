@@ -168,6 +168,70 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
+        public static string GetImagePdfMrcCompressionWorkResultMessage(int processedFileCount, int succesfullyProcessedFileCount, int unsuccesfullyProcessedFileCount, double inputSize, double outputSize, string elapsedTime)
+        {
+            string resultMessage;
+
+            if (succesfullyProcessedFileCount == 0)
+            {
+                if (processedFileCount == 0)
+                {
+                    resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_no_operations_completed", FrameworkGlobals.ApplicationLanguage);
+                }
+                else if (processedFileCount == 1)
+                {
+                    resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_no_succesful_operation_result_singular", FrameworkGlobals.ApplicationLanguage);
+                }
+                else
+                {
+                    resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_no_succesful_operation_result_plurial", FrameworkGlobals.ApplicationLanguage);
+                }
+            }
+            else if (succesfullyProcessedFileCount == 1)
+            {
+                resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_image_pdfmrc_compression_result_singular", FrameworkGlobals.ApplicationLanguage);
+            }
+            else
+            {
+                resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_image_pdfmrc_compression_result_plurial", FrameworkGlobals.ApplicationLanguage);
+            }
+
+            return ReplaceMessageSequencesAndReferences(resultMessage, succesfullyProcessedFileCount: succesfullyProcessedFileCount, fileToProcessCount: processedFileCount, elapsedTime: elapsedTime, savedDiskSpaceRatio: StatsComputationUtilities.ComputeSavedSpaceRatio(inputSize, outputSize));
+        }
+
+
+        public static string GetImagePdfMrcCompressionWorkResultMessageDetailed(int processedFileCount, int succesfullyProcessedFileCount, int unsuccesfullyProcessedFileCount, double inputSize, double outputSize, string elapsedTime)
+        {
+            string resultMessage;
+
+            if (succesfullyProcessedFileCount == 0)
+            {
+                if (processedFileCount == 0)
+                {
+                    resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_no_operations_completed", FrameworkGlobals.ApplicationLanguage);
+                }
+                else if (processedFileCount == 1)
+                {
+                    resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_no_succesful_operation_result_singular", FrameworkGlobals.ApplicationLanguage);
+                }
+                else
+                {
+                    resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_no_succesful_operation_result_plurial", FrameworkGlobals.ApplicationLanguage);
+                }
+            }
+            else if (succesfullyProcessedFileCount == 1)
+            {
+                resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_image_pdfmrc_compression_result_detailed_singular", FrameworkGlobals.ApplicationLanguage);
+            }
+            else
+            {
+                resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_image_pdfmrc_compression_result_detailed_plurial", FrameworkGlobals.ApplicationLanguage);
+            }
+
+            return ReplaceMessageSequencesAndReferences(resultMessage, inputSize: ParsingUtils.ConvertSize(inputSize, "MB"), outputSize: ParsingUtils.ConvertSize(outputSize, "MB"), succesfullyProcessedFileCount: succesfullyProcessedFileCount, fileToProcessCount: processedFileCount, elapsedTime: elapsedTime, reductionRatio: StatsComputationUtilities.ComputeReductionRatioFourthDecimal(inputSize, outputSize));
+        }
+
+
         public static string GetWorkerIdleStateText()
         {
             return ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_worker_idle_state", FrameworkGlobals.ApplicationLanguage));
