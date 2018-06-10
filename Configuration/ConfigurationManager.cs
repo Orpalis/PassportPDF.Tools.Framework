@@ -32,7 +32,7 @@ namespace PassportPDF.Tools.Framework.Configuration
             {
                 if (configurationType == typeof(ApplicationConfiguration))
                 {
-                    configurationInstance = JsonConvert.DeserializeObject<ApplicationConfiguration>(File.ReadAllText(configurationFileName));
+                    configurationInstance = DeserializeApplicationConfigurationData(configurationFileName);
                 }
                 else if (configurationType == typeof(PDFReduceActionConfiguration))
                 {
@@ -136,6 +136,15 @@ namespace PassportPDF.Tools.Framework.Configuration
             {
                 return ResetDefaultImageSaveAsPDFActionConfiguration();
             }
+        }
+
+
+        private static ApplicationConfiguration DeserializeApplicationConfigurationData(string fileName)
+        {
+            ApplicationConfiguration applicationConfiguration = JsonConvert.DeserializeObject<ApplicationConfiguration>(File.ReadAllText(fileName));
+            applicationConfiguration.ThreadCount = Math.Max(1, applicationConfiguration.ThreadCount); // Ensure ThreadCount is always valid.
+
+            return applicationConfiguration;
         }
     }
 }
