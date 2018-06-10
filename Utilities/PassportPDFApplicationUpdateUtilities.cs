@@ -32,7 +32,8 @@ namespace PassportPDF.Tools.Framework.Utilities
         {
             try
             {
-                PassportPDFApplicationManagerApi applicationManagerApi = new PassportPDFApplicationManagerApi();
+                PassportPDFApplicationManagerApi applicationManagerApi = new PassportPDFApplicationManagerApi(FrameworkGlobals.PassportPdfApiUri);
+
                 latestVersionNumber = applicationManagerApi.GetApplicationLatestVersion(applicationId).Value;
                 return currentVersion.CompareTo(new Version(latestVersionNumber)) < 0;
             }
@@ -54,7 +55,7 @@ namespace PassportPDF.Tools.Framework.Utilities
         {
             try
             {
-                PassportPDFApplicationManagerApi applicationManagerApi = new PassportPDFApplicationManagerApi();
+                PassportPDFApplicationManagerApi applicationManagerApi = new PassportPDFApplicationManagerApi(FrameworkGlobals.PassportPdfApiUri);
                 string minimumSupportedVersion = applicationManagerApi.GetApplicationMinimumSupportedVersion(applicationId).Value;
                 return currentVersion.CompareTo(new Version(minimumSupportedVersion)) >= 0;
             }
@@ -95,7 +96,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                         webClient.DownloadFileCompleted += downloadCompletionEventHandler;
                     }
                     string downloadedFilePath = Path.GetTempPath() + Guid.NewGuid() + ".zip";
-                    PassportPDFApplicationManagerApi applicationManagerApi = new PassportPDFApplicationManagerApi();
+                    PassportPDFApplicationManagerApi applicationManagerApi = new PassportPDFApplicationManagerApi(FrameworkGlobals.PassportPdfApiUri);
 
                     string appDownloadLink = applicationManagerApi.GetApplicationDownloadLink(applicationId).Value;
 
