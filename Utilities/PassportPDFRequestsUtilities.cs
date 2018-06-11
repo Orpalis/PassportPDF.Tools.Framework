@@ -278,6 +278,38 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
+        public static PDFOCRResponse SendOCRRequest(PDFApi apiInstance, PDFOCRParameters ocrParameters, int workerNumber, string inputFilePath, int chunkNumber, int chunkCount, OperationsManager.ChunkProgressDelegate chunkProgressEventHandler)
+        {
+            Exception e = null;
+            int pausems = 5000;
+
+            for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
+            {
+                chunkProgressEventHandler.Invoke(workerNumber, inputFilePath, chunkNumber, chunkCount, i);
+                try
+                {
+                    PDFOCRResponse response = apiInstance.OCR(ocrParameters);
+
+                    return response;
+                }
+                catch (Exception ex)
+                {
+                    if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
+                    {
+                        Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
+                        pausems += 2000;
+                    }
+                    else
+                    {//last iteration
+                        e = ex;
+                    }
+                }
+            }
+
+            throw (e);
+        }
+
+
         public static PDFOCRResponse SendOCRRequest(PDFApi apiInstance, PDFOCRParameters ocrParameters, int workerNumber, string inputFilePath, OperationsManager.ProgressDelegate ocrOperationStartEventHandler)
         {
             Exception e = null;
@@ -466,6 +498,35 @@ namespace PassportPDF.Tools.Framework.Utilities
                     PDFLoadDocumentResponse response = apiInstance.LoadDocumentAsPDF(pdfLoadDocumentFromByteArrayParameters);
 
                     return response;
+                }
+                catch (Exception ex)
+                {
+                    if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
+                    {
+                        Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
+                        pausems += 2000;
+                    }
+                    else
+                    {//last iteration
+                        e = ex;
+                    }
+                }
+            }
+
+            throw (e);
+        }
+
+        public static PDFGetInfoResponse SendGetInfoRequest(PDFApi apiInstance, PDFGetInfoParameters getInfoParameters, int workerNumber, string inputFilePath, OperationsManager.ProgressDelegate getInfoOperationStartEventHandler)
+        {
+            Exception e = null;
+            int pausems = 5000;
+
+            for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
+            {
+                getInfoOperationStartEventHandler.Invoke(workerNumber, inputFilePath, i);
+                try
+                {
+                    return apiInstance.GetInfo(getInfoParameters);
                 }
                 catch (Exception ex)
                 {
