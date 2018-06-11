@@ -42,6 +42,7 @@ namespace PassportPDF.Tools.Framework.Business
 
 
         public delegate void ProgressDelegate(int workerNumber, string fileName, int retries);
+        public delegate void ChunkProgressDelegate(int workerNumber, string fileName, int chunkNumber, int chunkCount, int retries);
         public delegate void ErrorDelegate(string errorMessage);
         public delegate void WarningDelegate(string warningMessage);
         public delegate void UpdateRemainingTokensDelegate(long remainingTokens);
@@ -53,6 +54,7 @@ namespace PassportPDF.Tools.Framework.Business
         public ProgressDelegate UploadOperationStartEventHandler;
         public ProgressDelegate FileOperationStartEventHandler;
         public ProgressDelegate DownloadOperationStartEventHandler;
+        public ChunkProgressDelegate FileChunkProcessingProgressEventHandler;
         public ErrorDelegate ErrorEventHandler;
         public WarningDelegate WarningEventHandler;
         public UpdateRemainingTokensDelegate RemainingTokensUpdateEventHandler;
@@ -449,8 +451,40 @@ namespace PassportPDF.Tools.Framework.Business
 
         private PDFOCRResponse HandleOCRPDF(PDFApi pdfApiInstance, PDFOCRActionConfiguration actionConfiguration, FileToProcess fileToProcess, string fileID, int workerNumber)
         {
+            // First get the number of page of the PDF 
+            PDFGetInfoResponse getInfoResponse = PassportPDFRequestsUtilities.SendGetInfoRequest(pdfApiInstance, new PDFGetInfoParameters(fileID), workerNumber, fileToProcess.FileAbsolutePath, FileOperationStartEventHandler);// todo: use appropriate event handler
+
+            if (getInfoResponse.Error != null)
+            {
+                return null;
+            }
+
             PDFOCRParameters ocrParameters = PassportPDFParametersUtilities.GetOCRParameters(actionConfiguration, fileID);
-            PDFOCRResponse ocrResponse = PassportPDFRequestsUtilities.SendOCRRequest(pdfApiInstance, ocrParameters, workerNumber, fileToProcess.FileAbsolutePath, FileOperationStartEventHandler);
+
+            int pageCount = getInfoResponse.PageCount.Value;
+            int chunkLength = Math.Min(getInfoResponse.PageCount.Value, FrameworkGlobals.PAGE_CHUNK_LENGTH_FOR_OCR_ACTION);
+            int chunkCount = getInfoResponse.PageCount.Value > FrameworkGlobals.PAGE_CHUNK_LENGTH_FOR_OCR_ACTION ? (int)Math.Ceiling(((double)getInfoResponse.PageCount.Value / FrameworkGlobals.PAGE_CHUNK_LENGTH_FOR_OCR_ACTION)) : 1;
+
+            PDFOCRResponse ocrResponse = null;
+
+            if (chunkCount == 1)
+            {
+                ocrResponse = PassportPDFRequestsUtilities.SendOCRRequest(pdfApiInstance, ocrParameters, workerNumber, fileToProcess.FileAbsolutePath, FileOperationStartEventHandler);
+            }
+            else
+            {
+                for (int chunkNumber = 1; chunkNumber <= chunkCount; chunkNumber++)
+                {
+                    ocrParameters.PageRange = PassportPDFParametersUtilities.GetChunkProcessingPageRange(pageCount, chunkLength, chunkNumber, chunkCount);
+
+                    ocrResponse = PassportPDFRequestsUtilities.SendOCRRequest(pdfApiInstance, ocrParameters, workerNumber, fileToProcess.FileAbsolutePath, chunkNumber, chunkCount, FileChunkProcessingProgressEventHandler);
+
+                    if (_cancellationPending || ocrResponse == null)
+                    {
+                        return ocrResponse;
+                    }
+                }
+            }
 
             return ocrResponse;
         }

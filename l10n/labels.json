@@ -464,6 +464,14 @@
     }
   },
   {
+    "Name": "message_file_chunk_processing_progress",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "#document_name (Traitement bloc {0}/{1}...) @message_retry@",
+      "en": "#document_name (Processing block {0}/{1}...) @message_retry@"
+    }
+  },
+  {
     "Name": "message_generic_file_operations_completion",
     "ResourceIDs": "*",
     "LocalizedValue": {

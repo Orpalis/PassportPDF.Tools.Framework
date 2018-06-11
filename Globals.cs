@@ -29,6 +29,7 @@ namespace PassportPDF.Tools.Framework
     {
         private const string API_SERVER_URI = "https://passportpdfapi.com";
         public const int MAX_RETRYING_REQUESTS = 3;
+        public const int PAGE_CHUNK_LENGTH_FOR_OCR_ACTION = 20;
 
         // Default configuration
         public const bool TIMESTAMP_LOGS_DEFAULT = true;

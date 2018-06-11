@@ -95,5 +95,13 @@ namespace PassportPDF.Tools.Framework.Utilities
                 configuration.BitonalImageCompression, configuration.AdvancedImageCompression, configuration.ImageQuality,
                 configuration.DownscaleImages ? configuration.DownscaleResolution : 0, configuration.FastWebView);
         }
+
+
+        public static string GetChunkProcessingPageRange(int pageCount, int chunkLength, int chunkNumber, int chunkCount)
+        {
+            int startPage = chunkNumber == 1 ? 1 : chunkLength * (chunkNumber - 1);
+            int endPage = startPage + (chunkNumber == chunkCount ? (pageCount % chunkLength == 0 ? chunkLength : pageCount % chunkLength) : chunkLength - 1);
+            return string.Format("{0}-{1}", startPage, endPage);
+        }
     }
 }
