@@ -108,6 +108,15 @@ namespace PassportPDF.Tools.Framework.Errors
                 case ResultcodeEnum.CanNotDetectColor: return PassportPDFResultCodesMessagesLocalizer.GetString("resultCode_CanNotDetectColor", FrameworkGlobals.ApplicationLanguage);
                 case ResultcodeEnum.CanNotConvertColorDepth: return PassportPDFResultCodesMessagesLocalizer.GetString("resultCode_CanNotConvertColorDepth", FrameworkGlobals.ApplicationLanguage);
                 case ResultcodeEnum.PdfCanNotAddFont: return PassportPDFResultCodesMessagesLocalizer.GetString("resultCode_PdfCanNotAddFont", FrameworkGlobals.ApplicationLanguage);
+                case ResultcodeEnum.ActionExecutionRejected: return PassportPDFResultCodesMessagesLocalizer.GetString("resultCode_ActionExecutionRejected", FrameworkGlobals.ApplicationLanguage);
+                case ResultcodeEnum.CanNotExtractText: return PassportPDFResultCodesMessagesLocalizer.GetString("resultCode_CanNotExtractText", FrameworkGlobals.ApplicationLanguage);
+                case ResultcodeEnum.CanNotDetectBlankPages: return PassportPDFResultCodesMessagesLocalizer.GetString("resultCode_CanNotDetectBlankPages", FrameworkGlobals.ApplicationLanguage);
+                case ResultcodeEnum.CanNotMICR: return PassportPDFResultCodesMessagesLocalizer.GetString("resultCode_CanNotMICR", FrameworkGlobals.ApplicationLanguage);
+                case ResultcodeEnum.CanNotDetectPageOrientation: return PassportPDFResultCodesMessagesLocalizer.GetString("resultCode_CanNotDetectPageOrientation", FrameworkGlobals.ApplicationLanguage);
+                case ResultcodeEnum.CanNotDeletePage: return PassportPDFResultCodesMessagesLocalizer.GetString("resultCode_CanNotDeletePage", FrameworkGlobals.ApplicationLanguage);
+                case ResultcodeEnum.CanNotSaveAsPDF: return PassportPDFResultCodesMessagesLocalizer.GetString("resultCode_CanNotSaveAsPDF", FrameworkGlobals.ApplicationLanguage);
+                case ResultcodeEnum.CanNotExtractImage: return PassportPDFResultCodesMessagesLocalizer.GetString("resultCode_CanNotExtractImage", FrameworkGlobals.ApplicationLanguage);
+                case ResultcodeEnum.CanNotCloneImageRegion: return PassportPDFResultCodesMessagesLocalizer.GetString("resultCode_CanNotCloneImageRegion", FrameworkGlobals.ApplicationLanguage);
 
                 default: return "Unknown error"; //here for forward compatibility purpose.
             }

@@ -552,6 +552,78 @@
     }
   },
   {
+    "Name": "resultCode_ActionExecutionRejected",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'exécution de l'action a été activement rejetée par l'API",
+      "en": "The execution of the action was actively rejected by the API"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotExtractText",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération d'extraction de texte n'a pu aboutir",
+      "en": "The text extraction operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotDetectBlankPages",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de détection de page blanche n'a pu aboutir",
+      "en": "The blank page detection operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotMICR",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de MICR n'a pu aboutir",
+      "en": "The MICR operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotDetectPageOrientation",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de détection d'orientation de page n'a pu aboutir",
+      "en": "The page orientation detection operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotDeletePage",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de suppression de page n'a pu aboutir",
+      "en": "The page deletion operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotSaveAsPDF",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de sauvegarde en PDF n'a pu aboutir",
+      "en": "The saving as PDF operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotExtractImage",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération d'extraction d'image n'a pu aboutir",
+      "en": "The image extraction operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_CanNotCloneImageRegion",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de clonage de région d'image n'a pu aboutir",
+      "en": "The image region cloning operation has failed"
+    }
+  },
+  {
     "Name": "reduceErrorCode_message_OK",
     "ResourceIDs": "*",
     "LocalizedValue": {
