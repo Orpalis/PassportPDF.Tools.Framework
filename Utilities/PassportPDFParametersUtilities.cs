@@ -99,9 +99,9 @@ namespace PassportPDF.Tools.Framework.Utilities
 
         public static string GetChunkProcessingPageRange(int pageCount, int chunkLength, int chunkNumber, int chunkCount)
         {
-            int startPage = chunkNumber == 1 ? 1 : chunkLength * (chunkNumber - 1);
-            int endPage = startPage + (chunkNumber == chunkCount ? (pageCount % chunkLength == 0 ? chunkLength : pageCount % chunkLength) : chunkLength - 1);
-            return string.Format("{0}-{1}", startPage, endPage);
+            int startPage = chunkNumber == 1 ? 1 : chunkLength * (chunkNumber - 1) + 1;
+            int endPage = startPage - 1 + (chunkNumber == chunkCount ? (pageCount % chunkLength == 0 ? chunkLength : pageCount % chunkLength) : chunkLength);
+            return startPage != endPage ? string.Format("{0}-{1}", startPage, endPage) : startPage.ToString();
         }
     }
 }

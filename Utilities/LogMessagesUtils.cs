@@ -51,9 +51,9 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
-        public static string GetFileChunkProcessingProgressText(string fileName, int chunkNumber, int chunkCount, int retryCount)
+        public static string GetFileChunkProcessingProgressText(string fileName, string pageRange, int pageCount, int retryCount)
         {
-            return string.Format(ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_file_chunk_processing_progress", FrameworkGlobals.ApplicationLanguage), fileName, retryCount: retryCount), chunkNumber, chunkCount);
+            return string.Format(ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_file_chunk_processing_progress", FrameworkGlobals.ApplicationLanguage), fileName, retryCount: retryCount), pageRange, pageCount);
         }
 
 

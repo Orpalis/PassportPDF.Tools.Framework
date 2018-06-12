@@ -42,7 +42,7 @@ namespace PassportPDF.Tools.Framework.Business
 
 
         public delegate void ProgressDelegate(int workerNumber, string fileName, int retries);
-        public delegate void ChunkProgressDelegate(int workerNumber, string fileName, int chunkNumber, int chunkCount, int retries);
+        public delegate void ChunkProgressDelegate(int workerNumber, string fileName, string pageRange, int pageCount, int retries);
         public delegate void ErrorDelegate(string errorMessage);
         public delegate void WarningDelegate(string warningMessage);
         public delegate void UpdateRemainingTokensDelegate(long remainingTokens);
@@ -467,22 +467,15 @@ namespace PassportPDF.Tools.Framework.Business
 
             PDFOCRResponse ocrResponse = null;
 
-            if (chunkCount == 1)
+            for (int chunkNumber = 1; chunkNumber <= chunkCount; chunkNumber++)
             {
-                ocrResponse = PassportPDFRequestsUtilities.SendOCRRequest(pdfApiInstance, ocrParameters, workerNumber, fileToProcess.FileAbsolutePath, FileOperationStartEventHandler);
-            }
-            else
-            {
-                for (int chunkNumber = 1; chunkNumber <= chunkCount; chunkNumber++)
+                ocrParameters.PageRange = PassportPDFParametersUtilities.GetChunkProcessingPageRange(pageCount, chunkLength, chunkNumber, chunkCount);
+
+                ocrResponse = PassportPDFRequestsUtilities.SendOCRRequest(pdfApiInstance, ocrParameters, workerNumber, fileToProcess.FileAbsolutePath, ocrParameters.PageRange, pageCount, FileChunkProcessingProgressEventHandler);
+
+                if (_cancellationPending || ocrResponse == null)
                 {
-                    ocrParameters.PageRange = PassportPDFParametersUtilities.GetChunkProcessingPageRange(pageCount, chunkLength, chunkNumber, chunkCount);
-
-                    ocrResponse = PassportPDFRequestsUtilities.SendOCRRequest(pdfApiInstance, ocrParameters, workerNumber, fileToProcess.FileAbsolutePath, chunkNumber, chunkCount, FileChunkProcessingProgressEventHandler);
-
-                    if (_cancellationPending || ocrResponse == null)
-                    {
-                        return ocrResponse;
-                    }
+                    return ocrResponse;
                 }
             }
 

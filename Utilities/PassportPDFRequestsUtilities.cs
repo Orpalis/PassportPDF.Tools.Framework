@@ -278,46 +278,14 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
-        public static PDFOCRResponse SendOCRRequest(PDFApi apiInstance, PDFOCRParameters ocrParameters, int workerNumber, string inputFilePath, int chunkNumber, int chunkCount, OperationsManager.ChunkProgressDelegate chunkProgressEventHandler)
+        public static PDFOCRResponse SendOCRRequest(PDFApi apiInstance, PDFOCRParameters ocrParameters, int workerNumber, string inputFilePath, string pageRange, int pageCount, OperationsManager.ChunkProgressDelegate chunkProgressEventHandler)
         {
             Exception e = null;
             int pausems = 5000;
 
             for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
             {
-                chunkProgressEventHandler.Invoke(workerNumber, inputFilePath, chunkNumber, chunkCount, i);
-                try
-                {
-                    PDFOCRResponse response = apiInstance.OCR(ocrParameters);
-
-                    return response;
-                }
-                catch (Exception ex)
-                {
-                    if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
-                    {
-                        Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
-                        pausems += 2000;
-                    }
-                    else
-                    {//last iteration
-                        e = ex;
-                    }
-                }
-            }
-
-            throw (e);
-        }
-
-
-        public static PDFOCRResponse SendOCRRequest(PDFApi apiInstance, PDFOCRParameters ocrParameters, int workerNumber, string inputFilePath, OperationsManager.ProgressDelegate ocrOperationStartEventHandler)
-        {
-            Exception e = null;
-            int pausems = 5000;
-
-            for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
-            {
-                ocrOperationStartEventHandler.Invoke(workerNumber, inputFilePath, i);
+                chunkProgressEventHandler.Invoke(workerNumber, inputFilePath, pageRange, pageCount, i);
                 try
                 {
                     PDFOCRResponse response = apiInstance.OCR(ocrParameters);
