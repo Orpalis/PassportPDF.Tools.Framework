@@ -41,7 +41,14 @@ namespace PassportPDF.Tools.Framework.Utilities
 
         public static string GetFileUploadingStartText(string fileName, int retryCount)
         {
-            return ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_file_uploading_start", FrameworkGlobals.ApplicationLanguage), fileName, retryCount: retryCount);
+            retryCount = 2;
+            string fileUploadingStatText = FrameworkGlobals.MessagesLocalizer.GetString("message_file_uploading_start", FrameworkGlobals.ApplicationLanguage);
+            if (retryCount > 1)
+            {
+                fileUploadingStatText = fileUploadingStatText.Replace("@message_retry@", "@message_retry_plurial@");
+            }
+
+            return ReplaceMessageSequencesAndReferences(fileUploadingStatText, fileName, retryCount: retryCount);
         }
 
 

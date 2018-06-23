@@ -435,15 +435,23 @@
     "Name": "message_retry",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "(#retry_count nouvelle(s) tentative(s))",
-      "en": "(#retry_count retry/retries)"
+      "fr": "(#retry_count nouvelle tentative)",
+      "en": "(#retry_count retry)"
+    }
+  },
+  {
+    "Name": "message_retry_plurial",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "(#retry_count nouvelles tentatives)",
+      "en": "(#retry_count retries)"
     }
   },
   {
     "Name": "message_file_processing_start",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "#document_name (Traitement…) @message_retry@",
+      "fr": "#document_name (Traitement...) @message_retry@",
       "en": "#document_name (Processing...) @message_retry@"
     }
   },
