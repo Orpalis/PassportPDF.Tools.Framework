@@ -33,23 +33,23 @@ namespace PassportPDF.Tools.Framework.Errors
 
             errorMessage.Append("(" + failingOperation.ToString());
             errorMessage.Append(") ");
-            errorMessage.Append(PassportPDFErrorUtilities.GetMessageFromResultCode(error.Resultcode));
+            errorMessage.Append(PassportPDFErrorUtilities.GetMessageFromResultCode(error.resultcode));
             errorMessage.Append(": ");
             errorMessage.Append(fileName);
 
-            if (!string.IsNullOrEmpty(error.ExtResultMessage))
+            if (!string.IsNullOrEmpty(error.extResultMessage))
             {
                 errorMessage.Append(" - ");
-                errorMessage.Append(error.ExtResultMessage);
+                errorMessage.Append(error.extResultMessage);
             }
-            else if (error.ExtResultStatus != null && error.ExtResultStatus != "OK")
+            else if (error.extResultStatus != null && error.extResultStatus != "OK")
             {
-                errorMessage.Append(" - " + FrameworkGlobals.MessagesLocalizer.GetString("status", FrameworkGlobals.ApplicationLanguage) + error.ExtResultStatus);
+                errorMessage.Append(" - " + FrameworkGlobals.MessagesLocalizer.GetString("status", FrameworkGlobals.ApplicationLanguage) + error.extResultStatus);
             }
 
-            if (error.InternalErrorId != null && !string.IsNullOrEmpty(error.InternalErrorId))
+            if (error.internalErrorId != null && !string.IsNullOrEmpty(error.internalErrorId))
             {
-                errorMessage.Append(" - " + FrameworkGlobals.MessagesLocalizer.GetString("internal_error_id_message", FrameworkGlobals.ApplicationLanguage) + (" ") + error.InternalErrorId);
+                errorMessage.Append(" - " + FrameworkGlobals.MessagesLocalizer.GetString("internal_error_id_message", FrameworkGlobals.ApplicationLanguage) + (" ") + error.internalErrorId);
             }
 
             return errorMessage.ToString();
@@ -65,10 +65,10 @@ namespace PassportPDF.Tools.Framework.Errors
             errorMessage.Append(": ");
             errorMessage.Append(fileName);
 
-            if (!string.IsNullOrEmpty(reduceError.ExtErrorMessage))
+            if (!string.IsNullOrEmpty(reduceError.extErrorMessage))
             {
                 errorMessage.Append(" - ");
-                errorMessage.Append(reduceError.ExtErrorMessage);
+                errorMessage.Append(reduceError.extErrorMessage);
             }
 
             return errorMessage.ToString();

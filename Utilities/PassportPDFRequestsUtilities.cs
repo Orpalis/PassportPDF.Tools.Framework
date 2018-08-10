@@ -71,7 +71,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             {
                 try
                 {
-                    return Math.Max(passportPDFApplicationManagerApi.GetMaxClientThreads(appId).Value.Value, 1);
+                    return Math.Max(passportPDFApplicationManagerApi.GetMaxClientThreads(appId).value.Value, 1);
                 }
                 catch (Exception ex)
                 {
@@ -102,7 +102,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             {
                 try
                 {
-                    return apiInstance.GetSupportedImageFileExtensions().Value.ToArray();
+                    return apiInstance.GetSupportedImageFileExtensions().value.ToArray();
                 }
                 catch (Exception ex)
                 {
@@ -133,7 +133,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             {
                 try
                 {
-                    return apiInstance.GetPDFImportSupportedFileExtensions().Value.ToArray();
+                    return apiInstance.GetPDFImportSupportedFileExtensions().value.ToArray();
                 }
                 catch (Exception ex)
                 {
@@ -164,7 +164,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             {
                 try
                 {
-                    return apiInstance.GetSuggestedClientTimeout().Value.Value;
+                    return apiInstance.GetSuggestedClientTimeout().value.Value;
                 }
                 catch (Exception ex)
                 {
@@ -195,7 +195,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             {
                 try
                 {
-                    return apiInstance.GetMaxAllowedContentLength().Value.Value;
+                    return apiInstance.GetMaxAllowedContentLength().value.Value;
                 }
                 catch (Exception ex)
                 {

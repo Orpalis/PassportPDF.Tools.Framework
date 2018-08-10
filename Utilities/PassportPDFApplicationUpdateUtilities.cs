@@ -34,8 +34,8 @@ namespace PassportPDF.Tools.Framework.Utilities
             {
                 PassportPDFApplicationManagerApi applicationManagerApi = new PassportPDFApplicationManagerApi(FrameworkGlobals.PassportPdfApiUri);
 
-                latestVersionNumber = applicationManagerApi.GetApplicationLatestVersion(applicationId).Value;
-                return currentVersion.CompareTo(new Version(latestVersionNumber)) < 0;
+                latestVersionNumber = applicationManagerApi.GetApplicationLatestVersion(applicationId).value;
+                return latestVersionNumber != null && currentVersion.CompareTo(new Version(latestVersionNumber)) < 0;
             }
             catch
             {
@@ -56,8 +56,10 @@ namespace PassportPDF.Tools.Framework.Utilities
             try
             {
                 PassportPDFApplicationManagerApi applicationManagerApi = new PassportPDFApplicationManagerApi(FrameworkGlobals.PassportPdfApiUri);
-                string minimumSupportedVersion = applicationManagerApi.GetApplicationMinimumSupportedVersion(applicationId).Value;
+                string minimumSupportedVersion = applicationManagerApi.GetApplicationMinimumSupportedVersion(applicationId).value;
+
                 return currentVersion.CompareTo(new Version(minimumSupportedVersion)) >= 0;
+
             }
             catch
             {
@@ -98,7 +100,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                     string downloadedFilePath = Path.GetTempPath() + Guid.NewGuid() + ".zip";
                     PassportPDFApplicationManagerApi applicationManagerApi = new PassportPDFApplicationManagerApi(FrameworkGlobals.PassportPdfApiUri);
 
-                    string appDownloadLink = applicationManagerApi.GetApplicationDownloadLink(applicationId).Value;
+                    string appDownloadLink = applicationManagerApi.GetApplicationDownloadLink(applicationId).value;
 
                     webClient.DownloadFileAsync(new Uri(appDownloadLink), downloadedFilePath);
 
@@ -117,14 +119,23 @@ namespace PassportPDF.Tools.Framework.Utilities
         /// </summary>
         /// <param name="updatedFilePath">The path to the downloaded PassportPDF app.</param>
         /// <param name="appExecutableName">The name of the app.</param>
-        public static void StartUpdatedAppInstallation(string updatedFilePath, string appExecutableName)
+        public static bool StartUpdatedAppInstallation(string updatedFilePath, string appExecutableName)
         {
-            string extractionDirectory = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(updatedFilePath));
+            try
+            {
+                string extractionDirectory = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(updatedFilePath));
 
-            Directory.CreateDirectory(extractionDirectory);
+                Directory.CreateDirectory(extractionDirectory);
 
-            ZipFile.ExtractToDirectory(updatedFilePath, extractionDirectory);
-            Process.Start(Path.Combine(extractionDirectory, appExecutableName));
+                ZipFile.ExtractToDirectory(updatedFilePath, extractionDirectory);
+                Process.Start(Path.Combine(extractionDirectory, appExecutableName));
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

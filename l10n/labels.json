@@ -1,5 +1,13 @@
 [
   {
+    "Name": "message_fetching_app_latest_version",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Récupération du numéro de la dernière version de l'application...",
+      "en": "Fetching the number of the latest app version..."
+    }
+  },
+  {
     "Name": "message_fetching_app_minimum_version",
     "ResourceIDs": "*",
     "LocalizedValue": {
@@ -40,11 +48,19 @@
     }
   },
   {
-    "Name": "app_update_failure_message",
+    "Name": "app_update_download_failure_message",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "La mise à jour de l'application a échoué.",
-      "en": "The application failed to be updated."
+      "fr": "Le téléchargement de la mise à jour de l'application a échoué.",
+      "en": "The download of the app update has failed."
+    }
+  },
+  {
+    "Name": "app_update_installation_failure_message",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le lancement de l'installeur de l'application a échoué.",
+      "en": "The app installer failed to be launched."
     }
   },
   {
