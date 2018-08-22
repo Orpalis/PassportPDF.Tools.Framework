@@ -253,7 +253,7 @@ namespace PassportPDF.Tools.Framework.Utilities
 
         public static string GetWarningStatustext(ReduceWarningInfo warningInfo, string fileName)
         {
-            return ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString(LogConstants.WarningLocalesIdDictionary[warningInfo.warningCode.Value], FrameworkGlobals.ApplicationLanguage), fileName, warningInfo.pageNumber, warningInfo.pageImageNumber, additionalMessage: warningInfo.extWarningMessage);
+            return ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString(LogConstants.WarningLocalesIdDictionary[warningInfo.WarningCode.Value], FrameworkGlobals.ApplicationLanguage), fileName, warningInfo.PageNumber, warningInfo.PageImageNumber, additionalMessage: warningInfo.ExtWarningMessage);
         }
 
 

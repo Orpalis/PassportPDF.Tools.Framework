@@ -65,10 +65,10 @@ namespace PassportPDF.Tools.Framework.Errors
             errorMessage.Append(": ");
             errorMessage.Append(fileName);
 
-            if (!string.IsNullOrEmpty(reduceError.extErrorMessage))
+            if (!string.IsNullOrEmpty(reduceError.ExtErrorMessage))
             {
                 errorMessage.Append(" - ");
-                errorMessage.Append(reduceError.extErrorMessage);
+                errorMessage.Append(reduceError.ExtErrorMessage);
             }
 
             return errorMessage.ToString();

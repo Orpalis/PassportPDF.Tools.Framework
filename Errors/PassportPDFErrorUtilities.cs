@@ -125,17 +125,17 @@ namespace PassportPDF.Tools.Framework.Errors
 
         public static string GetErrorMessageFromReduceErrorInfo(ReduceErrorInfo reduceErrorInfo)
         {
-            if (reduceErrorInfo.errorCode == null)
+            if (reduceErrorInfo.ErrorCode == null)
             {
                 throw new ArgumentNullException(nameof(reduceErrorInfo));
             }
 
-            switch (reduceErrorInfo.errorCode)
+            switch (reduceErrorInfo.ErrorCode)
             {
                 case ReduceErrorInfo.ErrorCodeEnum.OK: return PassportPDFResultCodesMessagesLocalizer.GetString("reduceErrorCode_OK", FrameworkGlobals.ApplicationLanguage);
-                case ReduceErrorInfo.ErrorCodeEnum.GetPageImagesCount: return LogMessagesUtils.ReplaceMessageSequencesAndReferences(PassportPDFResultCodesMessagesLocalizer.GetString("reduceErrorCode_GetPageImagesCount", FrameworkGlobals.ApplicationLanguage), pageNumber: reduceErrorInfo.pageNumber);
-                case ReduceErrorInfo.ErrorCodeEnum.MRCPostOperationsFailure: return LogMessagesUtils.ReplaceMessageSequencesAndReferences(PassportPDFResultCodesMessagesLocalizer.GetString("reduceErrorCode_MRCPostOperationsFailure", FrameworkGlobals.ApplicationLanguage), pageNumber: reduceErrorInfo.pageNumber);
-                case ReduceErrorInfo.ErrorCodeEnum.PageConversionFailure: return LogMessagesUtils.ReplaceMessageSequencesAndReferences(PassportPDFResultCodesMessagesLocalizer.GetString("reduceErrorCode_PageConversionFailure", FrameworkGlobals.ApplicationLanguage), pageNumber: reduceErrorInfo.pageNumber);
+                case ReduceErrorInfo.ErrorCodeEnum.GetPageImagesCount: return LogMessagesUtils.ReplaceMessageSequencesAndReferences(PassportPDFResultCodesMessagesLocalizer.GetString("reduceErrorCode_GetPageImagesCount", FrameworkGlobals.ApplicationLanguage), pageNumber: reduceErrorInfo.PageNumber);
+                case ReduceErrorInfo.ErrorCodeEnum.MRCPostOperationsFailure: return LogMessagesUtils.ReplaceMessageSequencesAndReferences(PassportPDFResultCodesMessagesLocalizer.GetString("reduceErrorCode_MRCPostOperationsFailure", FrameworkGlobals.ApplicationLanguage), pageNumber: reduceErrorInfo.PageNumber);
+                case ReduceErrorInfo.ErrorCodeEnum.PageConversionFailure: return LogMessagesUtils.ReplaceMessageSequencesAndReferences(PassportPDFResultCodesMessagesLocalizer.GetString("reduceErrorCode_PageConversionFailure", FrameworkGlobals.ApplicationLanguage), pageNumber: reduceErrorInfo.PageNumber);
                 case ReduceErrorInfo.ErrorCodeEnum.DocumentEncrypted: return PassportPDFResultCodesMessagesLocalizer.GetString("reduceErrorCode_DocumentEncrypted", FrameworkGlobals.ApplicationLanguage);
                 case ReduceErrorInfo.ErrorCodeEnum.UnexpectedError: return PassportPDFResultCodesMessagesLocalizer.GetString("reduceErrorCode_UnexpectedError", FrameworkGlobals.ApplicationLanguage);
 

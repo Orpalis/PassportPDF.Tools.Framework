@@ -85,11 +85,11 @@ namespace PassportPDF.Tools.Framework
             PassportPDFPassport passportPdfPassport = PassportPDFRequestsUtilities.GetPassportInfo(passportId);
             PassportInfo = new PassportInfo
             {
-                PassportNumber = passportPdfPassport.passportId,
-                IsActive = passportPdfPassport.isActive.Value,
-                SubscriptionDate = passportPdfPassport.subscriptionDate.Value,
-                TokensUsed = passportPdfPassport.currentTokensUsed.Value,
-                RemainingTokens = passportPdfPassport.remainingTokens.Value,
+                PassportNumber = passportPdfPassport.PassportId,
+                IsActive = passportPdfPassport.IsActive.Value,
+                SubscriptionDate = passportPdfPassport.SubscriptionDate.Value,
+                TokensUsed = passportPdfPassport.CurrentTokensUsed.Value,
+                RemainingTokens = passportPdfPassport.RemainingTokens.Value,
             };
         }
     }
