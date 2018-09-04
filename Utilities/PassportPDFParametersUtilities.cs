@@ -68,8 +68,9 @@ namespace PassportPDF.Tools.Framework.Utilities
                 configuration.ImageQuality, configuration.RecompressImages, configuration.EnableColorDetection,
                 configuration.PackDocument, configuration.PackFonts, configuration.DownscaleImages, configuration.DownscaleResolution,
                 configuration.FastWebView, configuration.RemoveFormFields, configuration.RemoveAnnotations,
-                configuration.RemoveBookmarks, configuration.RemoveHyperlinks, configuration.RemoveEmbeddedFiles, configuration.RemoveBlankPages,
-                configuration.RemoveJavaScript, configuration.EnableJPEG2000, configuration.EnableJBIG2, configuration.EnableCharRepair, configuration.EnableMRC);
+                configuration.RemoveBookmarks, configuration.RemoveHyperlinks, configuration.RemoveEmbeddedFiles,
+                configuration.RemoveBlankPages, configuration.RemoveJavaScript, configuration.EnableJPEG2000,
+                configuration.EnableJBIG2, configuration.EnableCharRepair, configuration.EnableMRC, configuration.MRCPreserveSmoothing);
 
             return reduceParameters;
         }
