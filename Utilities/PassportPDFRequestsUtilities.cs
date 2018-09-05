@@ -341,7 +341,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             throw (e);
         }
 
-        public static ImageSaveAsPDFResponse SendSaveImageAsPDFRequest(ImageApi apiInstance, ImageSaveAsPDFParameters imageSaveAsPdfParameters, int workerNumber, string inputFilePath, OperationsManager.ProgressDelegate downloadOperationStartEventHandler)
+        public static ImageSaveAsPDFMRCResponse SendSaveImageAsPDFMRCRequest(ImageApi apiInstance, ImageSaveAsPDFMRCParameters imageSaveAsPdfMrcParameters, int workerNumber, string inputFilePath, OperationsManager.ProgressDelegate downloadOperationStartEventHandler)
         {
             Exception e = null;
             int pausems = 5000;
@@ -351,7 +351,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                 downloadOperationStartEventHandler.Invoke(workerNumber, inputFilePath, i);
                 try
                 {
-                    ImageSaveAsPDFResponse response = apiInstance.SaveAsPDF(imageSaveAsPdfParameters);
+                    ImageSaveAsPDFMRCResponse response = apiInstance.SaveAsPDFMRC(imageSaveAsPdfMrcParameters);
 
                     return response;
                 }

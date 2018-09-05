@@ -39,7 +39,7 @@ namespace PassportPDF.Tools.Framework.Business
             ReducePDF,
             SavePDF,
             OCRPDF,
-            SaveImageAsPDF
+            SaveImageAsPDFMRC
         }
     }
 }

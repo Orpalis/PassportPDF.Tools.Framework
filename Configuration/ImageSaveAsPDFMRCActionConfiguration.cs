@@ -20,21 +20,21 @@ using PassportPDF.Model;
 
 namespace PassportPDF.Tools.Framework.Configuration
 {
-    public sealed class ImageSaveAsPDFActionConfiguration
+    public sealed class ImageSaveAsPDFMRCActionConfiguration
     {
-        public ImageSaveAsPDFParameters.ConformanceEnum Conformance { get; set; } = ImageSaveAsPDFParameters.ConformanceEnum.PDF15;
+        public ImageSaveAsPDFMRCParameters.ConformanceEnum Conformance { get; set; } = ImageSaveAsPDFMRCParameters.ConformanceEnum.PDF15;
 
-        public ImageSaveAsPDFParameters.ColorImageCompressionEnum ColorImageCompression { get; set; } = ImageSaveAsPDFParameters.ColorImageCompressionEnum.JPEG;
+        public ImageSaveAsPDFMRCParameters.ColorImageCompressionEnum ColorImageCompression { get; set; } = ImageSaveAsPDFMRCParameters.ColorImageCompressionEnum.JPEG;
 
-        public ImageSaveAsPDFParameters.BitonalImageCompressionEnum BitonalImageCompression { get; set; } = ImageSaveAsPDFParameters.BitonalImageCompressionEnum.JBIG2;
-
-        public ImageSaveAsPDFParameters.AdvancedImageCompressionEnum AdvancedImageCompression { get; set; } = ImageSaveAsPDFParameters.AdvancedImageCompressionEnum.None;
+        public ImageSaveAsPDFMRCParameters.BitonalImageCompressionEnum BitonalImageCompression { get; set; } = ImageSaveAsPDFMRCParameters.BitonalImageCompressionEnum.JBIG2;
 
         public int ImageQuality { get; set; } = 55;
 
         public bool DownscaleImages { get; set; } = true;
 
         public int DownscaleResolution { get; set; } = 150;
+
+        public bool PreserveSmoothing { get; set; } = false;
 
         public bool FastWebView { get; set; } = false;
     }

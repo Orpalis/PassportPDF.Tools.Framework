@@ -291,9 +291,9 @@ namespace PassportPDF.Tools.Framework.Business
                         producedFileData = saveDocumentResponse.Data;
                         break;
 
-                    case Operation.OperationType.SaveImageAsPDF:
-                        ImageSaveAsPDFActionConfiguration imageSaveAsPdfActionConfiguration = (ImageSaveAsPDFActionConfiguration)operation.Parameters;
-                        ImageSaveAsPDFResponse imageSaveAsPdfResponse = HandleSaveImageAsPDF(imageApiInstance, imageSaveAsPdfActionConfiguration, fileToProcess, fileID, workerNumber);
+                    case Operation.OperationType.SaveImageAsPDFMRC:
+                        ImageSaveAsPDFMRCActionConfiguration imageSaveAsPdfMrcActionConfiguration = (ImageSaveAsPDFMRCActionConfiguration)operation.Parameters;
+                        ImageSaveAsPDFMRCResponse imageSaveAsPdfResponse = HandleSaveImageAsPDFMRC(imageApiInstance, imageSaveAsPdfMrcActionConfiguration, fileToProcess, fileID, workerNumber);
                         remainingTokens = imageSaveAsPdfResponse.RemainingTokens.Value;
                         actionError = imageSaveAsPdfResponse.Error;
                         producedFileData = imageSaveAsPdfResponse.PdfData;
@@ -491,11 +491,11 @@ namespace PassportPDF.Tools.Framework.Business
         }
 
 
-        private ImageSaveAsPDFResponse HandleSaveImageAsPDF(ImageApi imageApiInstance, ImageSaveAsPDFActionConfiguration actionConfiguration, FileToProcess fileToProcess, string fileID, int workerNumber)
+        private ImageSaveAsPDFMRCResponse HandleSaveImageAsPDFMRC(ImageApi imageApiInstance, ImageSaveAsPDFMRCActionConfiguration actionConfiguration, FileToProcess fileToProcess, string fileID, int workerNumber)
         {
-            ImageSaveAsPDFParameters saveAsPdfParameters = PassportPDFParametersUtilities.GetImageSaveAsPDFParameters(actionConfiguration, fileID);
+            ImageSaveAsPDFMRCParameters saveAsPdfMrcParameters = PassportPDFParametersUtilities.GetImageSaveAsPDFMRCParameters(actionConfiguration, fileID);
 
-            return PassportPDFRequestsUtilities.SendSaveImageAsPDFRequest(imageApiInstance, saveAsPdfParameters, workerNumber, fileToProcess.FileAbsolutePath, DownloadOperationStartEventHandler);
+            return PassportPDFRequestsUtilities.SendSaveImageAsPDFMRCRequest(imageApiInstance, saveAsPdfMrcParameters, workerNumber, fileToProcess.FileAbsolutePath, DownloadOperationStartEventHandler);
         }
 
 

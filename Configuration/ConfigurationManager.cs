@@ -44,7 +44,7 @@ namespace PassportPDF.Tools.Framework.Configuration
                 }
                 else //if (configurationType == typeof(ImageSaveAsPDFActionConfiguration))
                 {
-                    configurationInstance = JsonConvert.DeserializeObject<ImageSaveAsPDFActionConfiguration>(File.ReadAllText(configurationFileName));
+                    configurationInstance = JsonConvert.DeserializeObject<ImageSaveAsPDFMRCActionConfiguration>(File.ReadAllText(configurationFileName));
                 }
 
                 if (configurationInstance == null)
@@ -112,9 +112,9 @@ namespace PassportPDF.Tools.Framework.Configuration
         }
 
 
-        public static ImageSaveAsPDFActionConfiguration ResetDefaultImageSaveAsPDFActionConfiguration()
+        public static ImageSaveAsPDFMRCActionConfiguration ResetDefaultImageSaveAsPDFMRCActionConfiguration()
         {
-            return new ImageSaveAsPDFActionConfiguration();
+            return new ImageSaveAsPDFMRCActionConfiguration();
         }
 
 
@@ -134,7 +134,7 @@ namespace PassportPDF.Tools.Framework.Configuration
             }
             else //if (configurationType == typeof(ImageSaveAsPDFActionConfiguration))
             {
-                return ResetDefaultImageSaveAsPDFActionConfiguration();
+                return ResetDefaultImageSaveAsPDFMRCActionConfiguration();
             }
         }
 

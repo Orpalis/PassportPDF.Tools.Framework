@@ -90,11 +90,11 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
-        public static ImageSaveAsPDFParameters GetImageSaveAsPDFParameters(ImageSaveAsPDFActionConfiguration configuration, string fileId, string pageRange = "*")
+        public static ImageSaveAsPDFMRCParameters GetImageSaveAsPDFMRCParameters(ImageSaveAsPDFMRCActionConfiguration configuration, string fileId, string pageRange = "*")
         {
-            return new ImageSaveAsPDFParameters(fileId, pageRange, configuration.Conformance, configuration.ColorImageCompression,
-                configuration.BitonalImageCompression, configuration.AdvancedImageCompression, configuration.ImageQuality,
-                configuration.DownscaleImages ? configuration.DownscaleResolution : 0, configuration.FastWebView);
+            return new ImageSaveAsPDFMRCParameters(fileId, pageRange, configuration.Conformance, configuration.ColorImageCompression,
+                configuration.BitonalImageCompression, configuration.ImageQuality, configuration.DownscaleImages ? configuration.DownscaleResolution : 0,
+                configuration.PreserveSmoothing, configuration.FastWebView);
         }
 
 

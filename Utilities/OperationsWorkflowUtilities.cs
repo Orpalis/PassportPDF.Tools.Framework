@@ -51,12 +51,12 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
-        public static OperationsWorkflow CreateImageToPDFMRCWorkflow(ImageSaveAsPDFActionConfiguration saveAsPdfActionConfiguration)
+        public static OperationsWorkflow CreateImageToPDFMRCWorkflow(ImageSaveAsPDFMRCActionConfiguration saveAsPdfMrcActionConfiguration)
         {
             List<Operation> actionsToBePerformed = new List<Operation>
             {
                 new Operation(Operation.OperationType.LoadImage),
-                new Operation(Operation.OperationType.SaveImageAsPDF, saveAsPdfActionConfiguration)
+                new Operation(Operation.OperationType.SaveImageAsPDFMRC, saveAsPdfMrcActionConfiguration)
             };
 
             return new OperationsWorkflow(actionsToBePerformed);
