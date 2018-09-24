@@ -34,7 +34,7 @@ namespace PassportPDF.Tools.Framework.Configuration
 
         public int DownscaleResolution { get; set; } = 150;
 
-        public bool PreserveSmoothing { get; set; } = false;
+        public bool PreserveSmoothing { get; set; } = true;
 
         public bool FastWebView { get; set; } = false;
     }

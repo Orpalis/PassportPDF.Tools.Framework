@@ -62,6 +62,6 @@ namespace PassportPDF.Tools.Framework.Configuration
 
         public bool EnableMRC { get; set; } = false;
 
-        public bool MRCPreserveSmoothing { get; set; } = false;
+        public bool MRCPreserveSmoothing { get; set; } = true;
     }
 }
