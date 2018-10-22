@@ -70,7 +70,8 @@ namespace PassportPDF.Tools.Framework.Utilities
                 configuration.FastWebView, configuration.RemoveFormFields, configuration.RemoveAnnotations,
                 configuration.RemoveBookmarks, configuration.RemoveHyperlinks, configuration.RemoveEmbeddedFiles,
                 configuration.RemoveBlankPages, configuration.RemoveJavaScript, configuration.EnableJPEG2000,
-                configuration.EnableJBIG2, configuration.EnableCharRepair, configuration.EnableMRC, configuration.MRCPreserveSmoothing);
+                configuration.EnableJBIG2, configuration.EnableCharRepair, configuration.EnableMRC, configuration.MRCPreserveSmoothing,
+                configuration.MRCDownscaleResolution);
 
             return reduceParameters;
         }
