@@ -32,7 +32,7 @@ namespace PassportPDF.Tools.Framework.Configuration
 
         public bool DownscaleImages { get; set; } = true;
 
-        public int DownscaleResolution { get; set; } = 150;
+        public int DownscaleResolution { get; set; } = 100;
 
         public bool PreserveSmoothing { get; set; } = true;
 
