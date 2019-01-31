@@ -24,7 +24,7 @@ namespace PassportPDF.Tools.Framework.Configuration
     {
         public ImageSaveAsPDFMRCParameters.ConformanceEnum Conformance { get; set; } = ImageSaveAsPDFMRCParameters.ConformanceEnum.PDF15;
 
-        public ImageSaveAsPDFMRCParameters.ColorImageCompressionEnum ColorImageCompression { get; set; } = ImageSaveAsPDFMRCParameters.ColorImageCompressionEnum.JPEG;
+        public ImageSaveAsPDFMRCParameters.ColorImageCompressionEnum ColorImageCompression { get; set; } = ImageSaveAsPDFMRCParameters.ColorImageCompressionEnum.JPEG2000;
 
         public ImageSaveAsPDFMRCParameters.BitonalImageCompressionEnum BitonalImageCompression { get; set; } = ImageSaveAsPDFMRCParameters.BitonalImageCompressionEnum.JBIG2;
 
