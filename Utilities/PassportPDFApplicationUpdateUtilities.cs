@@ -20,7 +20,6 @@ using System;
 using System.Net;
 using System.IO;
 using System.ComponentModel;
-using System.IO.Compression;
 using System.Diagnostics;
 using PassportPDF.Api;
 
@@ -28,11 +27,19 @@ namespace PassportPDF.Tools.Framework.Utilities
 {
     public static class PassportPDFApplicationUpdateUtilities
     {
+        private static readonly double Timeout = TimeSpan.FromSeconds(5).TotalMilliseconds;
+
         public static bool? IsNewVersionAvailable(string applicationId, Version currentVersion, out string latestVersionNumber)
         {
             try
             {
-                PassportPDFApplicationManagerApi applicationManagerApi = new PassportPDFApplicationManagerApi(FrameworkGlobals.PassportPdfApiUri);
+                Client.Configuration configuration = new Client.Configuration()
+                {
+                    Timeout = FrameworkGlobals.CHECK_FOR_UPDATE_TIMEOUT_MS,
+                    BasePath = FrameworkGlobals.PassportPdfApiUri
+                };
+
+                PassportPDFApplicationManagerApi applicationManagerApi = new PassportPDFApplicationManagerApi(configuration);
 
                 latestVersionNumber = applicationManagerApi.GetApplicationLatestVersion(applicationId).Value;
                 return latestVersionNumber != null && currentVersion.CompareTo(new Version(latestVersionNumber)) < 0;

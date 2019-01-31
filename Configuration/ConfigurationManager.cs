@@ -142,7 +142,11 @@ namespace PassportPDF.Tools.Framework.Configuration
         private static ApplicationConfiguration DeserializeApplicationConfigurationData(string fileName)
         {
             ApplicationConfiguration applicationConfiguration = JsonConvert.DeserializeObject<ApplicationConfiguration>(File.ReadAllText(fileName));
-            applicationConfiguration.ThreadCount = Math.Max(1, applicationConfiguration.ThreadCount); // Ensure ThreadCount is always valid.
+
+            if (applicationConfiguration != null)
+            {
+                applicationConfiguration.ThreadCount = Math.Max(1, applicationConfiguration.ThreadCount); //Ensure ThreadCount is always valid.
+            }
 
             return applicationConfiguration;
         }
