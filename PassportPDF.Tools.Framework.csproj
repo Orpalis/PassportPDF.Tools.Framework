@@ -11,7 +11,9 @@
     <PackageProjectUrl>http://www.passportpdf.com</PackageProjectUrl>
     <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <Copyright>Copyright © 2018 ORPALIS - http://www.orpalis.com</Copyright>
-    <Version>1.0.36</Version>
+    <Version>1.0.41</Version>
+    <AssemblyVersion>1.0.40.0</AssemblyVersion>
+    <FileVersion>1.0.40.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,9 +29,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
     <PackageReference Include="Microsoft.Win32.Registry" Version="4.5.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="Orpalis.Globals.Localization" Version="1.0.2" />
-    <PackageReference Include="PassportPDF" Version="1.0.37" />
+    <PackageReference Include="PassportPDF" Version="1.0.38" />
   </ItemGroup>
 
   <ItemGroup>
