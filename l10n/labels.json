@@ -844,7 +844,7 @@
     "ResourceIDs": "*",
     "LocalizedValue": {
       "fr": "Des opérations ne sont pas terminées, êtes-vous sûr de vouloir quitter ?",
-      "en": "Some perations are still running, are you sure you want to exit?"
+      "en": "Some operations are still running, are you sure you want to exit?"
     }
   },
   {
