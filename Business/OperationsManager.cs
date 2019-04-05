@@ -242,15 +242,15 @@ namespace PassportPDF.Tools.Framework.Business
                         break;
 
                     case Operation.OperationType.LoadImage:
-                        LoadImageResponse loadImageResponse = HandleLoadImage(imageApiInstance, fileToProcess, workerNumber);
-                        if (loadImageResponse == null)
+                        ImageLoadResponse imageLoadResponse = HandleLoadImage(imageApiInstance, fileToProcess, workerNumber);
+                        if (imageLoadResponse == null)
                         {
                             OnError(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_invalid_response_received", FrameworkGlobals.ApplicationLanguage), actionName: "Load"));
                             return null;
                         }
-                        remainingTokens = loadImageResponse.RemainingTokens.Value;
-                        actionError = loadImageResponse.Error;
-                        fileID = loadImageResponse.FileId;
+                        remainingTokens = imageLoadResponse.RemainingTokens.Value;
+                        actionError = imageLoadResponse.Error;
+                        fileID = imageLoadResponse.FileId;
                         break;
 
                     case Operation.OperationType.ReducePDF:
@@ -296,6 +296,11 @@ namespace PassportPDF.Tools.Framework.Business
                     case Operation.OperationType.SaveImageAsPDFMRC:
                         ImageSaveAsPDFMRCActionConfiguration imageSaveAsPdfMrcActionConfiguration = (ImageSaveAsPDFMRCActionConfiguration)operation.Parameters;
                         ImageSaveAsPDFMRCResponse imageSaveAsPdfResponse = HandleSaveImageAsPDFMRC(imageApiInstance, imageSaveAsPdfMrcActionConfiguration, fileToProcess, fileID, workerNumber);
+                        if (imageSaveAsPdfResponse == null)
+                        {
+                            OnError(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_invalid_response_received", FrameworkGlobals.ApplicationLanguage), actionName: "PDF MRC"));
+                            return null;
+                        }
                         remainingTokens = imageSaveAsPdfResponse.RemainingTokens.Value;
                         actionError = imageSaveAsPdfResponse.Error;
                         producedFileData = imageSaveAsPdfResponse.PdfData;
@@ -400,7 +405,7 @@ namespace PassportPDF.Tools.Framework.Business
         }
 
 
-        private LoadImageResponse HandleLoadImage(ImageApi imageApiInstance, FileToProcess fileToProcess, int workerNumber)
+        private ImageLoadResponse HandleLoadImage(ImageApi imageApiInstance, FileToProcess fileToProcess, int workerNumber)
         {
             FileStream inputFileStream = null;
 

@@ -40,7 +40,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             {
                 try
                 {
-                    return apiInstance.GetPassportInfo(passportId);
+                    return apiInstance.PassportManagerGetPassportInfo(passportId);
                 }
                 catch (Exception ex)
                 {
@@ -71,7 +71,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             {
                 try
                 {
-                    return Math.Max(passportPDFApplicationManagerApi.GetMaxClientThreads(appId).Value.Value, 1);
+                    return Math.Max(passportPDFApplicationManagerApi.PassportPDFApplicationManagerGetMaxClientThreads(appId).Value.Value, 1);
                 }
                 catch (Exception ex)
                 {
@@ -102,7 +102,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             {
                 try
                 {
-                    return apiInstance.GetSupportedImageFileExtensions().Value.ToArray();
+                    return apiInstance.ImageGetSupportedFileExtensions().Value.ToArray();
                 }
                 catch (Exception ex)
                 {
@@ -164,7 +164,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             {
                 try
                 {
-                    return apiInstance.GetSuggestedClientTimeout().Value.Value;
+                    return apiInstance.ConfigGetSuggestedClientTimeout().Value.Value;
                 }
                 catch (Exception ex)
                 {
@@ -195,7 +195,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             {
                 try
                 {
-                    return apiInstance.GetMaxAllowedContentLength().Value.Value;
+                    return apiInstance.ConfigGetMaxAllowedContentLength().Value.Value;
                 }
                 catch (Exception ex)
                 {
@@ -226,7 +226,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             {
                 try
                 {
-                    return apiInstance.GetSupportedOCRLanguages();
+                    return apiInstance.ConfigGetSupportedOCRLanguages();
                 }
                 catch (Exception ex)
                 {
@@ -351,7 +351,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                 downloadOperationStartEventHandler.Invoke(workerNumber, inputFilePath, i);
                 try
                 {
-                    ImageSaveAsPDFMRCResponse response = apiInstance.SaveAsPDFMRC(imageSaveAsPdfMrcParameters);
+                    ImageSaveAsPDFMRCResponse response = apiInstance.ImageSaveAsPDFMRC(imageSaveAsPdfMrcParameters);
 
                     return response;
                 }
@@ -407,7 +407,7 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
-        public static LoadImageResponse SendLoadImageMultipartRequest(ImageApi apiInstance, int workerNumber, string inputFilePath, string fileName, Stream fileStream, string contentEncoding, OperationsManager.ProgressDelegate uploadOperationStartEventHandler)
+        public static ImageLoadResponse SendLoadImageMultipartRequest(ImageApi apiInstance, int workerNumber, string inputFilePath, string fileName, Stream fileStream, string contentEncoding, OperationsManager.ProgressDelegate uploadOperationStartEventHandler)
         {
             Exception e = null;
             int pausems = 5000;
@@ -419,7 +419,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                 {
                     fileStream.Seek(0, SeekOrigin.Begin);
 
-                    LoadImageResponse response = apiInstance.LoadImageMultipart(fileStream, contentEncoding: contentEncoding, fileName: fileName);
+                    ImageLoadResponse response = apiInstance.ImageLoadMultipart(fileStream, contentEncoding: contentEncoding, fileName: fileName);
 
                     return response;
                 }

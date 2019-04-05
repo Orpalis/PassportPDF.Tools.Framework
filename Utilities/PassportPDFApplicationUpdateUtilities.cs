@@ -41,7 +41,7 @@ namespace PassportPDF.Tools.Framework.Utilities
 
                 PassportPDFApplicationManagerApi applicationManagerApi = new PassportPDFApplicationManagerApi(configuration);
 
-                latestVersionNumber = applicationManagerApi.GetApplicationLatestVersion(applicationId).Value;
+                latestVersionNumber = applicationManagerApi.PassportPDFApplicationManagerGetApplicationLatestVersion(applicationId).Value;
                 return latestVersionNumber != null && currentVersion.CompareTo(new Version(latestVersionNumber)) < 0;
             }
             catch
@@ -63,7 +63,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             try
             {
                 PassportPDFApplicationManagerApi applicationManagerApi = new PassportPDFApplicationManagerApi(FrameworkGlobals.PassportPdfApiUri);
-                string minimumSupportedVersion = applicationManagerApi.GetApplicationMinimumSupportedVersion(applicationId).Value;
+                string minimumSupportedVersion = applicationManagerApi.PassportPDFApplicationManagerGetApplicationMinimumSupportedVersion(applicationId).Value;
 
                 return currentVersion.CompareTo(new Version(minimumSupportedVersion)) >= 0;
 
@@ -109,7 +109,7 @@ namespace PassportPDF.Tools.Framework.Utilities
 
                     PassportPDFApplicationManagerApi applicationManagerApi = new PassportPDFApplicationManagerApi(FrameworkGlobals.PassportPdfApiUri);
 
-                    string appDownloadLink = applicationManagerApi.GetApplicationDownloadLink(applicationId).Value;
+                    string appDownloadLink = applicationManagerApi.PassportPDFApplicationManagerGetApplicationDownloadLink(applicationId).Value;
 
                     webClient.DownloadFileAsync(new Uri(appDownloadLink), downloadedFilePath);
 
