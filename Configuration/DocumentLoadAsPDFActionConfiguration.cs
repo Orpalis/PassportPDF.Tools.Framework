@@ -16,28 +16,12 @@
  *
  **********************************************************************/
 
-namespace PassportPDF.Tools.Framework.Business
+using PassportPDF.Model;
+
+namespace PassportPDF.Tools.Framework.Configuration
 {
-    public sealed class Operation
+    public sealed class DocumentLoadAsPDFActionConfiguration
     {
-        public object Parameters { get; }
-
-        public OperationType Type { get; }
-
-
-        public Operation(OperationType type, object parameters = null)
-        {
-            Type = type;
-            Parameters = parameters;
-        }
-
-
-        public enum OperationType
-        {
-            LoadPDF,
-            LoadImage,
-            ReducePDF,
-            OCRPDF,
-        }
+        public PdfConformance Conformance { get; set; } = PdfConformance.PDF15;
     }
 }

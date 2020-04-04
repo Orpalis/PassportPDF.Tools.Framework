@@ -24,10 +24,23 @@ namespace PassportPDF.Tools.Framework.Business
     {
         public IEnumerable<Operation> OperationsToBePerformed { get; }
 
+        public SaveOperationType SaveOperation { get; }
 
-        public OperationsWorkflow(IEnumerable<Operation> operationsToBePerformed)
+        public object SaveOperationConfiguration { get; }
+
+
+        public OperationsWorkflow(IEnumerable<Operation> operationsToBePerformed, SaveOperationType saveOperation, object saveOperationConfiguration = null)
         {
             OperationsToBePerformed = operationsToBePerformed;
+            SaveOperation = saveOperation;
+            SaveOperationConfiguration = saveOperationConfiguration;
+        }
+
+
+        public enum SaveOperationType
+        {
+            SavePDF,
+            SaveImageAsPDFMRC
         }
     }
 }

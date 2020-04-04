@@ -33,13 +33,12 @@ namespace PassportPDF.Tools.Framework.Utilities
         {
             try
             {
-                Client.Configuration configuration = new Client.Configuration()
+                Client.GlobalConfiguration.Timeout = FrameworkGlobals.CHECK_FOR_UPDATE_TIMEOUT_MS;
+
+                PassportPDFApplicationManagerApi applicationManagerApi = new PassportPDFApplicationManagerApi()
                 {
-                    Timeout = FrameworkGlobals.CHECK_FOR_UPDATE_TIMEOUT_MS,
                     BasePath = FrameworkGlobals.PassportPdfApiUri
                 };
-
-                PassportPDFApplicationManagerApi applicationManagerApi = new PassportPDFApplicationManagerApi(configuration);
 
                 latestVersionNumber = applicationManagerApi.PassportPDFApplicationManagerGetApplicationLatestVersion(applicationId).Value;
                 return latestVersionNumber != null && currentVersion.CompareTo(new Version(latestVersionNumber)) < 0;

@@ -19,83 +19,113 @@
 using System.IO;
 using PassportPDF.Model;
 using PassportPDF.Tools.Framework.Configuration;
-using static PassportPDF.Model.ImageSaveAsPDFParameters;
 
 namespace PassportPDF.Tools.Framework.Utilities
 {
     internal static class PassportPDFParametersUtilities
     {
-        public static void GetLoadDocumentMultipartParameters(string inputFileAbsolutePath, PDFReduceParameters.OutputVersionEnum outputVersion, out FileStream fileStream, out string conformance, out string fileName)
+        public static void GetLoadDocumentMultipartParameters(string inputFileAbsolutePath, PdfVersion pdfVersion, out FileStream fileStream, out PdfConformance conformance, out string fileName)
         {
-            switch (outputVersion)
+            switch (pdfVersion)
             {
-                case PDFReduceParameters.OutputVersionEnum.PdfVersion14:
-                    conformance = "PDF14";
+                case PdfVersion.PdfVersion14:
+                    conformance = PdfConformance.PDF14;
                     break;
 
-                case PDFReduceParameters.OutputVersionEnum.PdfVersion15:
-                    conformance = "PDF15";
+                case PdfVersion.PdfVersion15:
+                    conformance = PdfConformance.PDF15;
                     break;
 
-                case PDFReduceParameters.OutputVersionEnum.PdfVersion16:
-                    conformance = "PDF16";
+                case PdfVersion.PdfVersion16:
+                    conformance = PdfConformance.PDF16;
                     break;
 
-                case PDFReduceParameters.OutputVersionEnum.PdfVersion17:
-                    conformance = "PDF17";
+                case PdfVersion.PdfVersion17:
+                    conformance = PdfConformance.PDF17;
                     break;
 
                 default:
-                    conformance = "PDF15";
+                    conformance = PdfConformance.PDF15;
                     break;
             }
 
-            fileStream = new FileStream(inputFileAbsolutePath, FileMode.Open);
+            fileStream = new FileStream(inputFileAbsolutePath, FileMode.Open, FileAccess.Read);
             fileName = Path.GetFileName(inputFileAbsolutePath);
         }
 
 
         public static void GetLoadImageMultipartParameters(string inputFileAbsolutePath, out FileStream fileStream, out string fileName)
         {
-            fileStream = new FileStream(inputFileAbsolutePath, FileMode.Open);
+            fileStream = new FileStream(inputFileAbsolutePath, FileMode.Open, FileAccess.Read);
             fileName = Path.GetFileName(inputFileAbsolutePath);
         }
 
 
-        public static PDFReduceParameters GetReduceParameters(PDFReduceActionConfiguration configuration, string fileId)
+        public static PdfReduceParameters GetReduceParameters(PDFReduceActionConfiguration configuration, string fileId)
         {
-            PDFReduceParameters reduceParameters = new PDFReduceParameters(fileId, configuration.OutputVersion,
-                configuration.ImageQuality, configuration.RecompressImages, configuration.EnableColorDetection,
-                configuration.PackDocument, configuration.PackFonts, configuration.DownscaleImages, configuration.DownscaleResolution,
-                configuration.FastWebView, configuration.RemoveFormFields, configuration.RemoveAnnotations,
-                configuration.RemoveBookmarks, configuration.RemoveHyperlinks, configuration.RemoveEmbeddedFiles,
-                configuration.RemoveBlankPages, configuration.RemoveJavaScript, configuration.EnableJPEG2000,
-                configuration.EnableJBIG2, configuration.EnableCharRepair, configuration.EnableMRC, configuration.MRCPreserveSmoothing,
-                configuration.MRCDownscaleResolution);
+            PdfReduceParameters reduceParameters = new PdfReduceParameters(fileId)
+            {
+                OutputVersion = configuration.OutputVersion,
+                ImageQuality = configuration.ImageQuality,
+                RecompressImages = configuration.RecompressImages,
+                EnableColorDetection = configuration.EnableColorDetection,
+                PackDocument = configuration.PackDocument,
+                PackFonts = configuration.PackFonts,
+                DownscaleImages = configuration.DownscaleImages,
+                DownscaleResolution = configuration.DownscaleResolution,
+                FastWebView = configuration.FastWebView,
+                RemoveFormFields = configuration.RemoveFormFields,
+                RemoveAnnotations = configuration.RemoveAnnotations,
+                RemoveBookmarks = configuration.RemoveBookmarks,
+                RemoveHyperlinks = configuration.RemoveHyperlinks,
+                RemoveEmbeddedFiles = configuration.RemoveEmbeddedFiles,
+                RemoveBlankPages = configuration.RemoveBlankPages,
+                RemoveJavaScript = configuration.RemoveJavaScript,
+                EnableJPEG2000 = configuration.EnableJPEG2000,
+                EnableJBIG2 = configuration.EnableJBIG2,
+                EnableCharRepair = configuration.EnableCharRepair,
+                EnableMRC = configuration.EnableMRC,
+                PreserveSmoothing = configuration.MRCPreserveSmoothing,
+                DownscaleResolutionMRC = configuration.MRCDownscaleResolution,
+                RemovePageThumbnails = configuration.RemovePageThumbnails,
+                RemoveMetadata = configuration.RemoveMetadata
+            };
 
             return reduceParameters;
         }
 
 
-        public static PDFOCRParameters GetOCRParameters(PDFOCRActionConfiguration configuration, string fileId)
+        public static PdfOCRParameters GetOCRParameters(PDFOCRActionConfiguration configuration, string fileId)
         {
-            PDFOCRParameters ocrParameters = new PDFOCRParameters(fileId, configuration.PageRange, configuration.OCRLanguage, configuration.SkipPagesWithText);
+            PdfOCRParameters ocrParameters = new PdfOCRParameters(fileId, configuration.PageRange)
+            {
+                Language = configuration.OCRLanguage,
+                SkipPageWithText = configuration.SkipPagesWithText
+            };
 
             return ocrParameters;
         }
 
 
-        public static PDFSaveDocumentParameters GetSaveDocumentParameters(string fileId)
+        public static PdfSaveDocumentParameters GetSaveDocumentParameters(string fileId)
         {
-            return new PDFSaveDocumentParameters(fileId);
+            return new PdfSaveDocumentParameters(fileId);
         }
 
 
-        public static ImageSaveAsPDFMRCParameters GetImageSaveAsPDFMRCParameters(ImageSaveAsPDFMRCActionConfiguration configuration, string fileId, string pageRange = "*")
+        public static ImageSaveAsPDFMRCParameters GetImageSaveAsPDFMRCParameters(ImageSaveAsPDFMRCActionConfiguration configuration, string fileId)
         {
-            return new ImageSaveAsPDFMRCParameters(fileId, pageRange, configuration.Conformance, configuration.ColorImageCompression,
-                configuration.BitonalImageCompression, configuration.ImageQuality, configuration.DownscaleImages ? configuration.DownscaleResolution : 0,
-                configuration.PreserveSmoothing, configuration.FastWebView);
+            return new ImageSaveAsPDFMRCParameters(fileId)
+            {
+                Conformance = configuration.Conformance,
+                ColorImageCompression = configuration.ColorImageCompression,
+                BitonalImageCompression = configuration.BitonalImageCompression,
+                ImageQuality = configuration.ImageQuality,
+                DownscaleResolution = configuration.DownscaleImages ? configuration.DownscaleResolution : 0,
+                PreserveSmoothing = configuration.PreserveSmoothing,
+                FastWebView = configuration.FastWebView,
+                JBIG2PMSThreshold = configuration.JBIG2PMSTreshold
+            };
         }
 
 

@@ -22,11 +22,11 @@ namespace PassportPDF.Tools.Framework.Configuration
 {
     public sealed class ImageSaveAsPDFMRCActionConfiguration
     {
-        public ImageSaveAsPDFMRCParameters.ConformanceEnum Conformance { get; set; } = ImageSaveAsPDFMRCParameters.ConformanceEnum.PDF15;
+        public PdfConformance Conformance { get; set; } = PdfConformance.PDF15;
 
-        public ImageSaveAsPDFMRCParameters.ColorImageCompressionEnum ColorImageCompression { get; set; } = ImageSaveAsPDFMRCParameters.ColorImageCompressionEnum.JPEG2000;
+        public PdfImageCompressionScheme ColorImageCompression { get; set; } = PdfImageCompressionScheme.JPEG2000;
 
-        public ImageSaveAsPDFMRCParameters.BitonalImageCompressionEnum BitonalImageCompression { get; set; } = ImageSaveAsPDFMRCParameters.BitonalImageCompressionEnum.JBIG2;
+        public PdfImageCompressionScheme BitonalImageCompression { get; set; } = PdfImageCompressionScheme.JBIG2;
 
         public int ImageQuality { get; set; } = 55;
 
@@ -37,5 +37,7 @@ namespace PassportPDF.Tools.Framework.Configuration
         public bool PreserveSmoothing { get; set; } = true;
 
         public bool FastWebView { get; set; } = false;
+
+        public float JBIG2PMSTreshold { get; set; } = 0.85f;
     }
 }

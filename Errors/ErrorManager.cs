@@ -33,23 +33,23 @@ namespace PassportPDF.Tools.Framework.Errors
 
             errorMessage.Append("(" + failingOperation.ToString());
             errorMessage.Append(") ");
-            errorMessage.Append(PassportPDFErrorUtilities.GetMessageFromResultCode(error.resultcode));
+            errorMessage.Append(PassportPDFErrorUtilities.GetMessageFromResultCode(error.ResultCode));
             errorMessage.Append(": ");
             errorMessage.Append(fileName);
 
-            if (!string.IsNullOrEmpty(error.extResultMessage))
+            if (!string.IsNullOrEmpty(error.ExtResultMessage))
             {
                 errorMessage.Append(" - ");
-                errorMessage.Append(error.extResultMessage);
+                errorMessage.Append(error.ExtResultMessage);
             }
-            else if (error.extResultStatus != null && error.extResultStatus != "OK")
+            else if (error.ExtResultStatus != null && error.ExtResultStatus != "OK")
             {
-                errorMessage.Append(" - " + FrameworkGlobals.MessagesLocalizer.GetString("status", FrameworkGlobals.ApplicationLanguage) + error.extResultStatus);
+                errorMessage.Append(" - " + FrameworkGlobals.MessagesLocalizer.GetString("status", FrameworkGlobals.ApplicationLanguage) + error.ExtResultStatus);
             }
 
-            if (error.internalErrorId != null && !string.IsNullOrEmpty(error.internalErrorId))
+            if (error.InternalErrorId != null && !string.IsNullOrEmpty(error.InternalErrorId))
             {
-                errorMessage.Append(" - " + FrameworkGlobals.MessagesLocalizer.GetString("internal_error_id_message", FrameworkGlobals.ApplicationLanguage) + (" ") + error.internalErrorId);
+                errorMessage.Append(" - " + FrameworkGlobals.MessagesLocalizer.GetString("internal_error_id_message", FrameworkGlobals.ApplicationLanguage) + (" ") + error.InternalErrorId);
             }
 
             return errorMessage.ToString();
@@ -85,23 +85,13 @@ namespace PassportPDF.Tools.Framework.Errors
             {
                 ApiException apiException = (ApiException)exception;
 
-                if (apiException.ErrorCode != 0)
+                if (apiException.ErrorCode != null)
                 {
-                    errorMessage.Append(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_server_returned_http_error", FrameworkGlobals.ApplicationLanguage), fileName: fileName, httpCode: apiException.ErrorCode));
+                    errorMessage.Append(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_server_returned_http_error", FrameworkGlobals.ApplicationLanguage), fileName: fileName, httpCode: (int?)apiException.ErrorCode));
                 }
                 else
                 {
                     errorMessage.Append(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_reaching_remote_server_failure", FrameworkGlobals.ApplicationLanguage), fileName: fileName));
-                }
-                errorMessage.Append(" - " + apiException.ErrorContent);
-                // Retrieve the name of called action which caused the exception
-                if (exception.Message.StartsWith("Error calling"))
-                {
-                    string[] splitMessage = exception.Message.Split(' ');
-                    if (splitMessage.Length > 3)
-                    {
-                        errorMessage.Append(" (" + splitMessage[2].TrimEnd(':') + ")");
-                    }
                 }
             }
             else

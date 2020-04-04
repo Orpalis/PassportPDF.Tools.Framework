@@ -22,9 +22,9 @@ namespace PassportPDF.Tools.Framework.Configuration
 {
     public sealed class PDFReduceActionConfiguration
     {
-        public PDFReduceParameters.OutputVersionEnum OutputVersion { get; set; } = PDFReduceParameters.OutputVersionEnum.PdfVersion15;
+        public PdfVersion OutputVersion { get; set; } = PdfVersion.PdfVersion15;
 
-        public PDFReduceParameters.ImageQualityEnum ImageQuality { get; set; } = PDFReduceParameters.ImageQualityEnum.ImageQualityMedium;
+        public ImageQuality ImageQuality { get; set; } = ImageQuality.ImageQualityMedium;
 
         public bool RecompressImages { get; set; } = true;
 
@@ -65,5 +65,9 @@ namespace PassportPDF.Tools.Framework.Configuration
         public bool MRCPreserveSmoothing { get; set; } = true;
 
         public int MRCDownscaleResolution { get; set; } = 100;
+
+        public bool RemovePageThumbnails { get; set; } = false;
+
+        public bool RemoveMetadata { get; set; } = false;
     }
 }

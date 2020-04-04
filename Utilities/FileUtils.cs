@@ -41,14 +41,15 @@ namespace PassportPDF.Tools.Framework.Utilities
                 }
                 else
                 {
-                    DeleteFileEx(outputFileAbsolutePath);
+                    DeleteFile(outputFileAbsolutePath);
                 }
             }
 
             // Save file to the destination folder
             File.WriteAllBytes(outputFileAbsolutePath, data);
 
-            File.SetCreationTime(outputFileAbsolutePath, File.GetCreationTime(inputFileAbsolutePath));
+
+
             if (keepOriginalLastAccessTime)
             {
                 SetOriginalLastAccessTime(inputFileAbsolutePath, outputFileAbsolutePath);
@@ -57,7 +58,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             if (outputIsInput)
             {
                 //we have to move outFile to bak_outFile 
-                DeleteFileEx(bak_outFile);
+                DeleteFile(bak_outFile);
                 File.Move(outputFileAbsolutePath, bak_outFile);
             }
         }
@@ -93,11 +94,7 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
-        /// <summary>
-        /// Remove a file. Can throw exception.
-        /// </summary>
-        /// <param name="path"></param>
-        public static void DeleteFileEx(string path)
+        public static void DeleteFile(string path)
         {
             FileInfo fileInfo = new FileInfo(path);
 
@@ -107,6 +104,26 @@ namespace PassportPDF.Tools.Framework.Utilities
             }
 
             fileInfo.Delete();
+        }
+
+
+        public static void MoveFile(string sourceFileName, string destFileName)
+        {
+            EnsureDirectoryExists(Path.GetDirectoryName(destFileName));
+
+            if (File.Exists(destFileName))
+            {
+                DeleteFile(destFileName);
+            }
+
+            File.Move(sourceFileName, destFileName);
+        }
+
+
+        public static void CopyFile(string sourceFileName, string destFileName)
+        {
+            EnsureDirectoryExists(Path.GetDirectoryName(destFileName));
+            File.Copy(sourceFileName, destFileName, true);
         }
 
 

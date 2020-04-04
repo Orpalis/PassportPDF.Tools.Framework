@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -10,15 +10,22 @@
     <PackageIconUrl>http://www.orpalis.com/images/ORPALIS/logos/PP-symbol-128.png</PackageIconUrl>
     <PackageProjectUrl>http://www.passportpdf.com</PackageProjectUrl>
     <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
-    <Copyright>Copyright © 2018 ORPALIS - http://www.orpalis.com</Copyright>
-    <Version>1.0.45</Version>
-    <AssemblyVersion>1.0.45.0</AssemblyVersion>
-    <FileVersion>1.0.45.0</FileVersion>
+    <Copyright>Copyright ©  2018 - 2020 ORPALIS - http://www.orpalis.com</Copyright>
+    <Version>1.0.60</Version>
+    <AssemblyVersion>1.0.60.0</AssemblyVersion>
+    <FileVersion>1.0.60.0</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>D:\gdpicture\nuget</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="clean.bat" />
     <None Remove="l10n\labels.json" />
     <None Remove="l10n\PassportPDFResultCodesMessages.json" />
+    <None Remove="PassportPDF.Tools.Framework.localization_sheet.xlsx" />
+    <None Remove="PassportPDFResultCodesMessages.xlsx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,15 +34,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
-    <PackageReference Include="Microsoft.Win32.Registry" Version="4.5.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-    <PackageReference Include="Orpalis.Globals.Localization" Version="1.0.2" />
-    <PackageReference Include="PassportPDF" Version="1.0.42" />
+    <PackageReference Include="Microsoft.Win32.Registry" Version="4.7.0" />
+    <PackageReference Include="Orpalis.Globals.Localization" Version="1.0.4" />
+    <PackageReference Include="PassportPDF" Version="1.0.68" />
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Update="NETStandard.Library" Version="2.0.1" />
-  </ItemGroup>
-
 </Project>

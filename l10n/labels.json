@@ -68,7 +68,7 @@
     "ResourceIDs": "*",
     "LocalizedValue": {
       "fr": "La dernière version de l'application a bien été téléchargée et est prête à être installée, souhaitez-vous procéder à l'installation ?",
-      "en": "The last version of the app was succesfully downloaded and is ready to install, would you like to proceed to installation?"
+      "en": "The last version of the app was successfully downloaded and is ready to install, would you like to proceed to installation?"
     }
   },
   {
@@ -379,32 +379,32 @@
     "Name": "message_generic_operations_result_singular",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "#succesfully_processed_file_count fichier (sur #file_to_process_count) a été traité avec succès en #elapsed_time.",
-      "en": "#succesfully_processed_file_count file (out of #file_to_process_count) has been succesfully processed in #elapsed_time."
+      "fr": "#successfully_processed_file_count fichier (sur #file_to_process_count) a été traité avec succès en #elapsed_time.",
+      "en": "#successfully_processed_file_count file (out of #file_to_process_count) has been successfully processed in #elapsed_time."
     }
   },
   {
     "Name": "message_generic_operations_result_plurial",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "#succesfully_processed_file_count fichiers (sur #file_to_process_count) ont été traités avec succès en #elapsed_time.",
-      "en": "#succesfully_processed_file_count files (out of #file_to_process_count) have been succesfully processed in #elapsed_time."
+      "fr": "#successfully_processed_file_count fichiers (sur #file_to_process_count) ont été traités avec succès en #elapsed_time.",
+      "en": "#successfully_processed_file_count files (out of #file_to_process_count) have been successfully processed in #elapsed_time."
     }
   },
   {
     "Name": "message_reduction_operations_result_singular",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "#succesfully_processed_file_count fichier (sur #file_to_process_count) a été traité avec succès en #elapsed_time. @message_saved_disk_space_summary@",
-      "en": "#succesfully_processed_file_count file (out of #file_to_process_count) has been succesfully processed in #elapsed_time. @message_saved_disk_space_summary@"
+      "fr": "#successfully_processed_file_count fichier (sur #file_to_process_count) a été traité avec succès en #elapsed_time. @message_saved_disk_space_summary@",
+      "en": "#successfully_processed_file_count file (out of #file_to_process_count) has been successfully processed in #elapsed_time. @message_saved_disk_space_summary@"
     }
   },
   {
     "Name": "message_reduction_operations_result_plurial",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "#succesfully_processed_file_count fichiers (sur #file_to_process_count) ont été traités avec succès en #elapsed_time. @message_saved_disk_space_summary@",
-      "en": "#succesfully_processed_file_count files (out of #file_to_process_count) have been succesfully processed in #elapsed_time. @message_saved_disk_space_summary@"
+      "fr": "#successfully_processed_file_count fichiers (sur #file_to_process_count) ont été traités avec succès en #elapsed_time. @message_saved_disk_space_summary@",
+      "en": "#successfully_processed_file_count files (out of #file_to_process_count) have been successfully processed in #elapsed_time. @message_saved_disk_space_summary@"
     }
   },
   {
@@ -412,7 +412,7 @@
     "ResourceIDs": "*",
     "LocalizedValue": {
       "fr": "Aucun des #file_to_process_count fichiers d'entrée n'a été traité avec succès.",
-      "en": "None of the #file_to_process_count input files has been succesfully processed."
+      "en": "None of the #file_to_process_count input files has been successfully processed."
     }
   },
   {
@@ -420,7 +420,7 @@
     "ResourceIDs": "*",
     "LocalizedValue": {
       "fr": "Le fichier d'entrée n'a pas été traité avec succès.",
-      "en": "The input file was not succesfully processed."
+      "en": "The input file was not successfully processed."
     }
   },
   {
@@ -435,16 +435,16 @@
     "Name": "message_reduction_operations_result_detailed_singular",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "#succesfully_processed_file_count fichier (sur #file_to_process_count) a été traité avec succès en #elapsed_time. @message_reduction_ratio_summary@@message_file_converted_to_pdf_singular@",
-      "en": "#succesfully_processed_file_count file (out of #file_to_process_count) has been succesfully processed in #elapsed_time. @message_reduction_ratio_summary@@message_file_converted_to_pdf_singular@"
+      "fr": "#successfully_processed_file_count fichier (sur #file_to_process_count) a été traité avec succès en #elapsed_time. @message_reduction_ratio_summary@@message_file_converted_to_pdf_singular@",
+      "en": "#successfully_processed_file_count file (out of #file_to_process_count) has been successfully processed in #elapsed_time. @message_reduction_ratio_summary@@message_file_converted_to_pdf_singular@"
     }
   },
   {
     "Name": "message_reduction_operations_result_detailed_plurial",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "#succesfully_processed_file_count (sur #file_to_process_count) fichiers ont été traités avec succès en #elapsed_time. @message_reduction_ratio_summary@@message_file_converted_to_pdf_singular@",
-      "en": "#succesfully_processed_file_count (out of #file_to_process_count) files have been succesfully  processed in #elapsed_time. @message_reduction_ratio_summary@@message_file_converted_to_pdf_singular@"
+      "fr": "#successfully_processed_file_count (sur #file_to_process_count) fichiers ont été traités avec succès en #elapsed_time. @message_reduction_ratio_summary@@message_file_converted_to_pdf_singular@",
+      "en": "#successfully_processed_file_count (out of #file_to_process_count) files have been successfully  processed in #elapsed_time. @message_reduction_ratio_summary@@message_file_converted_to_pdf_singular@"
     }
   },
   {
@@ -891,16 +891,16 @@
     "Name": "message_image_pdfmrc_compression_result_singular",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "#succesfully_processed_file_count image (sur #file_to_process_count) a été compressée en PDF MRC avec succès en #elapsed_time.",
-      "en": "#succesfully_processed_file_count image (out of #file_to_process_count) has been succesfully compressed in MRC PDF in #elapsed_time."
+      "fr": "#successfully_processed_file_count image (sur #file_to_process_count) a été compressée en PDF MRC avec succès en #elapsed_time.",
+      "en": "#successfully_processed_file_count image (out of #file_to_process_count) has been successfully compressed in MRC PDF in #elapsed_time."
     }
   },
   {
     "Name": "message_image_pdfmrc_compression_result_plurial",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "#succesfully_processed_file_count images (sur #file_to_process_count) ont été compressées en PDF MRC avec succès en #elapsed_time.",
-      "en": "#succesfully_processed_file_count files (out of #file_to_process_count) have been succesfully compressed in MRC PDF in #elapsed_time."
+      "fr": "#successfully_processed_file_count images (sur #file_to_process_count) ont été compressées en PDF MRC avec succès en #elapsed_time.",
+      "en": "#successfully_processed_file_count files (out of #file_to_process_count) have been successfully compressed in MRC PDF in #elapsed_time."
     }
   },
   {
@@ -917,6 +917,14 @@
     "LocalizedValue": {
       "fr": "@message_image_pdfmrc_compression_result_plurial@ @message_reduction_ratio_summary@",
       "en": "@message_image_pdfmrc_compression_result_plurial@ @message_reduction_ratio_summary@"
+    }
+  },
+  {
+    "Name": "message_output_file_download_failure",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le téléchargement du fichier de sortie depuis l'API vers le répertoire de destination a échoué: #document_name - Message de l'exception:  #error_message",
+      "en": "Failed to download the produced file from the API to the output folder: #document_name - Exception message: #error_message"
     }
   }
 ]

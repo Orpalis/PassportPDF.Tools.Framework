@@ -17,7 +17,6 @@
  **********************************************************************/
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using PassportPDF.Api;
@@ -31,8 +30,11 @@ namespace PassportPDF.Tools.Framework.Utilities
     {
         public static PassportPDFPassport GetPassportInfo(string passportId)
         {
-            PassportManagerApi apiInstance = new PassportManagerApi(FrameworkGlobals.PassportPdfApiUri);
-            apiInstance.Configuration.AddDefaultHeader("X-PassportPDF-API-Key", passportId);
+            PassportManagerApi apiInstance = new PassportManagerApi(passportId)
+            {
+                BasePath = FrameworkGlobals.PassportPdfApiUri
+            };
+
             Exception e = null;
             int pauseMs = 5000;
 
@@ -56,7 +58,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                 }
             }
 
-            throw (e);
+            throw e;
         }
 
 
@@ -71,7 +73,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             {
                 try
                 {
-                    return Math.Max(passportPDFApplicationManagerApi.PassportPDFApplicationManagerGetMaxClientThreads(appId).Value.Value, 1);
+                    return Math.Max(passportPDFApplicationManagerApi.PassportPDFApplicationManagerGetMaxClientThreads(appId).Value, 1);
                 }
                 catch (Exception ex)
                 {
@@ -87,7 +89,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                 }
             }
 
-            throw (e);
+            throw e;
         }
 
 
@@ -118,7 +120,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                 }
             }
 
-            throw (e);
+            throw e;
         }
 
 
@@ -149,7 +151,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                 }
             }
 
-            throw (e);
+            throw e;
         }
 
 
@@ -164,7 +166,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             {
                 try
                 {
-                    return apiInstance.ConfigGetSuggestedClientTimeout().Value.Value;
+                    return apiInstance.ConfigGetSuggestedClientTimeout().Value;
                 }
                 catch (Exception ex)
                 {
@@ -180,7 +182,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                 }
             }
 
-            throw (e);
+            throw e;
         }
 
 
@@ -195,7 +197,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             {
                 try
                 {
-                    return apiInstance.ConfigGetMaxAllowedContentLength().Value.Value;
+                    return apiInstance.ConfigGetMaxAllowedContentLength().Value;
                 }
                 catch (Exception ex)
                 {
@@ -211,7 +213,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                 }
             }
 
-            throw (e);
+            throw e;
         }
 
 
@@ -242,11 +244,11 @@ namespace PassportPDF.Tools.Framework.Utilities
                 }
             }
 
-            throw (e);
+            throw e;
         }
 
 
-        public static PDFReduceResponse SendReduceRequest(PDFApi apiInstance, PDFReduceParameters reduceParameters, int workerNumber, string inputFilePath, OperationsManager.ProgressDelegate reduceOperationStartEventHandler)
+        public static PdfReduceResponse SendReduceRequest(PDFApi apiInstance, PdfReduceParameters reduceParameters, int workerNumber, string inputFilePath, OperationsManager.ProgressDelegate reduceOperationStartEventHandler)
         {
             Exception e = null;
             int pausems = 5000;
@@ -256,7 +258,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                 reduceOperationStartEventHandler.Invoke(workerNumber, inputFilePath, i);
                 try
                 {
-                    PDFReduceResponse response = apiInstance.Reduce(reduceParameters);
+                    PdfReduceResponse response = apiInstance.Reduce(reduceParameters);
 
                     return response;
                 }
@@ -274,11 +276,11 @@ namespace PassportPDF.Tools.Framework.Utilities
                 }
             }
 
-            throw (e);
+            throw e;
         }
 
 
-        public static PDFOCRResponse SendOCRRequest(PDFApi apiInstance, PDFOCRParameters ocrParameters, int workerNumber, string inputFilePath, string pageRange, int pageCount, OperationsManager.ChunkProgressDelegate chunkProgressEventHandler)
+        public static PdfOCRResponse SendOCRRequest(PDFApi apiInstance, PdfOCRParameters ocrParameters, int workerNumber, string inputFilePath, string pageRange, int pageCount, OperationsManager.ChunkProgressDelegate chunkProgressEventHandler)
         {
             Exception e = null;
             int pausems = 5000;
@@ -288,7 +290,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                 chunkProgressEventHandler.Invoke(workerNumber, inputFilePath, pageRange, pageCount, i);
                 try
                 {
-                    PDFOCRResponse response = apiInstance.OCR(ocrParameters);
+                    PdfOCRResponse response = apiInstance.OCR(ocrParameters);
 
                     return response;
                 }
@@ -306,74 +308,11 @@ namespace PassportPDF.Tools.Framework.Utilities
                 }
             }
 
-            throw (e);
+            throw e;
         }
 
 
-        public static PDFSaveDocumentResponse SendSaveDocumentRequest(PDFApi apiInstance, PDFSaveDocumentParameters saveDocumentParameters, int workerNumber, string inputFilePath, OperationsManager.ProgressDelegate downloadOperationStartEventHandler)
-        {
-            Exception e = null;
-            int pausems = 5000;
-
-            for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
-            {
-                downloadOperationStartEventHandler.Invoke(workerNumber, inputFilePath, i);
-                try
-                {
-                    PDFSaveDocumentResponse response = apiInstance.SaveDocument(saveDocumentParameters);
-
-                    return response;
-                }
-                catch (Exception ex)
-                {
-                    if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
-                    {
-                        Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
-                        pausems += 2000;
-                    }
-                    else
-                    {//last iteration
-                        e = ex;
-                    }
-                }
-            }
-
-            throw (e);
-        }
-
-        public static ImageSaveAsPDFMRCResponse SendSaveImageAsPDFMRCRequest(ImageApi apiInstance, ImageSaveAsPDFMRCParameters imageSaveAsPdfMrcParameters, int workerNumber, string inputFilePath, OperationsManager.ProgressDelegate downloadOperationStartEventHandler)
-        {
-            Exception e = null;
-            int pausems = 5000;
-
-            for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
-            {
-                downloadOperationStartEventHandler.Invoke(workerNumber, inputFilePath, i);
-                try
-                {
-                    ImageSaveAsPDFMRCResponse response = apiInstance.ImageSaveAsPDFMRC(imageSaveAsPdfMrcParameters);
-
-                    return response;
-                }
-                catch (Exception ex)
-                {
-                    if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
-                    {
-                        Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
-                        pausems += 2000;
-                    }
-                    else
-                    {//last iteration
-                        e = ex;
-                    }
-                }
-            }
-
-            throw (e);
-        }
-
-
-        public static PDFLoadDocumentResponse SendLoadPDFMultipartRequest(PDFApi apiInstance, int workerNumber, string inputFilePath, string fileName, string conformance, string password, Stream fileStream, string contentEncoding, OperationsManager.ProgressDelegate uploadOperationStartEventHandler)
+        public static PdfLoadDocumentResponse SendLoadPDFMultipartRequest(PDFApi apiInstance, int workerNumber, string inputFilePath, string fileName, PdfConformance conformance, string password, Stream fileStream, ContentEncoding contentEncoding, OperationsManager.ProgressDelegate uploadOperationStartEventHandler)
         {
             Exception e = null;
             int pausems = 5000;
@@ -385,7 +324,14 @@ namespace PassportPDF.Tools.Framework.Utilities
                 {
                     fileStream.Seek(0, SeekOrigin.Begin);
 
-                    PDFLoadDocumentResponse response = apiInstance.LoadDocumentAsPDFMultipart(fileStream, contentEncoding: contentEncoding, conformance: conformance, password: password, fileName: fileName);
+                    PdfLoadDocumentResponse response = apiInstance.LoadDocumentAsPDFMultipart(fileStream,
+                        new PdfLoadDocumentParameters()
+                        {
+                            ContentEncoding = contentEncoding,
+                            Conformance = conformance,
+                            Password = password,
+                            FileName = fileName
+                        });
 
                     return response;
                 }
@@ -403,11 +349,11 @@ namespace PassportPDF.Tools.Framework.Utilities
                 }
             }
 
-            throw (e);
+            throw e;
         }
 
 
-        public static ImageLoadResponse SendLoadImageMultipartRequest(ImageApi apiInstance, int workerNumber, string inputFilePath, string fileName, Stream fileStream, string contentEncoding, OperationsManager.ProgressDelegate uploadOperationStartEventHandler)
+        public static ImageLoadResponse SendLoadImageMultipartRequest(ImageApi apiInstance, int workerNumber, string inputFilePath, string fileName, Stream fileStream, ContentEncoding contentEncoding, OperationsManager.ProgressDelegate uploadOperationStartEventHandler)
         {
             Exception e = null;
             int pausems = 5000;
@@ -419,7 +365,12 @@ namespace PassportPDF.Tools.Framework.Utilities
                 {
                     fileStream.Seek(0, SeekOrigin.Begin);
 
-                    ImageLoadResponse response = apiInstance.ImageLoadMultipart(fileStream, contentEncoding: contentEncoding, fileName: fileName);
+                    ImageLoadResponse response = apiInstance.ImageLoadMultipart(fileStream,
+                        new LoadImageParameters()
+                        {
+                            ContentEncoding = contentEncoding,
+                            FileName = fileName
+                        });
 
                     return response;
                 }
@@ -437,11 +388,11 @@ namespace PassportPDF.Tools.Framework.Utilities
                 }
             }
 
-            throw (e);
+            throw e;
         }
 
 
-        public static PDFLoadDocumentResponse SendLoadDocumentRequest(PDFApi apiInstance, int workerNumber, string inputFilePath, string fileName, string conformance, string password, Stream fileStream, string contentEncoding, OperationsManager.ProgressDelegate uploadOperationStartEventHandler)
+        public static PdfLoadDocumentResponse SendLoadDocumentRequest(PDFApi apiInstance, int workerNumber, string inputFilePath, string fileName, PdfConformance conformance, string password, Stream fileStream, ContentEncoding contentEncoding, OperationsManager.ProgressDelegate uploadOperationStartEventHandler)
         {
             Exception e = null;
             int pausems = 5000;
@@ -462,8 +413,14 @@ namespace PassportPDF.Tools.Framework.Utilities
 
                     fileStream.Read(data, 0, (int)fileStream.Length);
 
-                    PDFLoadDocumentFromByteArrayParameters pdfLoadDocumentFromByteArrayParameters = new PDFLoadDocumentFromByteArrayParameters(data, fileName, password, Enum.Parse(typeof(PDFLoadDocumentFromByteArrayParameters.ConformanceEnum), conformance) as PDFLoadDocumentFromByteArrayParameters.ConformanceEnum?, Enum.Parse(typeof(PDFLoadDocumentFromByteArrayParameters.ContentEncodingEnum), contentEncoding) as PDFLoadDocumentFromByteArrayParameters.ContentEncodingEnum?);
-                    PDFLoadDocumentResponse response = apiInstance.LoadDocumentAsPDF(pdfLoadDocumentFromByteArrayParameters);
+                    PdfLoadDocumentFromByteArrayParameters pdfLoadDocumentFromByteArrayParameters = new PdfLoadDocumentFromByteArrayParameters(data)
+                    {
+                        FileName = fileName,
+                        Password = password,
+                        Conformance = conformance,
+                        ContentEncoding = contentEncoding
+                    };
+                    PdfLoadDocumentResponse response = apiInstance.LoadDocumentAsPDF(pdfLoadDocumentFromByteArrayParameters);
 
                     return response;
                 }
@@ -481,10 +438,11 @@ namespace PassportPDF.Tools.Framework.Utilities
                 }
             }
 
-            throw (e);
+            throw e;
         }
 
-        public static PDFGetInfoResponse SendGetInfoRequest(PDFApi apiInstance, PDFGetInfoParameters getInfoParameters, int workerNumber, string inputFilePath, OperationsManager.ProgressDelegate getInfoOperationStartEventHandler)
+
+        public static PdfGetInfoResponse SendGetInfoRequest(PDFApi apiInstance, PdfGetInfoParameters getInfoParameters, int workerNumber, string inputFilePath, OperationsManager.ProgressDelegate getInfoOperationStartEventHandler)
         {
             Exception e = null;
             int pausems = 5000;
@@ -510,7 +468,71 @@ namespace PassportPDF.Tools.Framework.Utilities
                 }
             }
 
-            throw (e);
+            throw e;
+        }
+
+
+        public static void DownloadPDF(PDFApi apiInstance, PdfSaveDocumentParameters saveDocumentParameters, int workerNumber, string inputFilePath, Stream destinationStream, OperationsManager.ProgressDelegate downloadOperationStartEventHandler)
+        {
+            Exception e = null;
+            int pausems = 5000;
+
+            for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
+            {
+                downloadOperationStartEventHandler.Invoke(workerNumber, inputFilePath, i);
+
+                try
+                {
+                    apiInstance.SaveDocumentToFile(saveDocumentParameters, destinationStream);
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
+                    {
+                        Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
+                        pausems += 2000;
+                    }
+                    else
+                    {//last iteration
+                        e = ex;
+                    }
+                }
+            }
+
+            throw e;
+        }
+
+
+        public static void DownloadImageAsPDFMRC(ImageApi apiInstance, ImageSaveAsPDFMRCParameters saveImageParameters, int workerNumber, string inputFilePath, Stream destinationStream, OperationsManager.ProgressDelegate downloadOperationStartEventHandler)
+        {
+            Exception e = null;
+            int pausems = 5000;
+
+            for (int i = 0; i < FrameworkGlobals.MAX_RETRYING_REQUESTS; i++)
+            {
+                downloadOperationStartEventHandler.Invoke(workerNumber, inputFilePath, i);
+
+                try
+                {
+                    apiInstance.ImageSaveAsPDFMRCFile(saveImageParameters, destinationStream);
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    if (i < FrameworkGlobals.MAX_RETRYING_REQUESTS - 1)
+                    {
+                        Thread.Sleep(pausems); //marking a pause in case of cnx temporarily out and to avoid overhead.
+                        pausems += 2000;
+                    }
+                    else
+                    {//last iteration
+                        e = ex;
+                    }
+                }
+            }
+
+            throw e;
         }
     }
 }

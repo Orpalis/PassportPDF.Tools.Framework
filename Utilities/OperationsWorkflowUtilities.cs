@@ -30,11 +30,10 @@ namespace PassportPDF.Tools.Framework.Utilities
             List<Operation> actionsToBePerformed = new List<Operation>
             {
                 new Operation(Operation.OperationType.LoadPDF, reduceActionConfiguration.OutputVersion),
-                new Operation(Operation.OperationType.ReducePDF, reduceActionConfiguration),
-                new Operation(Operation.OperationType.SavePDF)
+                new Operation(Operation.OperationType.ReducePDF, reduceActionConfiguration)
             };
 
-            return new OperationsWorkflow(actionsToBePerformed);
+            return new OperationsWorkflow(actionsToBePerformed, OperationsWorkflow.SaveOperationType.SavePDF);
         }
 
 
@@ -42,12 +41,11 @@ namespace PassportPDF.Tools.Framework.Utilities
         {
             List<Operation> actionsToBePerformed = new List<Operation>
             {
-                new Operation(Operation.OperationType.LoadPDF, PDFReduceParameters.OutputVersionEnum.PdfVersionRetainExisting),
-                new Operation(Operation.OperationType.OCRPDF, ocrActionConfiguration),
-                new Operation(Operation.OperationType.SavePDF)
+                new Operation(Operation.OperationType.LoadPDF, PdfVersion.PdfVersionRetainExisting),
+                new Operation(Operation.OperationType.OCRPDF, ocrActionConfiguration)
             };
 
-            return new OperationsWorkflow(actionsToBePerformed);
+            return new OperationsWorkflow(actionsToBePerformed, OperationsWorkflow.SaveOperationType.SavePDF);
         }
 
 
@@ -55,11 +53,10 @@ namespace PassportPDF.Tools.Framework.Utilities
         {
             List<Operation> actionsToBePerformed = new List<Operation>
             {
-                new Operation(Operation.OperationType.LoadImage),
-                new Operation(Operation.OperationType.SaveImageAsPDFMRC, saveAsPdfMrcActionConfiguration)
+                new Operation(Operation.OperationType.LoadImage)
             };
 
-            return new OperationsWorkflow(actionsToBePerformed);
+            return new OperationsWorkflow(actionsToBePerformed, OperationsWorkflow.SaveOperationType.SaveImageAsPDFMRC, saveAsPdfMrcActionConfiguration) ;
         }
 
 

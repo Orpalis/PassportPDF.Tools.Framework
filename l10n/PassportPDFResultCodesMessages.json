@@ -624,6 +624,22 @@
     }
   },
   {
+    "Name": "resultCode_CanNotRepairPDF",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "L'opération de réparation de PDF n'a pu aboutir",
+      "en": "The PDF repairing operation has failed"
+    }
+  },
+  {
+    "Name": "resultCode_UnsupportedImageFormat",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "Le format d'image n'est pas supporté",
+      "en": "The image format is not supported"
+    }
+  },
+  {
     "Name": "reduceErrorCode_message_OK",
     "ResourceIDs": "*",
     "LocalizedValue": {

@@ -118,6 +118,12 @@ namespace PassportPDF.Tools.Framework.Configuration
         }
 
 
+        public static DocumentLoadAsPDFActionConfiguration ResetDefaultDocumentLoadAsPDFActionConfiguration()
+        {
+            return new DocumentLoadAsPDFActionConfiguration();
+        }
+
+
         private static object ResetDefaultConfiguration(Type configurationType)
         {
             if (configurationType == typeof(ApplicationConfiguration))

@@ -83,11 +83,11 @@ namespace PassportPDF.Tools.Framework.Utilities
         }
 
 
-        public static string GetGenericWorkCompletionMessage(int processedFileCount, int succesfullyProcessedFileCount, int unsuccesfullyProcessedFileCount, string elapsedTime)
+        public static string GetGenericWorkCompletionMessage(int processedFileCount, int successfullyProcessedFileCount, int unsuccessfullyProcessedFileCount, string elapsedTime)
         {
             string resultMessage;
 
-            if (succesfullyProcessedFileCount == 0)
+            if (successfullyProcessedFileCount == 0)
             {
                 if (processedFileCount == 0)
                 {
@@ -102,7 +102,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                     resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_no_succesful_operation_result_plurial", FrameworkGlobals.ApplicationLanguage);
                 }
             }
-            else if (succesfullyProcessedFileCount == 1)
+            else if (successfullyProcessedFileCount == 1)
             {
                 resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_generic_operations_result_singular", FrameworkGlobals.ApplicationLanguage);
             }
@@ -110,15 +110,15 @@ namespace PassportPDF.Tools.Framework.Utilities
             {
                 resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_generic_operations_result_plurial", FrameworkGlobals.ApplicationLanguage);
             }
-            return ReplaceMessageSequencesAndReferences(resultMessage, succesfullyProcessedFileCount: succesfullyProcessedFileCount, fileToProcessCount: processedFileCount, elapsedTime: elapsedTime);
+            return ReplaceMessageSequencesAndReferences(resultMessage, successfullyProcessedFileCount: successfullyProcessedFileCount, fileToProcessCount: processedFileCount, elapsedTime: elapsedTime);
         }
 
 
-        public static string GetReductionWorkCompletionText(int processedFileCount, int succesfullyProcessedFileCount, int unsuccesfullyProcessedFileCount, double inputSize, double outputSize, string elapsedTime)
+        public static string GetReductionWorkCompletionText(int processedFileCount, int successfullyProcessedFileCount, int unsuccessfullyProcessedFileCount, double inputSize, double outputSize, string elapsedTime)
         {
             string resultMessage;
 
-            if (succesfullyProcessedFileCount == 0)
+            if (successfullyProcessedFileCount == 0)
             {
                 if (processedFileCount == 0)
                 {
@@ -135,7 +135,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             }
             else
             {
-                if (succesfullyProcessedFileCount == 1)
+                if (successfullyProcessedFileCount == 1)
                 {
                     resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_reduction_operations_result_singular", FrameworkGlobals.ApplicationLanguage);
                 }
@@ -145,15 +145,15 @@ namespace PassportPDF.Tools.Framework.Utilities
                 }
             }
 
-            return ReplaceMessageSequencesAndReferences(resultMessage, succesfullyProcessedFileCount: succesfullyProcessedFileCount, fileToProcessCount: processedFileCount, elapsedTime: elapsedTime, savedDiskSpaceRatio: StatsComputationUtilities.ComputeSavedSpaceRatio(inputSize, outputSize));
+            return ReplaceMessageSequencesAndReferences(resultMessage, successfullyProcessedFileCount: successfullyProcessedFileCount, fileToProcessCount: processedFileCount, elapsedTime: elapsedTime, savedDiskSpaceRatio: StatsComputationUtilities.ComputeSavedSpaceRatio(inputSize, outputSize));
         }
 
 
-        public static string GetDetailedReductionWorkCompletionText(int processedFileCount, int succesfullyProcessedFileCount, int unsuccesfullyProcessedFileCount, int fileConvertedToPdfCount, double inputSize, double outputSize, string elapsedTime)
+        public static string GetDetailedReductionWorkCompletionText(int processedFileCount, int successfullyProcessedFileCount, int unsuccessfullyProcessedFileCount, int fileConvertedToPdfCount, double inputSize, double outputSize, string elapsedTime)
         {
             string resultMessage;
 
-            if (succesfullyProcessedFileCount == 0)
+            if (successfullyProcessedFileCount == 0)
             {
                 if (processedFileCount == 0)
                 {
@@ -168,7 +168,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                     resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_no_succesful_operation_result_plurial", FrameworkGlobals.ApplicationLanguage);
                 }
             }
-            else if (succesfullyProcessedFileCount == 1)
+            else if (successfullyProcessedFileCount == 1)
             {
                 resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_reduction_operations_result_detailed_singular", FrameworkGlobals.ApplicationLanguage);
             }
@@ -177,15 +177,15 @@ namespace PassportPDF.Tools.Framework.Utilities
                 resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_reduction_operations_result_detailed_plurial", FrameworkGlobals.ApplicationLanguage);
             }
 
-            return ReplaceMessageSequencesAndReferences(resultMessage, inputSize: ParsingUtils.ConvertSize(inputSize, "MB"), outputSize: ParsingUtils.ConvertSize(outputSize, "MB"), succesfullyProcessedFileCount: succesfullyProcessedFileCount, fileToProcessCount: processedFileCount, elapsedTime: elapsedTime, reductionRatio: StatsComputationUtilities.ComputeReductionRatioFourthDecimal(inputSize, outputSize), fileConvertedToPdfCount: fileConvertedToPdfCount);
+            return ReplaceMessageSequencesAndReferences(resultMessage, inputSize: ParsingUtils.ConvertSize(inputSize, "MB"), outputSize: ParsingUtils.ConvertSize(outputSize, "MB"), successfullyProcessedFileCount: successfullyProcessedFileCount, fileToProcessCount: processedFileCount, elapsedTime: elapsedTime, reductionRatio: StatsComputationUtilities.ComputeReductionRatioFourthDecimal(inputSize, outputSize), fileConvertedToPdfCount: fileConvertedToPdfCount);
         }
 
 
-        public static string GetImagePdfMrcCompressionWorkResultMessage(int processedFileCount, int succesfullyProcessedFileCount, int unsuccesfullyProcessedFileCount, double inputSize, double outputSize, string elapsedTime)
+        public static string GetImagePdfMrcCompressionWorkResultMessage(int processedFileCount, int successfullyProcessedFileCount, int unsuccessfullyProcessedFileCount, double inputSize, double outputSize, string elapsedTime)
         {
             string resultMessage;
 
-            if (succesfullyProcessedFileCount == 0)
+            if (successfullyProcessedFileCount == 0)
             {
                 if (processedFileCount == 0)
                 {
@@ -200,7 +200,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                     resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_no_succesful_operation_result_plurial", FrameworkGlobals.ApplicationLanguage);
                 }
             }
-            else if (succesfullyProcessedFileCount == 1)
+            else if (successfullyProcessedFileCount == 1)
             {
                 resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_image_pdfmrc_compression_result_singular", FrameworkGlobals.ApplicationLanguage);
             }
@@ -209,15 +209,15 @@ namespace PassportPDF.Tools.Framework.Utilities
                 resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_image_pdfmrc_compression_result_plurial", FrameworkGlobals.ApplicationLanguage);
             }
 
-            return ReplaceMessageSequencesAndReferences(resultMessage, succesfullyProcessedFileCount: succesfullyProcessedFileCount, fileToProcessCount: processedFileCount, elapsedTime: elapsedTime, savedDiskSpaceRatio: StatsComputationUtilities.ComputeSavedSpaceRatio(inputSize, outputSize));
+            return ReplaceMessageSequencesAndReferences(resultMessage, successfullyProcessedFileCount: successfullyProcessedFileCount, fileToProcessCount: processedFileCount, elapsedTime: elapsedTime, savedDiskSpaceRatio: StatsComputationUtilities.ComputeSavedSpaceRatio(inputSize, outputSize));
         }
 
 
-        public static string GetImagePdfMrcCompressionWorkResultMessageDetailed(int processedFileCount, int succesfullyProcessedFileCount, int unsuccesfullyProcessedFileCount, double inputSize, double outputSize, string elapsedTime)
+        public static string GetImagePdfMrcCompressionWorkResultMessageDetailed(int processedFileCount, int successfullyProcessedFileCount, int unsuccessfullyProcessedFileCount, double inputSize, double outputSize, string elapsedTime)
         {
             string resultMessage;
 
-            if (succesfullyProcessedFileCount == 0)
+            if (successfullyProcessedFileCount == 0)
             {
                 if (processedFileCount == 0)
                 {
@@ -232,7 +232,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                     resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_no_succesful_operation_result_plurial", FrameworkGlobals.ApplicationLanguage);
                 }
             }
-            else if (succesfullyProcessedFileCount == 1)
+            else if (successfullyProcessedFileCount == 1)
             {
                 resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_image_pdfmrc_compression_result_detailed_singular", FrameworkGlobals.ApplicationLanguage);
             }
@@ -241,7 +241,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                 resultMessage = FrameworkGlobals.MessagesLocalizer.GetString("message_image_pdfmrc_compression_result_detailed_plurial", FrameworkGlobals.ApplicationLanguage);
             }
 
-            return ReplaceMessageSequencesAndReferences(resultMessage, inputSize: ParsingUtils.ConvertSize(inputSize, "MB"), outputSize: ParsingUtils.ConvertSize(outputSize, "MB"), succesfullyProcessedFileCount: succesfullyProcessedFileCount, fileToProcessCount: processedFileCount, elapsedTime: elapsedTime, reductionRatio: StatsComputationUtilities.ComputeReductionRatioFourthDecimal(inputSize, outputSize));
+            return ReplaceMessageSequencesAndReferences(resultMessage, inputSize: ParsingUtils.ConvertSize(inputSize, "MB"), outputSize: ParsingUtils.ConvertSize(outputSize, "MB"), successfullyProcessedFileCount: successfullyProcessedFileCount, fileToProcessCount: processedFileCount, elapsedTime: elapsedTime, reductionRatio: StatsComputationUtilities.ComputeReductionRatioFourthDecimal(inputSize, outputSize));
         }
 
 
@@ -253,11 +253,11 @@ namespace PassportPDF.Tools.Framework.Utilities
 
         public static string GetWarningStatustext(ReduceWarningInfo warningInfo, string fileName)
         {
-            return ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString(LogConstants.WarningLocalesIdDictionary[warningInfo.WarningCode.Value], FrameworkGlobals.ApplicationLanguage), fileName, warningInfo.PageNumber, warningInfo.PageImageNumber, additionalMessage: warningInfo.ExtWarningMessage);
+            return ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString(LogConstants.WarningLocalesIdDictionary[warningInfo.WarningCode], FrameworkGlobals.ApplicationLanguage), fileName, warningInfo.PageNumber, warningInfo.PageImageNumber, additionalMessage: warningInfo.ExtWarningMessage);
         }
 
 
-        public static string ReplaceMessageSequencesAndReferences(string message, string fileName = null, int? pageNumber = null, int? pageImageNumber = null, int? pageCount = null, string additionalMessage = null, int? retryCount = null, double? savedDiskSpaceRatio = null, double? reductionRatio = null, int? httpCode = null, double? inputSize = null, double? outputSize = null, int? succesfullyProcessedFileCount = null, int? fileToProcessCount = null, string elapsedTime = null, long? remainingTokens = null, long? usedTokens = null, string applicationName = null, string appVersionNumber = null, string actionName = null, int? fileConvertedToPdfCount = null)
+        public static string ReplaceMessageSequencesAndReferences(string message, string fileName = null, int? pageNumber = null, int? pageImageNumber = null, int? pageCount = null, string additionalMessage = null, int? retryCount = null, double? savedDiskSpaceRatio = null, double? reductionRatio = null, int? httpCode = null, double? inputSize = null, double? outputSize = null, int? successfullyProcessedFileCount = null, int? fileToProcessCount = null, string elapsedTime = null, long? remainingTokens = null, long? usedTokens = null, string applicationName = null, string appVersionNumber = null, string actionName = null, int? fileConvertedToPdfCount = null)
         {
             StringBuilder finalMessage = new StringBuilder(ReplaceLocalizedStringReferences(message));
 
@@ -287,7 +287,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             }
             if (reductionRatio != null)
             {
-                if (fileConvertedToPdfCount != null && fileConvertedToPdfCount != null && fileConvertedToPdfCount == succesfullyProcessedFileCount)
+                if (fileConvertedToPdfCount != null && fileConvertedToPdfCount != null && fileConvertedToPdfCount == successfullyProcessedFileCount)
                 {
                     finalMessage = finalMessage.Replace(FrameworkGlobals.MessagesLocalizer.GetString("message_reduction_ratio_summary", FrameworkGlobals.ApplicationLanguage), string.Empty);
                 }
@@ -312,9 +312,9 @@ namespace PassportPDF.Tools.Framework.Utilities
             {
                 finalMessage = finalMessage.Replace(LogConstants.OUTPUT_SIZE_SEQUENCE, outputSize.Value.ToString(CultureInfo.InvariantCulture));
             }
-            if (succesfullyProcessedFileCount != null)
+            if (successfullyProcessedFileCount != null)
             {
-                finalMessage = finalMessage.Replace(LogConstants.SUCCESFULLY_PROCESSED_FILE_COUNT_SEQUENCE, succesfullyProcessedFileCount.Value.ToString());
+                finalMessage = finalMessage.Replace(LogConstants.SUCCESFULLY_PROCESSED_FILE_COUNT_SEQUENCE, successfullyProcessedFileCount.Value.ToString());
             }
             if (fileToProcessCount != null)
             {
@@ -407,7 +407,7 @@ namespace PassportPDF.Tools.Framework.Utilities
             public const string REDUCTION_RATIO_SEQUENCE = "#reduction_ratio";
             public const string SAVED_DISK_SPACE_RATIO_SEQUENCE = "#saved_space_ratio";
             public const string HTTP_CODE_SEQUENCE = "#http_code";
-            public const string SUCCESFULLY_PROCESSED_FILE_COUNT_SEQUENCE = "#succesfully_processed_file_count";
+            public const string SUCCESFULLY_PROCESSED_FILE_COUNT_SEQUENCE = "#successfully_processed_file_count";
             public const string FILE_TO_PROCESS_COUNT = "#file_to_process_count";
             public const string FILE_CONVERTED_TO_PDF_COUNT = "#file_converted_to_pdf_count";
             public const string INPUT_SIZE_SEQUENCE = "#input_size";
@@ -423,19 +423,19 @@ namespace PassportPDF.Tools.Framework.Utilities
             // This character allows to reference a localized string using its id, (ie: @message_exit@) and will be replaced by the value of the referenced string
             public const char LOCALIZED_STRING_REFERENCE_TOKEN = '@';
 
-            public static readonly Dictionary<ReduceWarningInfo.WarningCodeEnum, string> WarningLocalesIdDictionary = new Dictionary<ReduceWarningInfo.WarningCodeEnum, string>
+            public static readonly Dictionary<ReduceWarningCode, string> WarningLocalesIdDictionary = new Dictionary<ReduceWarningCode, string>
             {
-                { ReduceWarningInfo.WarningCodeEnum.ImageExtractionFailure, "message_image_extraction_failure" },
-                { ReduceWarningInfo.WarningCodeEnum.ColorDetectionFailure, "message_color_detection_failure" },
-                { ReduceWarningInfo.WarningCodeEnum.ImageResizeFailure, "message_image_resize_failure" },
-                { ReduceWarningInfo.WarningCodeEnum.ImageCropFailure, "message_image_crop_failure" },
-                { ReduceWarningInfo.WarningCodeEnum.ImageResolutionObtentionFailure, "message_image_resolution_obtention_failure" },
-                { ReduceWarningInfo.WarningCodeEnum.ImageReplacementFailure, "message_image_replacement_failure" },
-                { ReduceWarningInfo.WarningCodeEnum.MRCImageReplacementFailure, "message_mrc_image_replacement_failure" },
-                { ReduceWarningInfo.WarningCodeEnum.PageSelectionFailure, "message_page_selection_failure" },
-                { ReduceWarningInfo.WarningCodeEnum.ImageObtentionFailure, "message_image_obtention_failure" },
-                { ReduceWarningInfo.WarningCodeEnum.FileSizeReductionFailure, "message_file_size_reduction_failure" },
-                {ReduceWarningInfo.WarningCodeEnum.BlankPageRemovalFailure, "message_blank_page_removal_failure" }
+                { ReduceWarningCode.ImageExtractionFailure, "message_image_extraction_failure" },
+                { ReduceWarningCode.ColorDetectionFailure, "message_color_detection_failure" },
+                { ReduceWarningCode.ImageResizeFailure, "message_image_resize_failure" },
+                { ReduceWarningCode.ImageCropFailure, "message_image_crop_failure" },
+                { ReduceWarningCode.ImageResolutionObtentionFailure, "message_image_resolution_obtention_failure" },
+                { ReduceWarningCode.ImageReplacementFailure, "message_image_replacement_failure" },
+                { ReduceWarningCode.MRCImageReplacementFailure, "message_mrc_image_replacement_failure" },
+                { ReduceWarningCode.PageSelectionFailure, "message_page_selection_failure" },
+                { ReduceWarningCode.ImageObtentionFailure, "message_image_obtention_failure" },
+                { ReduceWarningCode.FileSizeReductionFailure, "message_file_size_reduction_failure" },
+                {ReduceWarningCode.BlankPageRemovalFailure, "message_blank_page_removal_failure" }
             };
         }
     }

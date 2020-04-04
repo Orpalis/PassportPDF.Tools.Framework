@@ -87,10 +87,10 @@ namespace PassportPDF.Tools.Framework
             PassportInfo = new PassportInfo
             {
                 PassportNumber = passportPdfPassport.PassportId,
-                IsActive = passportPdfPassport.IsActive.Value,
-                SubscriptionDate = passportPdfPassport.SubscriptionDate.Value,
-                TokensUsed = passportPdfPassport.CurrentTokensUsed.Value,
-                RemainingTokens = passportPdfPassport.RemainingTokens.Value,
+                IsActive = passportPdfPassport.IsActive,
+                SubscriptionDate = passportPdfPassport.SubscriptionDate,
+                TokensUsed = passportPdfPassport.CurrentTokensUsed,
+                RemainingTokens = passportPdfPassport.RemainingTokens,
             };
         }
     }

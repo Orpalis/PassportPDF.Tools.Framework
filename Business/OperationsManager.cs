@@ -145,16 +145,21 @@ namespace PassportPDF.Tools.Framework.Business
 
         private void InitializeApiInstances(out PDFApi pdfApiInstance, out ImageApi imageApiInstance, string apiKey)
         {
-            pdfApiInstance = new PDFApi(FrameworkGlobals.PassportPdfApiUri);
-            pdfApiInstance.Configuration.AddDefaultHeader("X-PassportPDF-API-Key", apiKey);
-            pdfApiInstance.Configuration.Timeout = FrameworkGlobals.PassportPDFConfiguration.SuggestedClientTimeout;
-            imageApiInstance = new ImageApi(FrameworkGlobals.PassportPdfApiUri);
-            imageApiInstance.Configuration.AddDefaultHeader("X-PassportPDF-API-Key", apiKey);
-            imageApiInstance.Configuration.Timeout = FrameworkGlobals.PassportPDFConfiguration.SuggestedClientTimeout;
+            pdfApiInstance = new PDFApi(apiKey)
+            {
+                BasePath = FrameworkGlobals.PassportPdfApiUri
+            };
+
+            imageApiInstance = new ImageApi(apiKey)
+            {
+                BasePath = FrameworkGlobals.PassportPdfApiUri
+            };
+
+            PassportPDF.Client.GlobalConfiguration.Timeout = FrameworkGlobals.PassportPDFConfiguration.SuggestedClientTimeout;
         }
 
 
-        private void Process(PDFApi pdfApiInstance, ImageApi imageApiInstance, int workerNumber, FileProductionRules fileProductionRules, OperationsWorkflow workflow, string destinationFolder, bool fileSizeReductionIsIntended)
+        private void Process(PDFApi pdfApi, ImageApi imageApi, int workerNumber, FileProductionRules fileProductionRules, OperationsWorkflow workflow, string destinationFolder, bool fileSizeReductionIsIntended)
         {
             while (PickFile(out FileToProcess fileToProcess))
             {
@@ -173,13 +178,17 @@ namespace PassportPDF.Tools.Framework.Business
                         continue;
                     }
 
-                    WorkflowProcessingResult workFlowProcessingResult = ProcessWorkflow(pdfApiInstance, imageApiInstance, workflow, fileToProcess, workerNumber);
+                    WorkflowProcessingResult workFlowProcessingResult = ProcessWorkflow(pdfApi, imageApi, workflow, fileToProcess, workerNumber);
 
                     if (workFlowProcessingResult != null)
                     {
                         string outputFileAbsolutePath = destinationFolder + fileToProcess.FileRelativePath;
 
-                        if (HandleOutputFileProduction(fileToProcess, fileProductionRules, workFlowProcessingResult, fileSizeReductionIsIntended, inputIsPDF, inputFileSize, outputFileAbsolutePath))
+                        bool fileSuccesfullyProcessed = HandleOutputFileProduction(fileToProcess, workFlowProcessingResult.FileID, workerNumber, workflow.SaveOperation, workflow.SaveOperationConfiguration, pdfApi, imageApi, fileProductionRules, workFlowProcessingResult, fileSizeReductionIsIntended, inputIsPDF, inputFileSize, outputFileAbsolutePath);
+
+                        TryCloseDocumentAsync(pdfApi, workFlowProcessingResult.FileID);
+
+                        if (fileSuccesfullyProcessed)
                         {
                             OnFileSuccesfullyProcessed(new FileOperationsResult(fileToProcess.FileAbsolutePath, inputFileSize, FileUtils.GetFileSize(outputFileAbsolutePath), !inputIsPDF), workFlowProcessingResult.WarningMessages);
                         }
@@ -209,7 +218,6 @@ namespace PassportPDF.Tools.Framework.Business
         private WorkflowProcessingResult ProcessWorkflow(PDFApi pdfApiInstance, ImageApi imageApiInstance, OperationsWorkflow workflow, FileToProcess fileToProcess, int workerNumber)
         {
             List<string> warningMessages = new List<string>();
-            byte[] producedFileData = null;
             bool contentRemoved = false;
             bool versionChanged = false;
             bool linearized = false;
@@ -229,14 +237,14 @@ namespace PassportPDF.Tools.Framework.Business
                 switch (operation.Type)
                 {
                     case Operation.OperationType.LoadPDF:
-                        PDFReduceParameters.OutputVersionEnum outputVersion = (PDFReduceParameters.OutputVersionEnum)operation.Parameters;
-                        PDFLoadDocumentResponse loadDocumentResponse = HandleLoadPDF(pdfApiInstance, outputVersion, fileToProcess, workerNumber);
+                        PdfVersion outputVersion = (PdfVersion)operation.Parameters;
+                        PdfLoadDocumentResponse loadDocumentResponse = HandleLoadPDF(pdfApiInstance, outputVersion, fileToProcess, workerNumber);
                         if (loadDocumentResponse == null)
                         {
                             OnError(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_invalid_response_received", FrameworkGlobals.ApplicationLanguage), actionName: "Load"));
                             return null;
                         }
-                        remainingTokens = loadDocumentResponse.RemainingTokens.Value;
+                        remainingTokens = loadDocumentResponse.RemainingTokens;
                         actionError = loadDocumentResponse.Error;
                         fileID = loadDocumentResponse.FileId;
                         break;
@@ -248,22 +256,22 @@ namespace PassportPDF.Tools.Framework.Business
                             OnError(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_invalid_response_received", FrameworkGlobals.ApplicationLanguage), actionName: "Load"));
                             return null;
                         }
-                        remainingTokens = imageLoadResponse.RemainingTokens.Value;
+                        remainingTokens = imageLoadResponse.RemainingTokens;
                         actionError = imageLoadResponse.Error;
                         fileID = imageLoadResponse.FileId;
                         break;
 
                     case Operation.OperationType.ReducePDF:
                         PDFReduceActionConfiguration reduceActionConfiguration = (PDFReduceActionConfiguration)operation.Parameters;
-                        PDFReduceResponse reduceResponse = HandleReducePDF(pdfApiInstance, reduceActionConfiguration, fileToProcess, fileID, workerNumber, warningMessages);
+                        PdfReduceResponse reduceResponse = HandleReducePDF(pdfApiInstance, reduceActionConfiguration, fileToProcess, fileID, workerNumber, warningMessages);
                         if (reduceResponse == null)
                         {
                             OnError(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_invalid_response_received", FrameworkGlobals.ApplicationLanguage), actionName: "Reduce"));
                             return null;
                         }
-                        remainingTokens = reduceResponse.RemainingTokens.Value;
-                        contentRemoved = (bool)reduceResponse.ContentRemoved;
-                        versionChanged = (bool)reduceResponse.VersionChanged;
+                        remainingTokens = reduceResponse.RemainingTokens;
+                        contentRemoved = reduceResponse.ContentRemoved;
+                        versionChanged = reduceResponse.VersionChanged;
                         actionError = reduceResponse.Error;
                         reduceErrorInfo = reduceResponse.ErrorInfo;
                         linearized = reduceActionConfiguration.FastWebView;
@@ -271,50 +279,20 @@ namespace PassportPDF.Tools.Framework.Business
 
                     case Operation.OperationType.OCRPDF:
                         PDFOCRActionConfiguration ocrActionConfiguration = (PDFOCRActionConfiguration)operation.Parameters;
-                        PDFOCRResponse ocrResponse = HandleOCRPDF(pdfApiInstance, ocrActionConfiguration, fileToProcess, fileID, workerNumber);
+                        PdfOCRResponse ocrResponse = HandleOCRPDF(pdfApiInstance, ocrActionConfiguration, fileToProcess, fileID, workerNumber);
                         if (ocrResponse == null)
                         {
                             OnError(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_invalid_response_received", FrameworkGlobals.ApplicationLanguage), actionName: "OCR"));
                             return null;
                         }
-                        remainingTokens = ocrResponse.RemainingTokens.Value;
+                        remainingTokens = ocrResponse.RemainingTokens;
                         actionError = ocrResponse.Error;
-                        break;
-
-                    case Operation.OperationType.SavePDF:
-                        PDFSaveDocumentResponse saveDocumentResponse = HandleSavePDF(pdfApiInstance, fileToProcess, fileID, workerNumber);
-                        if (saveDocumentResponse == null)
-                        {
-                            OnError(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_invalid_response_received", FrameworkGlobals.ApplicationLanguage), actionName: "Save"));
-                            return null;
-                        }
-                        remainingTokens = saveDocumentResponse.RemainingTokens.Value;
-                        actionError = saveDocumentResponse.Error;
-                        producedFileData = saveDocumentResponse.Data;
-                        break;
-
-                    case Operation.OperationType.SaveImageAsPDFMRC:
-                        ImageSaveAsPDFMRCActionConfiguration imageSaveAsPdfMrcActionConfiguration = (ImageSaveAsPDFMRCActionConfiguration)operation.Parameters;
-                        ImageSaveAsPDFMRCResponse imageSaveAsPdfResponse = HandleSaveImageAsPDFMRC(imageApiInstance, imageSaveAsPdfMrcActionConfiguration, fileToProcess, fileID, workerNumber);
-                        if (imageSaveAsPdfResponse == null)
-                        {
-                            OnError(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_invalid_response_received", FrameworkGlobals.ApplicationLanguage), actionName: "PDF MRC"));
-                            return null;
-                        }
-                        remainingTokens = imageSaveAsPdfResponse.RemainingTokens.Value;
-                        actionError = imageSaveAsPdfResponse.Error;
-                        producedFileData = imageSaveAsPdfResponse.PdfData;
                         break;
                 }
 
-
                 if (actionError != null)
                 {
-                    if (fileID != null)
-                    {
-                        TryCloseDocumentAsync(pdfApiInstance, fileID);
-                    }
-                    string errorMessage = reduceErrorInfo != null && reduceErrorInfo.ErrorCode != ReduceErrorInfo.ErrorCodeEnum.OK ? ErrorManager.GetMessageFromReduceActionError(reduceErrorInfo, fileToProcess.FileAbsolutePath) : ErrorManager.GetMessageFromPassportPDFError(actionError, operation.Type, fileToProcess.FileAbsolutePath);
+                    string errorMessage = reduceErrorInfo != null && reduceErrorInfo.ErrorCode != ReduceErrorCode.OK ? ErrorManager.GetMessageFromReduceActionError(reduceErrorInfo, fileToProcess.FileAbsolutePath) : ErrorManager.GetMessageFromPassportPDFError(actionError, operation.Type, fileToProcess.FileAbsolutePath);
                     OnError(errorMessage);
                     return null;
                 }
@@ -324,12 +302,8 @@ namespace PassportPDF.Tools.Framework.Business
                 }
             }
 
-            if (fileID != null)
-            {
-                TryCloseDocumentAsync(pdfApiInstance, fileID);
-            }
 
-            return producedFileData != null ? new WorkflowProcessingResult(contentRemoved, versionChanged, linearized, fileID, producedFileData, warningMessages) : null;
+            return new WorkflowProcessingResult(contentRemoved, versionChanged, linearized, fileID, warningMessages);
         }
 
 
@@ -345,7 +319,7 @@ namespace PassportPDF.Tools.Framework.Business
                 }
                 else
                 {
-                    file = default(FileToProcess);
+                    file = default;
                     return false;
                 }
             }
@@ -371,13 +345,13 @@ namespace PassportPDF.Tools.Framework.Business
         }
 
 
-        private PDFLoadDocumentResponse HandleLoadPDF(PDFApi pdfApiInstance, PDFReduceParameters.OutputVersionEnum outputVersion, FileToProcess fileToProcess, int workerNumber)
+        private PdfLoadDocumentResponse HandleLoadPDF(PDFApi pdfApiInstance, PdfVersion outputVersion, FileToProcess fileToProcess, int workerNumber)
         {
             FileStream inputFileStream = null;
 
             try
             {
-                PassportPDFParametersUtilities.GetLoadDocumentMultipartParameters(fileToProcess.FileAbsolutePath, outputVersion, out inputFileStream, out string conformance, out string fileName);
+                PassportPDFParametersUtilities.GetLoadDocumentMultipartParameters(fileToProcess.FileAbsolutePath, outputVersion, out inputFileStream, out PdfConformance conformance, out string fileName);
 
                 using (FileStream tmpFile = File.Create(Path.GetTempFileName(), 4096, FileOptions.DeleteOnClose))
                 {
@@ -389,9 +363,8 @@ namespace PassportPDF.Tools.Framework.Business
                     }
 
                     tmpFile.Seek(0, SeekOrigin.Begin);
-                    pdfApiInstance.Configuration.Timeout = FrameworkGlobals.PassportPDFConfiguration.SuggestedClientTimeout;
 
-                    return PassportPDFRequestsUtilities.SendLoadPDFMultipartRequest(pdfApiInstance, workerNumber, fileToProcess.FileAbsolutePath, fileName, conformance, fileToProcess.Password, tmpFile, "Gzip", UploadOperationStartEventHandler);
+                    return PassportPDFRequestsUtilities.SendLoadPDFMultipartRequest(pdfApiInstance, workerNumber, fileToProcess.FileAbsolutePath, fileName, conformance, fileToProcess.Password, tmpFile, ContentEncoding.Gzip, UploadOperationStartEventHandler);
                 }
             }
             catch
@@ -423,9 +396,8 @@ namespace PassportPDF.Tools.Framework.Business
                     }
 
                     tmpFile.Seek(0, SeekOrigin.Begin);
-                    imageApiInstance.Configuration.Timeout = FrameworkGlobals.PassportPDFConfiguration.SuggestedClientTimeout;
 
-                    return PassportPDFRequestsUtilities.SendLoadImageMultipartRequest(imageApiInstance, workerNumber, fileToProcess.FileAbsolutePath, fileName, tmpFile, "Gzip", UploadOperationStartEventHandler);
+                    return PassportPDFRequestsUtilities.SendLoadImageMultipartRequest(imageApiInstance, workerNumber, fileToProcess.FileAbsolutePath, fileName, tmpFile, ContentEncoding.Gzip, UploadOperationStartEventHandler);
                 }
             }
             catch
@@ -439,10 +411,10 @@ namespace PassportPDF.Tools.Framework.Business
         }
 
 
-        private PDFReduceResponse HandleReducePDF(PDFApi pdfApiInstance, PDFReduceActionConfiguration actionConfiguration, FileToProcess fileToProcess, string fileID, int workerNumber, List<string> warnings)
+        private PdfReduceResponse HandleReducePDF(PDFApi pdfApiInstance, PDFReduceActionConfiguration actionConfiguration, FileToProcess fileToProcess, string fileID, int workerNumber, List<string> warnings)
         {
-            PDFReduceParameters reduceParameters = PassportPDFParametersUtilities.GetReduceParameters(actionConfiguration, fileID);
-            PDFReduceResponse reduceResponse = PassportPDFRequestsUtilities.SendReduceRequest(pdfApiInstance, reduceParameters, workerNumber, fileToProcess.FileAbsolutePath, FileOperationStartEventHandler);
+            PdfReduceParameters reduceParameters = PassportPDFParametersUtilities.GetReduceParameters(actionConfiguration, fileID);
+            PdfReduceResponse reduceResponse = PassportPDFRequestsUtilities.SendReduceRequest(pdfApiInstance, reduceParameters, workerNumber, fileToProcess.FileAbsolutePath, FileOperationStartEventHandler);
 
             if (reduceResponse.WarningsInfo != null)
             {
@@ -456,23 +428,23 @@ namespace PassportPDF.Tools.Framework.Business
         }
 
 
-        private PDFOCRResponse HandleOCRPDF(PDFApi pdfApiInstance, PDFOCRActionConfiguration actionConfiguration, FileToProcess fileToProcess, string fileID, int workerNumber)
+        private PdfOCRResponse HandleOCRPDF(PDFApi pdfApiInstance, PDFOCRActionConfiguration actionConfiguration, FileToProcess fileToProcess, string fileID, int workerNumber)
         {
             // First get the number of page of the PDF 
-            PDFGetInfoResponse getInfoResponse = PassportPDFRequestsUtilities.SendGetInfoRequest(pdfApiInstance, new PDFGetInfoParameters(fileID), workerNumber, fileToProcess.FileAbsolutePath, FileOperationStartEventHandler);// todo: use appropriate event handler
+            PdfGetInfoResponse getInfoResponse = PassportPDFRequestsUtilities.SendGetInfoRequest(pdfApiInstance, new PdfGetInfoParameters(fileID), workerNumber, fileToProcess.FileAbsolutePath, FileOperationStartEventHandler);// todo: use appropriate event handler
 
             if (getInfoResponse.Error != null)
             {
                 return null;
             }
 
-            PDFOCRParameters ocrParameters = PassportPDFParametersUtilities.GetOCRParameters(actionConfiguration, fileID);
+            PdfOCRParameters ocrParameters = PassportPDFParametersUtilities.GetOCRParameters(actionConfiguration, fileID);
 
-            int pageCount = getInfoResponse.PageCount.Value;
-            int chunkLength = Math.Min(getInfoResponse.PageCount.Value, FrameworkGlobals.PAGE_CHUNK_LENGTH_FOR_OCR_ACTION);
-            int chunkCount = getInfoResponse.PageCount.Value > FrameworkGlobals.PAGE_CHUNK_LENGTH_FOR_OCR_ACTION ? (int)Math.Ceiling(((double)getInfoResponse.PageCount.Value / FrameworkGlobals.PAGE_CHUNK_LENGTH_FOR_OCR_ACTION)) : 1;
+            int pageCount = getInfoResponse.PageCount;
+            int chunkLength = Math.Min(getInfoResponse.PageCount, FrameworkGlobals.PAGE_CHUNK_LENGTH_FOR_OCR_ACTION);
+            int chunkCount = getInfoResponse.PageCount > FrameworkGlobals.PAGE_CHUNK_LENGTH_FOR_OCR_ACTION ? (int)Math.Ceiling((double)getInfoResponse.PageCount / FrameworkGlobals.PAGE_CHUNK_LENGTH_FOR_OCR_ACTION) : 1;
 
-            PDFOCRResponse ocrResponse = null;
+            PdfOCRResponse ocrResponse = null;
 
             for (int chunkNumber = 1; chunkNumber <= chunkCount; chunkNumber++)
             {
@@ -490,22 +462,6 @@ namespace PassportPDF.Tools.Framework.Business
         }
 
 
-        private PDFSaveDocumentResponse HandleSavePDF(PDFApi pdfApiInstance, FileToProcess fileToProcess, string fileID, int workerNumber)
-        {
-            PDFSaveDocumentParameters saveDocumentParameters = PassportPDFParametersUtilities.GetSaveDocumentParameters(fileID);
-
-            return PassportPDFRequestsUtilities.SendSaveDocumentRequest(pdfApiInstance, saveDocumentParameters, workerNumber, fileToProcess.FileAbsolutePath, DownloadOperationStartEventHandler);
-        }
-
-
-        private ImageSaveAsPDFMRCResponse HandleSaveImageAsPDFMRC(ImageApi imageApiInstance, ImageSaveAsPDFMRCActionConfiguration actionConfiguration, FileToProcess fileToProcess, string fileID, int workerNumber)
-        {
-            ImageSaveAsPDFMRCParameters saveAsPdfMrcParameters = PassportPDFParametersUtilities.GetImageSaveAsPDFMRCParameters(actionConfiguration, fileID);
-
-            return PassportPDFRequestsUtilities.SendSaveImageAsPDFMRCRequest(imageApiInstance, saveAsPdfMrcParameters, workerNumber, fileToProcess.FileAbsolutePath, DownloadOperationStartEventHandler);
-        }
-
-
         private static async void TryCloseDocumentAsync(PDFApi pdfApiInstance, string fileID)
         {
             if (string.IsNullOrWhiteSpace(fileID))
@@ -513,7 +469,7 @@ namespace PassportPDF.Tools.Framework.Business
                 throw new ArgumentNullException("FileID");
             }
 
-            PDFCloseDocumentParameters closeDocumentParameters = new PDFCloseDocumentParameters(fileID);
+            PdfCloseDocumentParameters closeDocumentParameters = new PdfCloseDocumentParameters(fileID);
 
             try
             {
@@ -526,50 +482,85 @@ namespace PassportPDF.Tools.Framework.Business
         }
 
 
-        private bool HandleOutputFileProduction(FileToProcess fileToProcess, FileProductionRules fileProductionRules, WorkflowProcessingResult workflowProcessingResult, bool fileSizeReductionIsIntended, bool inputIsPDF, long inputFileSize, string outputFileAbsolutePath)
+        private bool HandleOutputFileProduction(FileToProcess fileToProcess, string fileId, int workerNumber, OperationsWorkflow.SaveOperationType saveOperationType, object saveOperationConfiguration, PDFApi pdfApi, ImageApi imageApi, FileProductionRules fileProductionRules, WorkflowProcessingResult workflowProcessingResult, bool fileSizeReductionIsIntended, bool inputIsPDF, long inputFileSize, string outputFileAbsolutePath)
         {
-            bool outputIsInput = FileUtils.AreSamePath(fileToProcess.FileAbsolutePath, outputFileAbsolutePath);
-            bool keepProducedFile = MustProducedFileBeKept(workflowProcessingResult, fileSizeReductionIsIntended, inputIsPDF, inputFileSize);
+            if (!DownloadAndSaveDocument(pdfApi, imageApi, fileId, workerNumber, saveOperationType, saveOperationConfiguration, DownloadOperationStartEventHandler, fileToProcess.FileAbsolutePath, out string downloadedDocumentFileName))
+            {
+                return false;
+            }
 
-            // Save reduced document to output folder
+            bool keepProducedFile = MustProducedFileBeKept(workflowProcessingResult, fileSizeReductionIsIntended, inputIsPDF, inputFileSize, FileUtils.GetFileSize(downloadedDocumentFileName));
+            bool outputIsInput = FileUtils.AreSamePath(fileToProcess.FileAbsolutePath, outputFileAbsolutePath);
+
             if (keepProducedFile)
             {
-                FileUtils.SaveFile(workflowProcessingResult.ProducedFileData, fileToProcess.FileAbsolutePath, outputFileAbsolutePath, fileProductionRules.KeepWriteAndAccessTime);
-
                 if (fileProductionRules.DeleteOriginalFileOnSuccess && !outputIsInput)
                 {
                     try
                     {
-                        FileUtils.DeleteFileEx(fileToProcess.FileAbsolutePath);
+                        FileUtils.DeleteFile(fileToProcess.FileAbsolutePath);
                     }
                     catch (Exception exception)
                     {
-                        OnError(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_original_file_deletion_failure", FrameworkGlobals.ApplicationLanguage), fileName: fileToProcess.FileAbsolutePath, additionalMessage: exception.Message));
-                        return false;
+                        OnWarning(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_original_file_deletion_failure", FrameworkGlobals.ApplicationLanguage), fileName: fileToProcess.FileAbsolutePath, additionalMessage: exception.Message));
                     }
                 }
+
+                FileUtils.MoveFile(downloadedDocumentFileName, outputFileAbsolutePath);
+                File.SetCreationTime(outputFileAbsolutePath, File.GetCreationTime(fileToProcess.FileAbsolutePath));
             }
             else
             {
                 if (!outputIsInput)
                 {
-                    FileUtils.EnsureDirectoryExists(Path.GetDirectoryName(outputFileAbsolutePath));
-                    File.Copy(fileToProcess.FileAbsolutePath, outputFileAbsolutePath, true);
-
-                    if (fileProductionRules.KeepWriteAndAccessTime)
-                    {
-                        FileUtils.SetOriginalLastAccessTime(fileToProcess.FileAbsolutePath, outputFileAbsolutePath);
-                    }
+                    FileUtils.CopyFile(fileToProcess.FileAbsolutePath, outputFileAbsolutePath);
                 }
 
                 if (fileSizeReductionIsIntended)
                 {
                     // Inform file size reduction failure
-                    workflowProcessingResult.WarningMessages.Add(LogMessagesUtils.GetWarningStatustext(new ReduceWarningInfo() { WarningCode = ReduceWarningInfo.WarningCodeEnum.FileSizeReductionFailure }, fileToProcess.FileAbsolutePath));
+                    workflowProcessingResult.WarningMessages.Add(LogMessagesUtils.GetWarningStatustext(new ReduceWarningInfo() { WarningCode = ReduceWarningCode.FileSizeReductionFailure }, fileToProcess.FileAbsolutePath));
                 }
+
+                FileUtils.DeleteFile(downloadedDocumentFileName);
+            }
+
+
+            if (fileProductionRules.KeepWriteAndAccessTime)
+            {
+                FileUtils.SetOriginalLastAccessTime(fileToProcess.FileAbsolutePath, outputFileAbsolutePath);
             }
 
             return true;
+        }
+
+
+        private bool DownloadAndSaveDocument(PDFApi pdfApi, ImageApi imageApi, string fileId, int workerNumber, OperationsWorkflow.SaveOperationType saveOperationType, object saveOperationConfiguration, ProgressDelegate downloadOperationStartEventHandler, string inputFileAbsolutePath, out string downloadedDocumentFileName)
+        {
+            downloadedDocumentFileName = Path.GetTempFileName();
+
+            using (FileStream outputFileStream = new FileStream(downloadedDocumentFileName, FileMode.Open))
+            {
+                try
+                {
+                    if (saveOperationType == OperationsWorkflow.SaveOperationType.SavePDF)
+                    {
+                        PassportPDFRequestsUtilities.DownloadPDF(pdfApi, new PdfSaveDocumentParameters(fileId), workerNumber, inputFileAbsolutePath, outputFileStream, downloadOperationStartEventHandler);
+                    }
+                    else if (saveOperationType == OperationsWorkflow.SaveOperationType.SaveImageAsPDFMRC)
+                    {
+                        PassportPDFRequestsUtilities.DownloadImageAsPDFMRC(imageApi, PassportPDFParametersUtilities.GetImageSaveAsPDFMRCParameters((ImageSaveAsPDFMRCActionConfiguration)saveOperationConfiguration, fileId),
+                        workerNumber, inputFileAbsolutePath, outputFileStream, downloadOperationStartEventHandler);
+                    }
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    OnError(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_output_file_download_failure", FrameworkGlobals.ApplicationLanguage), inputFileAbsolutePath, additionalMessage: ex.Message));
+                    return false;
+                }
+            }
         }
 
 
@@ -630,11 +621,11 @@ namespace PassportPDF.Tools.Framework.Business
         }
 
 
-        private static bool MustProducedFileBeKept(WorkflowProcessingResult workflowProcessingResult, bool fileSizeReductionIsIntended, bool inputIsPdf, float inputFileSize)
+        private static bool MustProducedFileBeKept(WorkflowProcessingResult workflowProcessingResult, bool fileSizeReductionIsIntended, bool inputIsPdf, float inputFileSize, float producedFileSize)
         {
             if (fileSizeReductionIsIntended)
             {
-                return workflowProcessingResult.ProducedFileData.LongLength < inputFileSize || workflowProcessingResult.Linearized || !inputIsPdf || workflowProcessingResult.ContentRemoved || workflowProcessingResult.VersionChanged;
+                return producedFileSize < inputFileSize || workflowProcessingResult.Linearized || !inputIsPdf || workflowProcessingResult.ContentRemoved || workflowProcessingResult.VersionChanged;
             }
             else
             {
@@ -649,16 +640,14 @@ namespace PassportPDF.Tools.Framework.Business
             public bool ContentRemoved { get; }
             public bool VersionChanged { get; }
             public string FileID { get; }
-            public byte[] ProducedFileData { get; }
             public List<string> WarningMessages { get; }
 
-            public WorkflowProcessingResult(bool contentRemoved, bool versionChanged, bool linearized, string fileID, byte[] producedFileData, List<string> warningMessages)
+            public WorkflowProcessingResult(bool contentRemoved, bool versionChanged, bool linearized, string fileID, List<string> warningMessages)
             {
                 ContentRemoved = contentRemoved;
                 VersionChanged = versionChanged;
                 Linearized = linearized;
                 FileID = fileID;
-                ProducedFileData = producedFileData;
                 WarningMessages = warningMessages;
             }
         }
