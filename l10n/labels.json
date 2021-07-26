@@ -72,14 +72,6 @@
     }
   },
   {
-    "Name": "label_client_exception",
-    "ResourceIDs": "*",
-    "LocalizedValue": {
-      "fr": "Exception côté client",
-      "en": "Client-side exception"
-    }
-  },
-  {
     "Name": "internal_error_id_message",
     "ResourceIDs": "*",
     "LocalizedValue": {
@@ -323,8 +315,8 @@
     "Name": "message_unexpected_error",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "Une erreur inattendue s'est produite avec le fichier: #document_name - Exception: #error_message",
-      "en": "An unexpected error occured with the file: #document_name - Exception: #error_message"
+      "fr": "(Client-side exception) Une erreur inattendue s'est produite avec le fichier: #document_name",
+      "en": "(Exception côté client) An unexpected error occured with the file: #document_name"
     }
   },
   {
@@ -523,8 +515,8 @@
     "Name": "message_server_returned_http_error",
     "ResourceIDs": "*",
     "LocalizedValue": {
-      "fr": "Le serveur a renvoyé une erreur durant le traitement du fichier: #document_name (status HTTP: #http_code)",
-      "en": "The server returned an error while processing the file: #document_name (HTTP status code: #http_code)"
+      "fr": "Le serveur a renvoyé une erreur durant le traitement du fichier: #document_name - Statut HTTP: #http_code",
+      "en": "The server returned an error while processing the file: #document_name - HTTP status code: #http_code"
     }
   },
   {
@@ -925,6 +917,14 @@
     "LocalizedValue": {
       "fr": "Le téléchargement du fichier de sortie depuis l'API vers le répertoire de destination a échoué: #document_name - Message de l'exception:  #error_message",
       "en": "Failed to download the produced file from the API to the output folder: #document_name - Exception message: #error_message"
+    }
+  },
+  {
+    "Name": "message_exception_message",
+    "ResourceIDs": "*",
+    "LocalizedValue": {
+      "fr": "- Message de l'exception: #error_message",
+      "en": "- Exception message: #error_message"
     }
   }
 ]

@@ -1,7 +1,7 @@
 /**********************************************************************
  * Project:                 PassportPDF.Tools.Framework
- * Authors:                 - Evan Carrère.
- *                          - Loïc Carrère.
+ * Authors:                 - Evan Carrï¿½re.
+ *                          - Loï¿½c Carrï¿½re.
  *
  * (C) Copyright 2018, ORPALIS.
  ** Licensed under the Apache License, Version 2.0 (the "License");
@@ -88,7 +88,8 @@ namespace PassportPDF.Tools.Framework.Utilities
                 PreserveSmoothing = configuration.MRCPreserveSmoothing,
                 DownscaleResolutionMRC = configuration.MRCDownscaleResolution,
                 RemovePageThumbnails = configuration.RemovePageThumbnails,
-                RemoveMetadata = configuration.RemoveMetadata
+                RemoveMetadata = configuration.RemoveMetadata,
+                RemoveEmbeddedFonts = configuration.RemoveEmbeddedFonts
             };
 
             return reduceParameters;
@@ -124,7 +125,8 @@ namespace PassportPDF.Tools.Framework.Utilities
                 DownscaleResolution = configuration.DownscaleImages ? configuration.DownscaleResolution : 0,
                 PreserveSmoothing = configuration.PreserveSmoothing,
                 FastWebView = configuration.FastWebView,
-                JBIG2PMSThreshold = configuration.JBIG2PMSTreshold
+                JBIG2PMSThreshold = configuration.JBIG2PMSTreshold,
+                AutoRotate = configuration.AutoRotate
             };
         }
 

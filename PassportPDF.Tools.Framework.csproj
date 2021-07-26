@@ -11,9 +11,9 @@
     <PackageProjectUrl>http://www.passportpdf.com</PackageProjectUrl>
     <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <Copyright>Copyright ©  2018 - 2020 ORPALIS - http://www.orpalis.com</Copyright>
-    <Version>1.0.60</Version>
-    <AssemblyVersion>1.0.60.0</AssemblyVersion>
-    <FileVersion>1.0.60.0</FileVersion>
+    <Version>1.0.65</Version>
+    <AssemblyVersion>1.0.65.0</AssemblyVersion>
+    <FileVersion>1.0.65.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -35,7 +35,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Win32.Registry" Version="4.7.0" />
-    <PackageReference Include="Orpalis.Globals.Localization" Version="1.0.4" />
-    <PackageReference Include="PassportPDF" Version="1.0.68" />
+    <PackageReference Include="Orpalis.Globals.Localization" Version="1.0.5" />
+    <PackageReference Include="PassportPDF" Version="1.0.77" />
   </ItemGroup>
 </Project>

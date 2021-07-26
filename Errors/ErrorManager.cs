@@ -79,24 +79,26 @@ namespace PassportPDF.Tools.Framework.Errors
         {
             StringBuilder errorMessage = new StringBuilder();
 
-            errorMessage.Append("(" + FrameworkGlobals.MessagesLocalizer.GetString("label_client_exception", FrameworkGlobals.ApplicationLanguage) + ") ");
-
-            if (exception.GetType() == typeof(ApiException))
+            if (exception is ApiException apiException)
             {
-                ApiException apiException = (ApiException)exception;
-
-                if (apiException.ErrorCode != null)
+                if (apiException.ErrorCode != null && apiException.ErrorCode != 0)
                 {
-                    errorMessage.Append(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_server_returned_http_error", FrameworkGlobals.ApplicationLanguage), fileName: fileName, httpCode: (int?)apiException.ErrorCode));
+                    errorMessage.Append(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_server_returned_http_error", FrameworkGlobals.ApplicationLanguage), fileName: fileName, httpCode: (int?)apiException.ErrorCode, additionalMessage: exception.Message));
                 }
                 else
                 {
-                    errorMessage.Append(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_reaching_remote_server_failure", FrameworkGlobals.ApplicationLanguage), fileName: fileName));
+                    errorMessage.Append(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_reaching_remote_server_failure", FrameworkGlobals.ApplicationLanguage), fileName: fileName, additionalMessage: exception.Message));
                 }
             }
             else
             {
-                errorMessage.Append(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_unexpected_error", FrameworkGlobals.ApplicationLanguage), fileName: fileName, additionalMessage: exception.Message));
+                errorMessage.Append(LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_unexpected_error", FrameworkGlobals.ApplicationLanguage), fileName: fileName));
+            }
+
+
+            if (!string.IsNullOrEmpty(exception.Message))
+            {
+                errorMessage.Append(" " + LogMessagesUtils.ReplaceMessageSequencesAndReferences(FrameworkGlobals.MessagesLocalizer.GetString("message_exception_message", FrameworkGlobals.ApplicationLanguage), additionalMessage: exception.Message));
             }
 
             return errorMessage.ToString();

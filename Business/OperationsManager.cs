@@ -615,6 +615,13 @@ namespace PassportPDF.Tools.Framework.Business
 
                 if (_busyWorkersCount == 0)
                 {
+                    var passportInfo = PassportPDFRequestsUtilities.GetPassportInfo(FrameworkGlobals.PassportInfo.PassportNumber);
+
+                    if (passportInfo != null)
+                    {
+                        RemainingTokensUpdateEventHandler.Invoke(passportInfo.RemainingTokens);
+                    }
+
                     OperationsCompletionEventHandler.Invoke();
                 }
             }

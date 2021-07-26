@@ -69,5 +69,7 @@ namespace PassportPDF.Tools.Framework.Configuration
         public bool RemovePageThumbnails { get; set; } = false;
 
         public bool RemoveMetadata { get; set; } = false;
+
+        public bool RemoveEmbeddedFonts { get; set; } = false;
     }
 }
