@@ -7,13 +7,13 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>PassportPDF.Tools.Framework is a framework built upon .NET Standard 2.0 which facilitates the development of highly configurable productivity applications based on the PassportPDF API.</Description>
     <RepositoryUrl>https://github.com/Orpalis/PassportPDF.Tools.Framework</RepositoryUrl>
-    <PackageIconUrl>http://www.orpalis.com/images/ORPALIS/logos/PP-symbol-128.png</PackageIconUrl>
-    <PackageProjectUrl>http://www.passportpdf.com</PackageProjectUrl>
+    <PackageIconUrl>https://www.orpalis.com/images/ORPALIS/logos/PP-symbol-128.png</PackageIconUrl>
+    <PackageProjectUrl>https://www.passportpdf.com</PackageProjectUrl>
     <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
-    <Copyright>Copyright ©  2018 - 2020 ORPALIS - http://www.orpalis.com</Copyright>
-    <Version>1.0.65</Version>
-    <AssemblyVersion>1.0.65.0</AssemblyVersion>
-    <FileVersion>1.0.65.0</FileVersion>
+    <Copyright>Copyright ©  2018 - 2022 ORPALIS - http://www.orpalis.com</Copyright>
+    <Version>1.0.70</Version>
+    <AssemblyVersion>1.0.70.0</AssemblyVersion>
+    <FileVersion>1.0.70.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -21,6 +21,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove=".gitignore" />
     <None Remove="clean.bat" />
     <None Remove="l10n\labels.json" />
     <None Remove="l10n\PassportPDFResultCodesMessages.json" />
@@ -34,8 +35,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Win32.Registry" Version="4.7.0" />
-    <PackageReference Include="Orpalis.Globals.Localization" Version="1.0.5" />
-    <PackageReference Include="PassportPDF" Version="1.0.77" />
+    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+    <PackageReference Include="Orpalis.Globals.Localization" Version="1.0.6" />
+    <PackageReference Include="PassportPDF" Version="1.0.89" />
   </ItemGroup>
 </Project>

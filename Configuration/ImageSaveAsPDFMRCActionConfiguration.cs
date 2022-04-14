@@ -38,7 +38,7 @@ namespace PassportPDF.Tools.Framework.Configuration
 
         public bool FastWebView { get; set; }
 
-        public float JBIG2PMSTreshold { get; set; } = 0.85f;
+        public float JBIG2PMSThreshold { get; set; } = 0.75f;
 
         public bool AutoRotate { get; set; }
     }

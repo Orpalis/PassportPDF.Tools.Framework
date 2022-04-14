@@ -16,10 +16,8 @@
  *
  **********************************************************************/
 
-using System;
 using Orpalis.Globals.Localization;
 using PassportPDF.Model;
-using static PassportPDF.Model.Error;
 using PassportPDF.Tools.Framework.Utilities;
 
 namespace PassportPDF.Tools.Framework.Errors
@@ -106,7 +104,7 @@ namespace PassportPDF.Tools.Framework.Errors
                 case PassportPDFStatus.ActionExecutionRejected: return PassportPDFResultCodesMessagesLocalizer.GetString("resultCode_ActionExecutionRejected", FrameworkGlobals.ApplicationLanguage);
                 case PassportPDFStatus.CanNotExtractText: return PassportPDFResultCodesMessagesLocalizer.GetString("resultCode_CanNotExtractText", FrameworkGlobals.ApplicationLanguage);
                 case PassportPDFStatus.CanNotDetectBlankPages: return PassportPDFResultCodesMessagesLocalizer.GetString("resultCode_CanNotDetectBlankPages", FrameworkGlobals.ApplicationLanguage);
-                case PassportPDFStatus.CanNotMICR: return PassportPDFResultCodesMessagesLocalizer.GetString("resultCode_CanNotMICR", FrameworkGlobals.ApplicationLanguage);
+                case PassportPDFStatus.CanNotReadMICR: return PassportPDFResultCodesMessagesLocalizer.GetString("resultCode_CanNotMICR", FrameworkGlobals.ApplicationLanguage);
                 case PassportPDFStatus.CanNotDetectPageOrientation: return PassportPDFResultCodesMessagesLocalizer.GetString("resultCode_CanNotDetectPageOrientation", FrameworkGlobals.ApplicationLanguage);
                 case PassportPDFStatus.CanNotDeletePage: return PassportPDFResultCodesMessagesLocalizer.GetString("resultCode_CanNotDeletePage", FrameworkGlobals.ApplicationLanguage);
                 case PassportPDFStatus.CanNotSaveAsPDF: return PassportPDFResultCodesMessagesLocalizer.GetString("resultCode_CanNotSaveAsPDF", FrameworkGlobals.ApplicationLanguage);

@@ -44,6 +44,42 @@ namespace PassportPDF.Tools.Framework.Utilities
                     conformance = PdfConformance.PDF17;
                     break;
 
+                case PdfVersion.PdfVersion20:
+                    conformance = PdfConformance.PDF20;
+                    break;
+
+                case PdfVersion.PdfVersionA1a:
+                    conformance = PdfConformance.PDFA1a;
+                    break;
+
+                case PdfVersion.PdfVersionA1b:
+                    conformance = PdfConformance.PDFA1b;
+                    break;
+
+                case PdfVersion.PdfVersionA2a:
+                    conformance = PdfConformance.PDFA2a;
+                    break;
+
+                case PdfVersion.PdfVersionA2b:
+                    conformance = PdfConformance.PDFA2b;
+                    break;
+
+                case PdfVersion.PdfVersionA2u:
+                    conformance = PdfConformance.PDFA2u;
+                    break;
+
+                case PdfVersion.PdfVersionA3a:
+                    conformance = PdfConformance.PDFA2a;
+                    break;
+
+                case PdfVersion.PdfVersionA3b:
+                    conformance = PdfConformance.PDFA2b;
+                    break;
+
+                case PdfVersion.PdfVersionA3u:
+                    conformance = PdfConformance.PDFA2u;
+                    break;
+
                 default:
                     conformance = PdfConformance.PDF15;
                     break;
@@ -89,7 +125,9 @@ namespace PassportPDF.Tools.Framework.Utilities
                 DownscaleResolutionMRC = configuration.MRCDownscaleResolution,
                 RemovePageThumbnails = configuration.RemovePageThumbnails,
                 RemoveMetadata = configuration.RemoveMetadata,
-                RemoveEmbeddedFonts = configuration.RemoveEmbeddedFonts
+                RemoveEmbeddedFonts = configuration.RemoveEmbeddedFonts,
+                JBIG2PMSThreshold = configuration.JBIG2PMSThreshold,
+                RemovePagePieceInfo = configuration.RemovePagePieceInfo
             };
 
             return reduceParameters;
@@ -125,7 +163,7 @@ namespace PassportPDF.Tools.Framework.Utilities
                 DownscaleResolution = configuration.DownscaleImages ? configuration.DownscaleResolution : 0,
                 PreserveSmoothing = configuration.PreserveSmoothing,
                 FastWebView = configuration.FastWebView,
-                JBIG2PMSThreshold = configuration.JBIG2PMSTreshold,
+                JBIG2PMSThreshold = configuration.JBIG2PMSThreshold,
                 AutoRotate = configuration.AutoRotate
             };
         }

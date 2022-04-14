@@ -71,5 +71,9 @@ namespace PassportPDF.Tools.Framework.Configuration
         public bool RemoveMetadata { get; set; } = false;
 
         public bool RemoveEmbeddedFonts { get; set; } = false;
+
+        public float JBIG2PMSThreshold { get; set; } = 0.75F;
+
+        public bool RemovePagePieceInfo { get; set; } = true;
     }
 }
